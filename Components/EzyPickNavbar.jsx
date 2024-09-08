@@ -29,7 +29,7 @@ export default function EzyPickNavbar() {
   }, []);
 
   return (
-    <div className="">
+    <div className="bg-white">
       {/* top header nav */}
       <div className=" px-4  lg:px-8  flex flex-wrap sm:flex-nowrap  justify-center sm:justify-between   items-center sm:gap-5 gap-3 py-3 ">
         <div className="flex flex-wrap sm:flex-nowrap sm:gap-3 items-center justify-center sm:justify-start text-sm ">

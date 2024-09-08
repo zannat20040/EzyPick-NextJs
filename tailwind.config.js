@@ -10,7 +10,8 @@ module.exports = withMT({
     extend: {
       colors: {
         'pale-red':'#de7e85',
-        'gray':'#616161'
+        'gray':'#616161',
+        'soft-gray':'#80808030'
        }
     },
   },
