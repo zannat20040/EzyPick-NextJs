@@ -20,7 +20,6 @@ import { usePathname } from "next/navigation";
 
 export default function EzyPickNavbar() {
   const pathname = usePathname();
-  console.log(pathname);
 
   const [openNav, setOpenNav] = React.useState(false);
   React.useEffect(() => {

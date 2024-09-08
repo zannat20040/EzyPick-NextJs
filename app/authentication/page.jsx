@@ -2,11 +2,15 @@
 import { Button } from "@material-tailwind/react";
 import React from "react";
 import { SiGmail } from "react-icons/si";
-import { FaFacebookF, FaGoogle } from "react-icons/fa6";
+import { FaFacebookF, FaGithubAlt, FaGoogle } from "react-icons/fa6";
 import Link from "next/link";
 import { IoIosCall } from "react-icons/io";
+import { signIn, signOut, useSession } from "next-auth/react";
 
 export default function LoginPage() {
+  const {data:session } =useSession()
+  // console.log('session======>',session)
+  
   return (
     <div className="mt-10  container px-4  space-y-3 rounded  bg-white">
       {/* Input fields and the form started */}
@@ -54,14 +58,14 @@ export default function LoginPage() {
         <button className="p-3 rounded-full hover:bg-soft-gray duration-300 transition-all">
           <IoIosCall className="text-lg" />
         </button>
-        <button className="p-3 rounded-full hover:bg-soft-gray duration-300 transition-all">
+        <button onClick={() => signIn('google')} className="p-3 rounded-full hover:bg-soft-gray duration-300 transition-all">
           <FaGoogle />
         </button>
         <button className="p-3 rounded-full hover:bg-soft-gray duration-300 transition-all">
           <FaFacebookF />
         </button>
-        <button className="p-3 rounded-full hover:bg-soft-gray duration-300 transition-all">
-          <SiGmail />
+        <button onClick={() => signIn('github')} className="p-3 rounded-full hover:bg-soft-gray duration-300 transition-all">
+          <FaGithubAlt />
         </button>
       </div>
       <p className="text-sm text-center gap-2 flex justify-center sm:px-6 ">
@@ -73,6 +77,7 @@ export default function LoginPage() {
           Register
         </Link>
       </p>
+      <button onClick={() => signOut()}>Sign OUT</button>
     </div>
   );
 }

@@ -2,6 +2,7 @@ import localFont from "next/font/local";
 import "./globals.css";
 import Head from "next/head";
 import EzyPickNavbar from "@/Components/EzyPickNavbar";
+import SessionWrapper from "@/Components/SessionWrapper";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -34,8 +35,10 @@ export default function RootLayout({ children }) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <EzyPickNavbar />
-        {children}
+        <SessionWrapper>
+          <EzyPickNavbar />
+          {children}
+        </SessionWrapper>
       </body>
     </html>
   );
