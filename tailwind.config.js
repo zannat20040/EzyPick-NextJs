@@ -9,7 +9,7 @@ module.exports = withMT({
   theme: {
     extend: {
       colors: {
-        'pale-red':'#de7e85',
+        'pale-red':'#f8796c',
         'gray':'#616161',
         'soft-gray':'#80808030'
        }

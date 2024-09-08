@@ -1,10 +1,8 @@
 "use client";
 import {
-  Button,
   IconButton,
   MobileNav,
   Navbar,
-  Typography,
 } from "@material-tailwind/react";
 import React from "react";
 import {
@@ -18,8 +16,12 @@ import { TfiEmail, TfiLocationPin } from "react-icons/tfi";
 import { MdOutlineFacebook } from "react-icons/md";
 import { IoIosCall } from "react-icons/io";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 export default function EzyPickNavbar() {
+  const pathname = usePathname();
+  console.log(pathname);
+
   const [openNav, setOpenNav] = React.useState(false);
   React.useEffect(() => {
     window.addEventListener(
@@ -29,7 +31,7 @@ export default function EzyPickNavbar() {
   }, []);
 
   return (
-    <div className="bg-white">
+    <div className="bg-white sticky top-0">
       {/* top header nav */}
       <div className=" px-4  lg:px-8  flex flex-wrap sm:flex-nowrap  justify-center sm:justify-between   items-center sm:gap-5 gap-3 py-3 ">
         <div className="flex flex-wrap sm:flex-nowrap sm:gap-3 items-center justify-center sm:justify-start text-sm ">
@@ -54,13 +56,12 @@ export default function EzyPickNavbar() {
       {/* bottom navbar */}
       <Navbar className=" sticky top-0 z-10 h-max max-w-full rounded-none px-4 py-2 lg:px-8 lg:py-4">
         <div className=" flex items-center justify-between text-blue-gray-900">
-          <Typography
-            as="a"
-            href="#"
+          <Link
+            href={"/"}
             className="mr-4 cursor-pointer py-1.5 text-lg font-bold text-pale-red"
           >
             EzyPick
-          </Typography>
+          </Link>
 
           <div className="mr-4 hidden lg:block">
             <ul className="flex justify-center items-center gap-4 text-sm">
@@ -73,7 +74,14 @@ export default function EzyPickNavbar() {
           <div className="flex items-center gap-3">
             <FaCartShopping className="hidden lg:inline-block" />
             <Link href="/authentication">
-              <FaRegUser className="hidden lg:inline-block" />
+              <FaRegUser
+                className={`hover:text-pale-red hidden lg:inline-block ${
+                  pathname === "/authentication" ||
+                  pathname === "/authentication/register"
+                    ? "text-pale-red"
+                    : ""
+                }`}
+              />
             </Link>
           </div>
           <IconButton

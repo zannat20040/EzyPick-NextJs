@@ -4,10 +4,11 @@ import React from "react";
 import { SiGmail } from "react-icons/si";
 import { FaFacebookF, FaGoogle } from "react-icons/fa6";
 import Link from "next/link";
+import { IoIosCall } from "react-icons/io";
 
 export default function LoginPage() {
   return (
-    <div className="mt-10 max-w-md container px-4 mx-auto space-y-3 rounded  bg-white">
+    <div className="mt-10  container px-4  space-y-3 rounded  bg-white">
       {/* Input fields and the form started */}
       <form action="" className="space-y-2">
         <div className="space-y-2 text-sm">
@@ -38,29 +39,28 @@ export default function LoginPage() {
         </div>
         {/* Sign in Button */}
         <Button className=" bg-pale-red w-full text-white uppercase font-medium rounded">
-        Log in
+          Log in
         </Button>
       </form>
+
+      {/* login with others */}
       <div className="flex items-center pt-4 space-x-2">
-        <div className="flex-1 h-px bg-gray-300"></div>
+        <div className="flex-1 h-px bg-soft-gray"></div>
         <p className="text-sm text-gray-600">Login with social accounts</p>
-        <div className="flex-1 h-px bg-gray-300"></div>
+        <div className="flex-1 h-px bg-soft-gray"></div>
       </div>
       {/* Social icons */}
       <div className="flex justify-center space-x-4">
-        <button
-          className="p-3 rounded-full hover:bg-soft-gray duration-300 transition-all"
-        >
+        <button className="p-3 rounded-full hover:bg-soft-gray duration-300 transition-all">
+          <IoIosCall className="text-lg" />
+        </button>
+        <button className="p-3 rounded-full hover:bg-soft-gray duration-300 transition-all">
           <FaGoogle />
         </button>
-        <button
-          className="p-3 rounded-full hover:bg-soft-gray duration-300 transition-all"
-        >
+        <button className="p-3 rounded-full hover:bg-soft-gray duration-300 transition-all">
           <FaFacebookF />
         </button>
-        <button
-          className="p-3 rounded-full hover:bg-soft-gray duration-300 transition-all"
-        >
+        <button className="p-3 rounded-full hover:bg-soft-gray duration-300 transition-all">
           <SiGmail />
         </button>
       </div>
@@ -70,7 +70,7 @@ export default function LoginPage() {
           href={"/authentication/register"}
           className="underline hover:text-pale-red duration-300  transition-all"
         >
-          Sign up
+          Register
         </Link>
       </p>
     </div>

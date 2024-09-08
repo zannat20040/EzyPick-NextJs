@@ -8,7 +8,7 @@ import { IoIosCall } from "react-icons/io";
 
 export default function RegisterPage() {
   return (
-    <div className="mt-10 max-w-md container px-4 mx-auto space-y-3 rounded  bg-white">
+    <div className="mt-10  container px-4  space-y-3 rounded  bg-white">
       {/* Input fields and the form started */}
       <form action="" className="space-y-2">
         <div className="flex gap-x-2">
@@ -73,6 +73,8 @@ export default function RegisterPage() {
           Register
         </Button>
       </form>
+
+      {/* login with others */}
       <div className="flex items-center pt-4 space-x-2">
         <div className="flex-1 h-px bg-soft-gray"></div>
         <p className="text-sm text-gray-600">Login with social accounts</p>
@@ -81,7 +83,7 @@ export default function RegisterPage() {
       {/* Social icons */}
       <div className="flex justify-center space-x-4">
         <button className="p-3 rounded-full hover:bg-soft-gray duration-300 transition-all">
-          <IoIosCall className="text-lg"/>
+          <IoIosCall className="text-lg" />
         </button>
         <button className="p-3 rounded-full hover:bg-soft-gray duration-300 transition-all">
           <FaGoogle />
@@ -99,7 +101,7 @@ export default function RegisterPage() {
           href={"/authentication"}
           className="underline hover:text-pale-red duration-300  transition-all"
         >
-          Sign up
+          Log in
         </Link>
       </p>
     </div>
