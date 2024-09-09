@@ -3,6 +3,8 @@ import "./globals.css";
 import Head from "next/head";
 import EzyPickNavbar from "@/Components/EzyPickNavbar";
 import SessionWrapper from "@/Components/SessionWrapper";
+import { ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -38,6 +40,7 @@ export default function RootLayout({ children }) {
         <SessionWrapper>
           <EzyPickNavbar />
           {children}
+          <ToastContainer />
         </SessionWrapper>
       </body>
     </html>

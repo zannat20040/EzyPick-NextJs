@@ -5,6 +5,9 @@ import Link from "next/link";
 import SocialLogin from "@/Components/SocialLogin";
 import { GoEyeClosed, GoEye } from "react-icons/go";
 import { FaCircleCheck } from "react-icons/fa6";
+import { Bounce, Slide, toast } from "react-toastify";
+import axios from "axios";
+import axiosInstance from "@/app/utils/axiosInstance";
 
 export default function RegisterPage() {
   const [showPass, setShowPass] = useState(false);
@@ -12,21 +15,70 @@ export default function RegisterPage() {
   const [password, setPassword] = useState(null);
   const [c_password, setC_Password] = useState(null);
   const [isPassSame, setIsPassSame] = useState(true);
-  const [checkValue, setCheckValue] = useState("");
+  const [checkValue, setCheckValue] = useState("buyer");
 
   useEffect(() => {
     setIsPassSame(password === c_password);
   }, [password, c_password]);
 
-  console.log(isPassSame);
-  const HandleUserSignUp = (e) => {
+  const HandleUserSignUp = async (e) => {
     e.preventDefault();
     const form = e.target;
     const firstname = form.firstname.value;
     const lastname = form.lastname.value;
     const role = checkValue;
     const password = form.password.value;
-    const c_password = form.c_password.value;
+    const email = form.email.value;
+    const userData = { firstname, lastname, role, password, email };
+    console.log(userData);
+
+    try {
+      // Send the user data to the signup API
+      const response = await axiosInstance.post("/api/users/register", userData);
+      console.log(response.data)
+      // Handle successful response
+      if (response.status === 201) {
+        toast.success(`Congratulation! Your are registered successfully as ${role} `, {
+          position: "top-center",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          transition: Bounce,
+        });
+        // Optionally, redirect to login or dashboard
+      }
+    } catch (error) {
+      console.log(error)
+      const errorMessage =
+        error.response?.data?.error || "Signup failed. Please try again.";
+      toast.error(errorMessage, {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        transition: Bounce,
+      });
+    }
+
+    // toast.success("Signup success", {
+    //   position: "top-center",
+    //   autoClose: 3000,
+    //   hideProgressBar: false,
+    //   closeOnClick: true,
+    //   pauseOnHover: true,
+    //   draggable: true,
+    //   progress: undefined,
+    //   theme: "light",
+    //   transition: Bounce,
+    // });
   };
 
   return (
@@ -34,7 +86,7 @@ export default function RegisterPage() {
       {/* Input fields and the form started */}
       <form onSubmit={HandleUserSignUp} className="space-y-2 text-gray">
         <div className="flex gap-3 items-center">
-          <p>Register your account as </p>
+          <p className="text-sm">Select account type </p>
           <Radio
             onClick={() => setCheckValue("buyer")}
             defaultChecked
@@ -43,7 +95,10 @@ export default function RegisterPage() {
             icon={<FaCircleCheck className="text-pale-red" />}
             className="border-soft-gray  p-0 transition-all hover:before:opacity-0"
             label={
-              <Typography color="blue-gray" className="font-normal text-gray">
+              <Typography
+                color="blue-gray"
+                className="font-normal text-sm text-gray"
+              >
                 Buyer
               </Typography>
             }
@@ -55,7 +110,10 @@ export default function RegisterPage() {
             icon={<FaCircleCheck className="text-pale-red" />}
             className="border-soft-gray  p-0 transition-all hover:before:opacity-0"
             label={
-              <Typography color="blue-gray" className="font-normal text-gray">
+              <Typography
+                color="blue-gray"
+                className="font-normal text-gray text-sm"
+              >
                 Seller
               </Typography>
             }
@@ -64,6 +122,7 @@ export default function RegisterPage() {
         <div className="flex gap-x-2">
           <div className="text-sm">
             <input
+              required
               type="text"
               name="firstname"
               id="firstname"
@@ -73,6 +132,7 @@ export default function RegisterPage() {
           </div>{" "}
           <div className="text-sm">
             <input
+              required
               type="text"
               name="lastname"
               id="lastname"
@@ -83,6 +143,7 @@ export default function RegisterPage() {
         </div>
         <div className="text-sm">
           <input
+            required
             type="email"
             name="email"
             id="email"
@@ -93,6 +154,7 @@ export default function RegisterPage() {
         <div className="flex gap-x-2 ">
           <div className="text-sm relative">
             <input
+              required
               onChange={(e) => setPassword(e.target.value)}
               type={showPass ? "text" : "password"}
               name="password"
@@ -116,6 +178,7 @@ export default function RegisterPage() {
           </div>
           <div className="text-sm relative">
             <input
+              required
               onChange={(e) => setC_Password(e.target.value)}
               type={showC_Pass ? "text" : "password"}
               name="c_password"
@@ -148,10 +211,11 @@ export default function RegisterPage() {
         </div>
         {/* Sign up Button */}
         <Button
+        disabled={!isPassSame || password?.length<6}
           type="submit"
-          className=" bg-pale-red w-full text-white uppercase font-medium rounded"
+          className=" hover:bg-black bg-pale-red w-full text-white uppercase font-medium rounded"
         >
-          Register
+          Register as {checkValue}
         </Button>
       </form>
 
