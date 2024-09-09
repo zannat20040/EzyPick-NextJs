@@ -1,15 +1,11 @@
 "use client";
 import { Button } from "@material-tailwind/react";
 import React from "react";
-import { SiGmail } from "react-icons/si";
-import { FaFacebookF, FaGithubAlt, FaGoogle } from "react-icons/fa6";
-import Link from "next/link";
-import { IoIosCall } from "react-icons/io";
 import { signIn, signOut, useSession } from "next-auth/react";
+import SocialLogin from "@/Components/SocialLogin";
+import Link from "next/link";
 
 export default function LoginPage() {
-  const {data:session } =useSession()
-  // console.log('session======>',session)
   
   return (
     <div className="mt-10  container px-4  space-y-3 rounded  bg-white">
@@ -47,27 +43,7 @@ export default function LoginPage() {
         </Button>
       </form>
 
-      {/* login with others */}
-      <div className="flex items-center pt-4 space-x-2">
-        <div className="flex-1 h-px bg-soft-gray"></div>
-        <p className="text-sm text-gray-600">Login with social accounts</p>
-        <div className="flex-1 h-px bg-soft-gray"></div>
-      </div>
-      {/* Social icons */}
-      <div className="flex justify-center space-x-4">
-        <button className="p-3 rounded-full hover:bg-soft-gray duration-300 transition-all">
-          <IoIosCall className="text-lg" />
-        </button>
-        <button onClick={() => signIn('google')} className="p-3 rounded-full hover:bg-soft-gray duration-300 transition-all">
-          <FaGoogle />
-        </button>
-        <button className="p-3 rounded-full hover:bg-soft-gray duration-300 transition-all">
-          <FaFacebookF />
-        </button>
-        <button onClick={() => signIn('github')} className="p-3 rounded-full hover:bg-soft-gray duration-300 transition-all">
-          <FaGithubAlt />
-        </button>
-      </div>
+     <SocialLogin />
       <p className="text-sm text-center gap-2 flex justify-center sm:px-6 ">
         Don't have an account?
         <Link

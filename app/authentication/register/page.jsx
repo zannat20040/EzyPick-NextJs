@@ -5,6 +5,7 @@ import { SiGmail } from "react-icons/si";
 import { FaFacebookF, FaGoogle } from "react-icons/fa6";
 import Link from "next/link";
 import { IoIosCall } from "react-icons/io";
+import SocialLogin from "@/Components/SocialLogin";
 
 export default function RegisterPage() {
   return (
@@ -74,27 +75,7 @@ export default function RegisterPage() {
         </Button>
       </form>
 
-      {/* login with others */}
-      <div className="flex items-center pt-4 space-x-2">
-        <div className="flex-1 h-px bg-soft-gray"></div>
-        <p className="text-sm text-gray-600">Login with social accounts</p>
-        <div className="flex-1 h-px bg-soft-gray"></div>
-      </div>
-      {/* Social icons */}
-      <div className="flex justify-center space-x-4">
-        <button className="p-3 rounded-full hover:bg-soft-gray duration-300 transition-all">
-          <IoIosCall className="text-lg" />
-        </button>
-        <button className="p-3 rounded-full hover:bg-soft-gray duration-300 transition-all">
-          <FaGoogle />
-        </button>
-        <button className="p-3 rounded-full hover:bg-soft-gray duration-300 transition-all">
-          <FaFacebookF />
-        </button>
-        <button className="p-3 rounded-full hover:bg-soft-gray duration-300 transition-all">
-          <SiGmail />
-        </button>
-      </div>
+      <SocialLogin />
       <p className="text-sm text-center gap-2 flex justify-center sm:px-6 ">
         Don't have an account?
         <Link
