@@ -1,5 +1,6 @@
 "use client";
 import {
+  Collapse,
   IconButton,
   MobileNav,
   Navbar,
@@ -30,7 +31,7 @@ export default function EzyPickNavbar() {
   }, []);
 
   return (
-    <div className="bg-white sticky top-0">
+    <div className="bg-white sticky top-0 z-40">
       {/* top header nav */}
       <div className=" px-4  lg:px-8  flex flex-wrap sm:flex-nowrap  justify-center sm:justify-between   items-center sm:gap-5 gap-3 py-3 ">
         <div className="flex flex-wrap sm:flex-nowrap sm:gap-3 items-center justify-center sm:justify-start text-sm ">
@@ -121,7 +122,7 @@ export default function EzyPickNavbar() {
             )}
           </IconButton>
         </div>
-        <MobileNav open={openNav}>
+        <Collapse open={openNav}>
           <ul className="flex py-3 gap-4 flex-col text-black">
             <li>Home</li>
             <li>Add Product</li>
@@ -129,7 +130,7 @@ export default function EzyPickNavbar() {
             <li>Blog</li>
             <li>Login / Signup</li>
           </ul>
-        </MobileNav>
+        </Collapse>
       </Navbar>
     </div>
   );

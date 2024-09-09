@@ -8,7 +8,7 @@ export default function SocialLogin() {
   return (
     <>
       {/* login with others */}
-      <div className="flex items-center pt-4 space-x-2">
+      <div className="flex items-center pt-4 space-x-2 text-gray">
         <div className="flex-1 h-px bg-soft-gray"></div>
         <p className="text-sm text-gray-600">Login with social accounts</p>
         <div className="flex-1 h-px bg-soft-gray"></div>
