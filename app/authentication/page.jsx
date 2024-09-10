@@ -7,10 +7,27 @@ import Link from "next/link";
 
 export default function LoginPage() {
   
+  const handleUserLogin = async (e) => {
+    e.preventDefault();
+    const email = e.target.email.value
+    const password = e.target.password.value
+    
+    const result = await signIn("credentials", {
+      redirect: false,
+      email,
+      password,
+    });
+
+    if (result.error) {
+      console.error(result.error);
+    } else {
+    }
+  };
+
   return (
     <div className="mt-10  container px-4  space-y-3 rounded  bg-white">
       {/* Input fields and the form started */}
-      <form action="" className="space-y-2">
+      <form onSubmit={handleUserLogin} className="space-y-2">
         <div className="space-y-2 text-sm">
           <input
             type="email"
@@ -38,7 +55,7 @@ export default function LoginPage() {
           </div>
         </div>
         {/* Sign in Button */}
-        <Button className=" bg-pale-red w-full text-white uppercase font-medium rounded">
+        <Button type="submit" className=" bg-pale-red w-full text-white uppercase font-medium rounded">
           Log in
         </Button>
       </form>

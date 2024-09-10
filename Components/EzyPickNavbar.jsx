@@ -31,9 +31,9 @@ export default function EzyPickNavbar() {
   }, []);
 
   return (
-    <div className="bg-white sticky top-0 z-40">
+    <div className="sticky top-0 z-40 bg-transparent">
       {/* top header nav */}
-      <div className=" px-4  lg:px-8  flex flex-wrap sm:flex-nowrap  justify-center sm:justify-between   items-center sm:gap-5 gap-3 py-3 ">
+      <div className="bg-white px-4  lg:px-8  flex flex-wrap sm:flex-nowrap  justify-center sm:justify-between   items-center sm:gap-5 gap-3 py-3 ">
         <div className="flex flex-wrap sm:flex-nowrap sm:gap-3 items-center justify-center sm:justify-start text-sm ">
           <p className="flex gap-1 items-center">
             <TfiEmail className="text-pale-red " />{" "}
@@ -54,7 +54,7 @@ export default function EzyPickNavbar() {
       </div>
       <hr className="text-blue-gray-50" />
       {/* bottom navbar */}
-      <Navbar className=" sticky top-0 z-10 h-max max-w-full rounded-none px-4 py-2 lg:px-8 lg:py-4">
+      <Navbar className="  h-max max-w-full rounded-none px-4 py-2 lg:px-8 lg:py-4">
         <div className=" flex items-center justify-between text-blue-gray-900">
           <Link
             href={"/"}
