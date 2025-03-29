@@ -4,13 +4,14 @@ import EzyPickNavbar from "@/_components/shared/EzyPickNavbar";
 import { Toaster } from "react-hot-toast";
 
 const geistSans = Geist({
-  variable: "--font-geist-sans",
+  variable: "--font-geist-sans", // Custom variable for Tailwind
   subsets: ["latin"],
 });
 
 const dmSans = DM_Sans({
-  variable: "--font-dm-sans",
+  variable: "--font-dm-sans", // Custom variable for Tailwind
   subsets: ["latin"],
+  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"], // Ensure all weights are available
 });
 
 export const metadata = {

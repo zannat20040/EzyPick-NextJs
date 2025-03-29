@@ -1,23 +1,18 @@
-
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-    content: [
-      './pages/**/*.{js,ts,jsx,tsx}',
-      './components/**/*.{js,ts,jsx,tsx}',
-      './app/**/*.{js,ts,jsx,tsx}',
-    ],
-    theme: {
-      extend: {
-        fontFamily: {
-          sans: ['var(--font-dm-sans)'],
-          geist: ['var(--font-geist-sans)'],
-        },
-        colors: {
-            "pale-red": "#f8796c",
-            "gray": "#616161",
-            "soft-gray": "#80808030",
-          },
+  content: [
+    './src/app/**/*.{js,ts,jsx,tsx}',
+    './src/app/(pages)/**/*.{js,ts,jsx,tsx}',  // Fixed path
+    './src/_components/**/*.{js,ts,jsx,tsx}',   // Fixed `_components` to `_component`
+    './src/_ClientSideComponents/**/*.{js,ts,jsx,tsx}', // Added `_clientcomponents`
+  ],
+  theme: {
+    extend: {
+      fontFamily: {
+        sans: ['var(--font-dm-sans)'],
+        geist: ['var(--font-geist-sans)'],
       },
     },
-    plugins: [],
-  }
+  },
+  plugins: [],
+};

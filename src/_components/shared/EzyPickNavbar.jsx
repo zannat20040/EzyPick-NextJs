@@ -26,30 +26,30 @@ export default function EzyPickNavbar() {
   }, []);
 
   return (
-    <div className="sticky top-0 z-40 bg-transparent">
+    <div className="sticky top-0 z-40 bg-transparent **:">
       {/* top header nav */}
-      <div className="bg-white px-4 lg:px-8  flex flex-wrap sm:flex-nowrap  justify-center sm:justify-between   items-center sm:gap-5 gap-3 py-3 ">
+      <div className="bg-white px-5 lg:px-8 container mx-auto flex flex-wrap sm:flex-nowrap  justify-center sm:justify-between   items-center sm:gap-5 gap-3 py-3 ">
         <div className="flex flex-wrap sm:flex-nowrap sm:gap-3 items-center justify-center sm:justify-start text-sm ">
-          <p className="flex gap-1 items-center">
-            <TfiEmail className="text-pale-red " />{" "}
+          <p className="flex gap-1 items-center font-dm">
+            <TfiEmail className="text-[#f8796c] " />{" "}
             <span>ezypick@example.com</span>
           </p>
           <p className="flex gap-1 items-center">
-            <TfiLocationPin className="text-pale-red " />
+            <TfiLocationPin className="text-[#f8796c] " />
             <span>Dhanmondi,Dhaka,Bangladesh</span>
           </p>
         </div>
         <div className="flex gap-3">
-          <IoIosCall className="text-pale-red text-xl" />
-          <MdOutlineFacebook className="text-pale-red text-xl" />
-          <FaTwitter className="text-pale-red text-xl" />
+          <IoIosCall className="text-[#f8796c] text-xl" />
+          <MdOutlineFacebook className="text-[#f8796c] text-xl" />
+          <FaTwitter className="text-[#f8796c] text-xl" />
           <FaYoutube className="text-pale-red text-xl" />
           <FaInstagram className="text-pale-red text-xl" />
         </div>
       </div>
-      <hr className="text-blue-gray-50" />
+      <hr className="text-soft-gray" />
       {/* bottom navbar */}
-      <Navbar className="  h-max max-w-full rounded-none px-4 py-2 lg:px-8 lg:py-4">
+      <Navbar className=" container mx-auto h-max max-w-full rounded-none px-4 py-2 lg:px-8 lg:py-4">
         <div className=" flex items-center justify-between text-blue-gray-900">
           <Link
             href={"/"}
