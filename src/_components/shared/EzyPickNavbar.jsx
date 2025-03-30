@@ -11,7 +11,7 @@ import BottomNav from "@/_ClientSideComponents/BottomNav";
 
 export default function EzyPickNavbar() {
  
-
+ 
   return (
     <div className="sticky top-0 z-40 bg-transparent">
       {/* top header nav */}
@@ -40,3 +40,5 @@ export default function EzyPickNavbar() {
     </div>
   );
 }
+
+
