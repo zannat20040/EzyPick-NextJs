@@ -47,22 +47,40 @@ export default function RegisterPage() {
     };
 
     try {
-      // Step 1: Register the user in Firebase
       const userCredential = await signUp(userData.email, userData.password);
-    
-      // If registration is successful, show a success message
-      if (userCredential) {
-        toast.success("You have successfully registered!");
+      const user = userCredential?.user;
+
+      if (user) {
+        try {
+          await axiosInstance.post("/api/users/register", userData);
+          toast.success("You have successfully registered!");
+        } catch (error) {
+          if (user) {
+            try {
+              await user.delete(); // This is how you delete a Firebase user
+            } catch (deleteError) {
+              console.log(deleteError);
+              console.error("User deletion error:", deleteError.message);
+            }
+          }
+          
+          toast.error(
+            error.response.data.error ||
+              error.message ||
+              "Unexpected error occurred. Please try again."
+          );
+        }
+      } else {
+        toast.error("Unexpected error occurred. Please try again.");
       }
     } catch (error) {
-      // If there is an error during the signup process, show an error message
       console.error("Signup Error:", error.message);
-      toast.error(error.message || "Unexpected error occurred. Please try again.");
-    }
-    finally{
+      toast.error(
+        error.message || "Unexpected error occurred. Please try again."
+      );
+    } finally {
       setLoading(false);
     }
-    
   };
 
   return (
