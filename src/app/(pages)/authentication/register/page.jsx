@@ -5,8 +5,9 @@ import Link from "next/link";
 import SocialLogin from "@/_components/Authentication/SocialLogin";
 import { GoEyeClosed, GoEye } from "react-icons/go";
 import { FaCircleCheck } from "react-icons/fa6";
-import { Bounce, toast } from "react-toastify";
-import axiosInstance from "@/app/utils/axiosInstance";
+import axiosInstance from "@/utils/axiosInstance";
+import toast from "react-hot-toast";
+import { useAuth } from "@/Context/AuthContext";
 
 export default function RegisterPage() {
   const [showPass, setShowPass] = useState(false);
@@ -15,6 +16,16 @@ export default function RegisterPage() {
   const [c_password, setC_Password] = useState(null);
   const [isPassSame, setIsPassSame] = useState(true);
   const [checkValue, setCheckValue] = useState("buyer");
+  const {
+    user,
+    loading,
+    signIn,
+    signOutUser,
+    googleSignIn,
+    phoneSignIn,
+    signUp,
+    setLoading,
+  } = useAuth();
 
   useEffect(() => {
     if (password && c_password) {
@@ -23,55 +34,35 @@ export default function RegisterPage() {
       setIsPassSame(true); // This ensures that it won't show an error when both fields are empty.
     }
   }, [password, c_password]);
-  
 
   const HandleUserSignUp = async (e) => {
     e.preventDefault();
     const form = e.target;
-    const firstname = form.firstname.value;
-    const lastname = form.lastname.value;
-    const role = checkValue;
-    const password = form.password.value;
-    const email = form.email.value;
-    const userData = { firstname, lastname, role, password, email };
-    console.log(userData);
+    const userData = {
+      firstname: form.firstname.value,
+      lastname: form.lastname.value,
+      role: checkValue,
+      password: form.password.value,
+      email: form.email.value,
+    };
 
     try {
-      // Send the user data to the signup API
-      const response = await axiosInstance.post("/api/users/register", userData);
-      console.log(response.data)
-      // Handle successful response
-      if (response.status === 201) {
-        toast.success(`Congratulation! Your are registered successfully as ${role} `, {
-          position: "top-center",
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-          transition: Bounce,
-        });
-        // Optionally, redirect to login or dashboard
+      // Step 1: Register the user in Firebase
+      const userCredential = await signUp(userData.email, userData.password);
+    
+      // If registration is successful, show a success message
+      if (userCredential) {
+        toast.success("You have successfully registered!");
       }
     } catch (error) {
-      console.log(error)
-      const errorMessage =
-        error.response?.data?.error || "Signup failed. Please try again.";
-      toast.error(errorMessage, {
-        position: "top-center",
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-        transition: Bounce,
-      });
+      // If there is an error during the signup process, show an error message
+      console.error("Signup Error:", error.message);
+      toast.error(error.message || "Unexpected error occurred. Please try again.");
     }
-
+    finally{
+      setLoading(false);
+    }
+    
   };
 
   return (
@@ -204,11 +195,11 @@ export default function RegisterPage() {
         </div>
         {/* Sign up Button */}
         <Button
-        disabled={!isPassSame || password?.length<6}
+          disabled={!isPassSame || password?.length < 6 || loading}
           type="submit"
           className=" hover:bg-black bg-pale-red w-full text-white uppercase font-medium rounded"
         >
-          Register as {checkValue}
+          {loading ? "Please wait a moment..." : ` Register as ${checkValue}`}
         </Button>
       </form>
 

@@ -2,7 +2,8 @@ import { Geist, DM_Sans } from "next/font/google";
 import "./globals.css";
 import EzyPickNavbar from "@/_components/shared/EzyPickNavbar";
 import { Toaster } from "react-hot-toast";
-import ThemeProviderWrapper from '../_ClientSideComponents/ThemeProviderWrapper'
+import ThemeProviderWrapper from "../_ClientSideComponents/ThemeProviderWrapper";
+import { AuthProvider } from "@/Context/AuthContext";
 
 const dmSans = DM_Sans({
   variable: "--font-dm-sans", // Custom variable for Tailwind
@@ -20,9 +21,11 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={` ${dmSans.variable} antialiased`}>
         <ThemeProviderWrapper>
-          <Toaster />
-          <EzyPickNavbar />
-          {children}
+          <AuthProvider>
+            <Toaster />
+            <EzyPickNavbar />
+            {children}
+          </AuthProvider>
         </ThemeProviderWrapper>
       </body>
     </html>

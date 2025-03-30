@@ -3,7 +3,7 @@ import { Button } from "@material-tailwind/react";
 import React from "react"; // Import useState
 import SocialLogin from "@/_components/Authentication/SocialLogin";
 import Link from "next/link";
-import axiosInstance from "../../utils/axiosInstance";
+import axiosInstance from "../../../utils/axiosInstance";
 import toast from "react-hot-toast";
 
 export default function LoginPage() {

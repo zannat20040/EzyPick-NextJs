@@ -1,7 +1,6 @@
 import React from "react";
 import { FaFacebookF, FaGithubAlt, FaGoogle } from "react-icons/fa6";
 import { IoIosCall } from "react-icons/io";
-import { signIn} from "next-auth/react";
 
 
 export default function SocialLogin() {
