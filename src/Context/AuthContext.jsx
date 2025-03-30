@@ -1,5 +1,5 @@
 "use client";
-import React, { createContext, useState, useEffect, useContext } from 'react';
+import React, { createContext, useState, useEffect, useContext } from "react";
 import {
   getAuth,
   createUserWithEmailAndPassword,
@@ -10,8 +10,9 @@ import {
   signInWithPopup,
   RecaptchaVerifier,
   signInWithPhoneNumber,
-} from 'firebase/auth';
-import app from '../utils/firebase.config';  // Import Firebase app
+} from "firebase/auth";
+import app from "../utils/firebase.config"; // Import Firebase app
+import toast from "react-hot-toast";
 
 const AuthContext = createContext();
 
@@ -22,7 +23,7 @@ export const useAuth = () => {
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
-  const auth = getAuth(app);  // ✅ Pass firebaseApp to getAuth
+  const auth = getAuth(app); // ✅ Pass firebaseApp to getAuth
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -33,17 +34,16 @@ export const AuthProvider = ({ children }) => {
     return () => unsubscribe();
   }, [auth]);
 
-  const signUp =  (email, password) => {
+  const signUp = (email, password) => {
     setLoading(true);
     return createUserWithEmailAndPassword(auth, email, password);
   };
-  
 
   const signIn = async (email, password) => {
     try {
       await signInWithEmailAndPassword(auth, email, password);
     } catch (error) {
-      console.error('Signin error:', error.message);
+      console.error("Signin error:", error.message);
       throw error;
     }
   };
@@ -52,7 +52,7 @@ export const AuthProvider = ({ children }) => {
     try {
       await signOut(auth);
     } catch (error) {
-      console.error('Signout error:', error.message);
+      console.error("Signout error:", error.message);
       throw error;
     }
   };
@@ -62,22 +62,33 @@ export const AuthProvider = ({ children }) => {
     return signInWithPopup(auth, provider);
   };
 
-  const phoneSignIn = async (phoneNumber) => {
-    try {
-      window.recaptchaVerifier = new RecaptchaVerifier(
-        'recaptcha-container', 
-        { size: 'invisible' },
-        auth
-      );
+  // const phoneSignIn = async (phoneNumber) => {
+  //   try {
+  //     if (!window.recaptchaVerifier) {
+  //       window.recaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', {
+  //         size: 'invisible',
+  //         callback: (response) => {
+  //           console.log('ReCaptcha Verified:', response);
+  //         },
+  //         'expired-callback': () => {
+  //           console.warn('ReCaptcha expired. Please refresh.');
+  //         }
+  //       });
+  //     }
 
-      const appVerifier = window.recaptchaVerifier;
-      const confirmationResult = await signInWithPhoneNumber(auth, phoneNumber, appVerifier);
-      window.confirmationResult = confirmationResult;
-    } catch (error) {
-      console.error('Phone sign-in error:', error.message);
-      throw error;
-    }
-  };
+  //     const appVerifier = window.recaptchaVerifier;
+  //     const confirmationResult = await signInWithPhoneNumber(auth, phoneNumber, appVerifier);
+  //     window.confirmationResult = confirmationResult;
+
+  //     console.log('OTP sent successfully');
+  //     toast.success('OTP sent! Please check your phone.');
+  //   } catch (error) {
+  //     console.error('Phone sign-in error:', error.message);
+  //     console.log('Phone sign-in error:', error);
+  //     toast.error('Phone sign-in failed. Try again.');
+  //     throw error;
+  //   }
+  // };
 
   const value = {
     user,
@@ -86,8 +97,8 @@ export const AuthProvider = ({ children }) => {
     signIn,
     signOutUser,
     googleSignIn,
-    phoneSignIn,
-    setLoading
+    // phoneSignIn,
+    setLoading,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
