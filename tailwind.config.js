@@ -1,18 +1,24 @@
-/** @type {import('tailwindcss').Config} */
-module.exports = {
+const withMT = require("@material-tailwind/react/utils/withMT");
+
+module.exports = withMT({
   content: [
-    './src/app/**/*.{js,ts,jsx,tsx}',
-    './src/app/(pages)/**/*.{js,ts,jsx,tsx}',  // Fixed path
-    './src/_components/**/*.{js,ts,jsx,tsx}',   // Fixed `_components` to `_component`
-    './src/_ClientSideComponents/**/*.{js,ts,jsx,tsx}', // Added `_clientcomponents`
+    "./src/app/(pages)/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/_components/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/_ClientSideComponents/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
     extend: {
+      colors: {
+        'pale-red': '#f8796c',
+        'custom-gray': '#616161',
+        'soft-gray': '#80808030',
+      },
       fontFamily: {
-        sans: ['var(--font-dm-sans)'],
-        geist: ['var(--font-geist-sans)'],
+        'dm-sans': ['DM Sans', 'sans-serif'],
+        'geist': ['Geist', 'sans-serif'],
       },
     },
   },
-  plugins: [],
-};
+  plugins: [require("daisyui")],
+});

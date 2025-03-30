@@ -1,20 +1,8 @@
-@import "tailwindcss";
-@plugin "daisyui";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-@theme {
-  --color-pale-red: #f8796c; 
-  --color-gray: #616161; 
-  --color-soft-gray: #80808030; 
-}
 
-:root {
-  --font-geist-sans: "Geist", sans-serif;
-  --font-dm-sans: "DM Sans", sans-serif;
-}
-
-body {
-  font-family: var(--font-dm-sans);
-}
 
 /* 404 not found page css */
 

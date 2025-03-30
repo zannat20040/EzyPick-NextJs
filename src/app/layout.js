@@ -2,11 +2,7 @@ import { Geist, DM_Sans } from "next/font/google";
 import "./globals.css";
 import EzyPickNavbar from "@/_components/shared/EzyPickNavbar";
 import { Toaster } from "react-hot-toast";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans", // Custom variable for Tailwind
-  subsets: ["latin"],
-});
+import ThemeProviderWrapper from '../_ClientSideComponents/ThemeProviderWrapper'
 
 const dmSans = DM_Sans({
   variable: "--font-dm-sans", // Custom variable for Tailwind
@@ -22,10 +18,12 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${dmSans.variable} antialiased`}>
-        <Toaster />
-        <EzyPickNavbar />
-        {children}
+      <body className={` ${dmSans.variable} antialiased`}>
+        <ThemeProviderWrapper>
+          <Toaster />
+          <EzyPickNavbar />
+          {children}
+        </ThemeProviderWrapper>
       </body>
     </html>
   );
