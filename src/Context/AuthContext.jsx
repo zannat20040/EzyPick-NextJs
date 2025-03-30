@@ -58,13 +58,8 @@ export const AuthProvider = ({ children }) => {
   };
 
   const googleSignIn = async () => {
-    try {
-      const provider = new GoogleAuthProvider();
-      await signInWithPopup(auth, provider);
-    } catch (error) {
-      console.error('Google sign-in error:', error.message);
-      throw error;
-    }
+    const provider = new GoogleAuthProvider();
+    return signInWithPopup(auth, provider);
   };
 
   const phoneSignIn = async (phoneNumber) => {
