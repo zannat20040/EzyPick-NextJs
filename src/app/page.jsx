@@ -8,7 +8,6 @@ export default function Home() {
       <BannerCarousel />
       {/* flash offer*/}
       <div>
-        <Headline label={"Flash Sales"} />
         <Offers />
       </div>
       {/* catagory */}

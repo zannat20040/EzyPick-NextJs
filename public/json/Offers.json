@@ -1,0 +1,30 @@
+[
+  {
+    "image": "/assets/Offers/Screen-Shot-2023-05-09-at-9.50.02-AM-1024x650.png",
+    "title": "New Collection Offer",
+    "category": "New Collection",
+    "discount": "Get Up to 40% Off",
+    "bgColor": "#f8796c"
+  },
+  {
+    "image": "/assets/Offers/Launch a New Product.webp",
+    "title": "Stock Clear Offer",
+    "category": "Stock Clear",
+    "discount": "Get Up to 50% Off",
+    "bgColor": "#d8dbe5"
+  },
+  {
+    "image": "/assets/Offers/iPhone-XS-1-1.webp",
+    "title": "Summer Sale Offer",
+    "category": "Summer Sale",
+    "discount": "Sale 20%",
+    "bgColor": "#424242"
+  },
+  {
+    "image": "/assets/Offers/Launch a New Product.webp",
+    "title": "Winter Collection Offer",
+    "category": "Winter Collection",
+    "discount": "Get Up to 30% Off",
+    "bgColor": "#1565c0"
+  }
+]
