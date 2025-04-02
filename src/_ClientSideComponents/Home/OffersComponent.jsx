@@ -46,7 +46,7 @@ export default function OffersComponent({ offers }) {
             />
             <div
               style={{
-                background: `linear-gradient(to top, ${mainOffer.bgColor}, transparent)`
+                background: `linear-gradient(to top, ${mainOffer.bgColor}, transparent)`,
               }}
               className={`h-full absolute top-0 p-5 w-full `}
             >
@@ -61,7 +61,7 @@ export default function OffersComponent({ offers }) {
         {/* Two Smaller Offers */}
         <div className="grid grid-cols-1 gap-5 w-full">
           {secondaryOffers.map((offer) => (
-            <div className="h-full relative">
+            <div className="h-full relative" key={offer.title}>
               <Image
                 src={offer.image}
                 alt={offer.title}
@@ -72,9 +72,9 @@ export default function OffersComponent({ offers }) {
                 className="h-full w-full object-cover"
               />
               <div
-                 style={{
-                    background: `linear-gradient(to top, ${offer.bgColor}, transparent)`
-                  }}
+                style={{
+                  background: `linear-gradient(to top, ${offer.bgColor}, transparent)`,
+                }}
                 className={`h-full absolute top-0 p-5  w-full`}
               >
                 <p className="text-white">{offer.category}</p>

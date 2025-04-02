@@ -1,0 +1,188 @@
+[
+    {
+      "category": "Phones",
+      "icon": "/assets/icons/phone-icon.png",
+      "subcategories": [
+        "Apple",
+        "Samsung",
+        "OnePlus",
+        "Nokia",
+        "Xiaomi",
+        "Google Pixel"
+      ]
+    },
+    {
+      "category": "Accessories",
+      "icon": "/assets/icons/accessory-icon.png",
+      "subcategories": [
+        "Phone Cases",
+        "Chargers",
+        "Headphones",
+        "Screen Protectors",
+        "Power Banks",
+        "Smartwatches"
+      ]
+    },
+    {
+      "category": "Laptops",
+      "icon": "/assets/icons/laptop-icon.png",
+      "subcategories": [
+        "MacBook",
+        "Windows Laptops",
+        "Gaming Laptops",
+        "Chromebooks",
+        "Business Laptops"
+      ]
+    },
+    {
+      "category": "Tablets",
+      "icon": "/assets/icons/tablet-icon.png",
+      "subcategories": [
+        "iPad",
+        "Android Tablets",
+        "Windows Tablets",
+        "E-readers"
+      ]
+    },
+    {
+      "category": "Wearables",
+      "icon": "/assets/icons/wearable-icon.png",
+      "subcategories": [
+        "Smartwatches",
+        "Fitness Trackers",
+        "Smart Glasses",
+        "Smart Rings"
+      ]
+    },
+    {
+      "category": "Home Appliances",
+      "icon": "/assets/icons/home-appliance-icon.png",
+      "subcategories": [
+        "Refrigerators",
+        "Washing Machines",
+        "Microwaves",
+        "Air Conditioners",
+        "Vacuum Cleaners",
+        "Dishwashers"
+      ]
+    },
+    {
+      "category": "TVs & Home Entertainment",
+      "icon": "/assets/icons/tv-icon.png",
+      "subcategories": [
+        "Smart TVs",
+        "LED TVs",
+        "OLED TVs",
+        "Projectors",
+        "Home Theaters"
+      ]
+    },
+    {
+      "category": "Photography & Cameras",
+      "icon": "/assets/icons/camera-icon.png",
+      "subcategories": [
+        "DSLR Cameras",
+        "Mirrorless Cameras",
+        "Point & Shoot",
+        "Action Cameras",
+        "Camera Lenses",
+        "Tripods"
+      ]
+    },
+    {
+      "category": "Gaming",
+      "icon": "/assets/icons/gaming-icon.png",
+      "subcategories": [
+        "Consoles",
+        "PC Gaming",
+        "Gaming Laptops",
+        "Accessories",
+        "Virtual Reality"
+      ]
+    },
+    {
+      "category": "Beauty & Personal Care",
+      "icon": "/assets/icons/beauty-icon.png",
+      "subcategories": [
+        "Skincare",
+        "Makeup",
+        "Hair Care",
+        "Perfumes",
+        "Bath & Body",
+        "Nail Care"
+      ]
+    },
+    {
+      "category": "Fashion",
+      "icon": "/assets/icons/fashion-icon.png",
+      "subcategories": [
+        "Men's Clothing",
+        "Women's Clothing",
+        "Footwear",
+        "Accessories",
+        "Jewelry",
+        "Bags"
+      ]
+    },
+    {
+      "category": "Sports & Outdoors",
+      "icon": "/assets/icons/sports-icon.png",
+      "subcategories": [
+        "Cycling",
+        "Running",
+        "Camping",
+        "Fishing",
+        "Swimming",
+        "Fitness Gear"
+      ]
+    },
+    {
+      "category": "Health & Fitness",
+      "icon": "/assets/icons/fitness-icon.png",
+      "subcategories": [
+        "Supplements",
+        "Yoga",
+        "Gym Equipment",
+        "Exercise Machines",
+        "Weight Loss",
+        "Personal Training"
+      ]
+    },
+    {
+      "category": "Automotive",
+      "icon": "/assets/icons/automotive-icon.png",
+      "subcategories": [
+        "Car Parts",
+        "Car Electronics",
+        "Car Care",
+        "Motorcycles",
+        "Tires",
+        "Tools & Equipment"
+      ]
+    },
+    {
+      "category": "Books",
+      "icon": "/assets/icons/books-icon.png",
+      "subcategories": [
+        "Fiction",
+        "Non-Fiction",
+        "Children's Books",
+        "Self-Help",
+        "Educational",
+        "Cookbooks"
+      ]
+    },
+    {
+      "category": "Music",
+      "icon": "/assets/icons/music-icon.png",
+      "subcategories": [
+        "Instruments",
+        "Vinyl Records",
+        "Speakers",
+        "Headphones",
+        "Music Accessories",
+        "Audio Systems"
+      ]
+    }
+  ]
+  
