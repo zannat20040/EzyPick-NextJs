@@ -1,8 +1,7 @@
 "use client";
 import { useAuth } from "@/Context/AuthContext";
 import axiosInstance from "@/utils/axiosInstance";
-import { Button } from "@material-tailwind/react";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import toast from "react-hot-toast";
 import { FaGoogle } from "react-icons/fa6";
 import { IoIosCall } from "react-icons/io";

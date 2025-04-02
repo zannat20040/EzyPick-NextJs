@@ -19,7 +19,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={` ${dmSans.variable} antialiased`}>
+      <body className={` ${dmSans.variable} antialiased bg-white`}>
         <ThemeProviderWrapper>
           <AuthProvider>
             <Toaster />

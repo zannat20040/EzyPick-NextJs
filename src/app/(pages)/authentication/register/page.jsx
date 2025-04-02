@@ -1,8 +1,9 @@
 import Link from "next/link";
-import SocialLogin from "@/_components/Authentication/SocialLogin";
-import RegisterComponent from "@/_ClientSideComponents/RegisterComponent";
+import RegisterComponent from "@/_ClientSideComponents/Authentication/RegisterComponent";
+import SocialLogin from "@/_ClientSideComponents/Authentication/SocialLogin";
 
 export default function RegisterPage() {
+  
   return (
     <div className="mt-10  container px-4  space-y-3 rounded  bg-white">
       <RegisterComponent />
