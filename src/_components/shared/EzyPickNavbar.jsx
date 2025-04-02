@@ -15,7 +15,7 @@ export default function EzyPickNavbar() {
   return (
     <div className="sticky top-0 left-0 z-40 bg-white">
       {/* top header nav */}
-      <div className=" px-5 lg:px-8 container mx-auto flex flex-wrap sm:flex-nowrap  justify-center sm:justify-between   items-center sm:gap-5 gap-3 py-3 ">
+      <div className=" px-5 lg:px-8 container mx-auto flex flex-wrap md:flex-nowrap  justify-center md:justify-between   items-center sm:gap-5 gap-3 py-3 ">
         <div className="flex flex-wrap sm:flex-nowrap sm:gap-3 items-center justify-center sm:justify-start text-sm ">
           <p className="flex gap-1 items-center font-dm text-base">
             <TfiEmail className="text-[#f8796c] " />{" "}

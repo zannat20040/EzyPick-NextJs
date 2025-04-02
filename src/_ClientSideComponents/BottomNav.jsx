@@ -16,7 +16,7 @@ export default function BottomNav() {
       );
     }, []);
   return (
-    <Navbar className=" sticky top-0 z-50 bg-white h-max w-full rounded-none px-5 py-2 lg:px-8 lg:py-4">
+    <Navbar className=" mx-auto bg-white h-max w-full rounded-none px-0 shadow-none py-2  lg:py-4">
       <div className=" container mx-auto lg:px-8 px-5 flex items-center justify-between text-blue-gray-900">
         <Link
           href={"/"}
@@ -85,7 +85,7 @@ export default function BottomNav() {
         </IconButton>
       </div>
       <Collapse open={openNav}>
-        <ul className="flex py-3 gap-4 flex-col text-black">
+        <ul className="flex py-3 px-5 gap-4 flex-col text-black">
           <li>Home</li>
           <li>Add Product</li>
           <li>Shop</li>
