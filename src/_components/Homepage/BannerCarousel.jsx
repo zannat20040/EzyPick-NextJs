@@ -1,15 +1,14 @@
 "use client";
+import Image from "next/image";
 import { useCallback, useEffect, useState } from "react";
-import img1 from "../../../public/assets/banner-online-fashion-sale_23-2148585402.jpg";
-import img2 from "../../../public/assets/shopping-online-banner-template_23-2148578528.jpg";
-import img3 from "../../../public/assets/shopping-online-banner-template_23-2148578529.jpg";
 
 export const BannerCarousel = () => {
   const [currentSlider, setCurrentSlider] = useState(0);
-  const carouselImages = [    "/assets/banner-online-fashion-sale_23-2148585402.jpg",
-    "/assets/shopping-online-banner-template_23-2148578528.jpg",
-    "/assets/shopping-online-banner-template_23-2148578529.jpg",
-];
+  const carouselImages = [
+    "/assets/Banner/banner-online-fashion-sale_23-2148585402.jpg",
+    "/assets/Banner/shopping-online-banner-template_23-2148578528.jpg",
+    "/assets/Banner/shopping-online-banner-template_23-2148578529.jpg",
+  ];
   const prevSlider = () =>
     setCurrentSlider((currentSlider) =>
       currentSlider === 0 ? carouselImages.length - 1 : currentSlider - 1
@@ -31,7 +30,6 @@ export const BannerCarousel = () => {
 
   return (
     <div className="h-60 w-full md:h-[300px] lg:h-[450px] relative overflow-hidden">
-    
       {/* dots */}
       <div className="flex justify-center items-center rounded-full z-50 absolute bottom-4 w-full gap-1">
         {carouselImages.map((img, idx) => (
@@ -51,9 +49,12 @@ export const BannerCarousel = () => {
       >
         {/* sliders */}
         {carouselImages.map((slide, idx) => (
-          <img
+          <Image
+            width={100}
+            height={60}
             key={slide}
             src={slide}
+            unoptimized={true}
             className="min-w-full h-60 bg-black/20 sm:h-96 md:h-[540px]"
             alt={`Slider - ${idx + 1}`}
           />
