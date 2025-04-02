@@ -27,7 +27,7 @@ export const BannerCarousel = () => {
       nextSlider();
     }, 3000);
     return () => clearInterval(intervalId);
-  }, [nextSlider]);
+  }, [nextSlider, prevSlider]);
 
   return (
     <div className="h-60 w-full md:h-[300px] lg:h-[450px] relative overflow-hidden">

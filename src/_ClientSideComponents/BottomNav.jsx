@@ -1,4 +1,5 @@
 "use client";
+import SearchBar from "@/_components/Homepage/SearchBar";
 import { Button, Collapse, IconButton, Navbar } from "@material-tailwind/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -33,7 +34,10 @@ export default function BottomNav() {
             <li>Blog</li>
           </ul>
         </div>
-        <div className="flex items-center gap-3">
+        <div className="flex items-center lg:gap-3">
+          <div className="sm:block hidden">
+          <SearchBar />
+          </div>
           <FaCartShopping className="hidden lg:inline-block" />
           <Link href="/authentication">
             <FaRegUser
@@ -46,9 +50,10 @@ export default function BottomNav() {
             />
           </Link>
         </div>
+
         <IconButton
           variant="text"
-          className="ml-auto h-6 w-6 text-inherit hover:bg-transparent focus:bg-transparent active:bg-transparent lg:hidden text-pale-red"
+          className=" h-6 w-6 text-inherit hover:bg-transparent focus:bg-transparent active:bg-transparent lg:hidden text-pale-red"
           ripple={false}
           onClick={() => setOpenNav(!openNav)}
         >
@@ -85,7 +90,7 @@ export default function BottomNav() {
         </IconButton>
       </div>
       <Collapse open={openNav}>
-        <ul className="flex py-3 px-5 gap-4 flex-col text-black">
+        <ul className=" container mx-auto flex py-3 px-5 gap-4 flex-col text-black">
           <li>Home</li>
           <li>Add Product</li>
           <li>Shop</li>

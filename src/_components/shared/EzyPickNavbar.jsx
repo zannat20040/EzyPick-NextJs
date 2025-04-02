@@ -8,6 +8,7 @@ import { TfiEmail, TfiLocationPin } from "react-icons/tfi";
 import { MdOutlineFacebook } from "react-icons/md";
 import { IoIosCall } from "react-icons/io";
 import BottomNav from "@/_ClientSideComponents/BottomNav";
+import SearchBar from "../Homepage/SearchBar";
 
 export default function EzyPickNavbar() {
  
@@ -16,7 +17,7 @@ export default function EzyPickNavbar() {
     <div className="sticky top-0 left-0 z-40 bg-white">
       {/* top header nav */}
       <div className=" px-5 lg:px-8 container mx-auto flex flex-wrap md:flex-nowrap  justify-center md:justify-between   items-center sm:gap-5 gap-3 py-3 ">
-        <div className="flex flex-wrap sm:flex-nowrap sm:gap-3 items-center justify-center sm:justify-start text-sm ">
+        <div className="flex flex-wrap sm:flex-nowrap gap-3  items-center justify-center sm:justify-start text-sm ">
           <p className="flex gap-1 items-center font-dm text-base">
             <TfiEmail className="text-[#f8796c] " />{" "}
             <span>ezypick@example.com</span>
@@ -32,6 +33,9 @@ export default function EzyPickNavbar() {
           <FaTwitter className="text-[#f8796c] text-xl" />
           <FaYoutube className="text-pale-red text-xl" />
           <FaInstagram className="text-pale-red text-xl" />
+        </div>
+        <div className="block sm:hidden">
+          <SearchBar />
         </div>
       </div>
       <hr className="text-soft-gray" />
