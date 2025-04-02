@@ -31,7 +31,7 @@ export const BannerCarousel = () => {
   return (
     <div className="h-60 w-full md:h-[300px] lg:h-[450px] relative overflow-hidden">
       {/* dots */}
-      <div className="flex justify-center items-center rounded-full z-50 absolute bottom-4 w-full gap-1">
+      <div className="flex justify-center items-center rounded-full z-[35] absolute bottom-4 w-full gap-1">
         {carouselImages.map((img, idx) => (
           <button
             key={`${img}_${idx}`}

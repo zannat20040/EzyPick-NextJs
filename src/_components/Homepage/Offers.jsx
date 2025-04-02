@@ -4,7 +4,7 @@ import Headline from "../shared/Headline";
 
 const Offers = () => {
   return (
-    <div className="container mx-auto px-5 lg:px-8 grid grid-cols-1 sm:grid-cols-2 gap-5">
+    <div className="container mx-auto px-5 lg:px-8 grid grid-cols-1 md:grid-cols-2 gap-5">
       {/* First Large Offer */}
       <div className="h-full relative">
         <Image
@@ -12,6 +12,8 @@ const Offers = () => {
           alt="New Collection Offer"
           width={1024}
           height={650}
+          unoptimized={true}
+          quality={100}
           className="h-full w-full object-cover"
         />
         <div className="h-full absolute top-0 p-5 bg-gradient-to-t from-pale-red w-full">
@@ -22,12 +24,15 @@ const Offers = () => {
 
       {/* Two Smaller Offers */}
       <div className="grid grid-cols-1 gap-5 w-full">
-        <div className="relative w-full ">
+        <div className="h-full relative">
           <Image
             src="/assets/Offers/Launch a New Product.webp"
             alt="Stock Clear Offer"
-            fill
-            className="object-cover"
+            width={1024}
+            height={650}
+            unoptimized={true}
+            quality={100}
+            className="h-full w-full object-cover"
           />
           <div className="h-full absolute top-0 p-5 bg-gradient-to-t from-[#d8dbe5] w-full">
             <p className="text-white">Stock Clear</p>
@@ -35,12 +40,15 @@ const Offers = () => {
           </div>
         </div>
 
-        <div className="relative w-full ">
+        <div className="h-full relative">
           <Image
             src="/assets/Offers/iPhone-XS-1-1.webp"
             alt="Summer Sale Offer"
-            fill
-            className="object-cover"
+            width={1024}
+            height={650}
+            unoptimized={true}
+            quality={100}
+            className="h-full w-full object-cover"
           />
           <div className="h-full absolute top-0 p-5 bg-gradient-to-t from-gray-600 w-full">
             <p className="text-white">Summer Sale</p>

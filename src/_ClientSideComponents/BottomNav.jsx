@@ -7,18 +7,27 @@ import React from "react";
 import { FaCartShopping, FaRegUser } from "react-icons/fa6";
 
 export default function BottomNav() {
-   const pathname = usePathname();
-  
-    const [openNav, setOpenNav] = React.useState(false);
-    React.useEffect(() => {
-      window.addEventListener(
-        "resize",
-        () => window.innerWidth >= 960 && setOpenNav(false)
-      );
-    }, []);
+  const pathname = usePathname();
+  const [openNav, setOpenNav] = React.useState(false);
+
+  React.useEffect(() => {
+    window.addEventListener(
+      "resize",
+      () => window.innerWidth >= 960 && setOpenNav(false)
+    );
+  }, []);
+
+  // Define your navigation items with their paths
+  const navItems = [
+    { label: "Home", path: "/" },
+    { label: "Add Product", path: "/add-product" },
+    { label: "Shop", path: "/shop" },
+    { label: "Blog", path: "/blog" },
+  ];
+
   return (
-    <Navbar className=" mx-auto bg-white h-max w-full rounded-none px-0 shadow-none py-2  lg:py-4">
-      <div className=" container mx-auto lg:px-8 px-5 flex items-center justify-between text-blue-gray-900">
+    <Navbar className="mx-auto bg-white h-max w-full rounded-none px-0 shadow-none py-2 lg:py-4">
+      <div className="container mx-auto lg:px-8 px-5 flex items-center justify-between text-blue-gray-900">
         <Link
           href={"/"}
           className="mr-4 cursor-pointer py-1.5 text-lg font-bold text-pale-red"
@@ -26,17 +35,27 @@ export default function BottomNav() {
           EzyPick
         </Link>
 
+        {/* Desktop Navigation */}
         <div className="mr-4 hidden lg:block">
           <ul className="flex justify-center items-center gap-4 text-sm">
-            <li>Home</li>
-            <li>Add Product</li>
-            <li>Shop</li>
-            <li>Blog</li>
+            {navItems.map((item) => (
+              <li key={item.path}>
+                <Link
+                  href={item.path}
+                  className={`hover:text-pale-red transition-colors ${
+                    pathname === item.path ? "text-pale-red" : ""
+                  }`}
+                >
+                  {item.label}
+                </Link>
+              </li>
+            ))}
           </ul>
         </div>
+
         <div className="flex items-center lg:gap-3">
           <div className="sm:block hidden">
-          <SearchBar />
+            <SearchBar />
           </div>
           <FaCartShopping className="hidden lg:inline-block" />
           <Link href="/authentication">
@@ -51,9 +70,10 @@ export default function BottomNav() {
           </Link>
         </div>
 
+        {/* Mobile menu button */}
         <IconButton
           variant="text"
-          className=" h-6 w-6 text-inherit hover:bg-transparent focus:bg-transparent active:bg-transparent lg:hidden text-pale-red"
+          className="h-6 w-6 text-inherit hover:bg-transparent focus:bg-transparent active:bg-transparent lg:hidden text-pale-red"
           ripple={false}
           onClick={() => setOpenNav(!openNav)}
         >
@@ -89,13 +109,35 @@ export default function BottomNav() {
           )}
         </IconButton>
       </div>
+
+      {/* Mobile Navigation */}
       <Collapse open={openNav}>
-        <ul className=" container mx-auto flex py-3 px-5 gap-4 flex-col text-black">
-          <li>Home</li>
-          <li>Add Product</li>
-          <li>Shop</li>
-          <li>Blog</li>
-          <li>Login / Signup</li>
+        <ul className="container mx-auto flex py-3 px-5 gap-4 flex-col text-black">
+          {navItems.map((item) => (
+            <li key={item.path}>
+              <Link
+                href={item.path}
+                className={`hover:text-pale-red transition-colors ${
+                  pathname === item.path ? "text-pale-red" : ""
+                }`}
+              >
+                {item.label}
+              </Link>
+            </li>
+          ))}
+          <li>
+            <Link
+              href="/authentication"
+              className={`hover:text-pale-red transition-colors ${
+                pathname === "/authentication" ||
+                pathname === "/authentication/register"
+                  ? "text-pale-red"
+                  : ""
+              }`}
+            >
+              Login / Signup
+            </Link>
+          </li>
         </ul>
       </Collapse>
     </Navbar>
