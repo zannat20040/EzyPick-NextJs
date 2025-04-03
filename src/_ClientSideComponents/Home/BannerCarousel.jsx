@@ -1,65 +1,46 @@
 "use client";
+import { Carousel } from "@material-tailwind/react";
 import Image from "next/image";
 import { useCallback, useEffect, useState } from "react";
 
 export const BannerCarousel = () => {
-  const [currentSlider, setCurrentSlider] = useState(0);
   const carouselImages = [
     "/assets/Banner/banner-online-fashion-sale_23-2148585402.jpg",
     "/assets/Banner/shopping-online-banner-template_23-2148578528.jpg",
     "/assets/Banner/shopping-online-banner-template_23-2148578529.jpg",
   ];
-  const prevSlider = () =>
-    setCurrentSlider((currentSlider) =>
-      currentSlider === 0 ? carouselImages.length - 1 : currentSlider - 1
-    );
-  const nextSlider = useCallback(
-    () =>
-      setCurrentSlider((currentSlider) =>
-        currentSlider === carouselImages.length - 1 ? 0 : currentSlider + 1
-      ),
-    [carouselImages.length]
-  );
-
-  useEffect(() => {
-    const intervalId = setInterval(() => {
-      nextSlider();
-    }, 3000);
-    return () => clearInterval(intervalId);
-  }, [nextSlider, prevSlider]);
-
   return (
-    <div className="h-60 w-full md:h-[300px] lg:h-[450px] relative overflow-hidden">
-      {/* dots */}
-      <div className="flex justify-center items-center rounded-full z-[35] absolute bottom-4 w-full gap-1">
-        {carouselImages.map((img, idx) => (
-          <button
-            key={`${img}_${idx}`}
-            onClick={() => setCurrentSlider(idx)}
-            className={`rounded-full duration-500 ${
-              currentSlider === idx ? "w-8 bg-pale-red" : "w-2 bg-white"
-            } h-1`}
-          ></button>
-        ))}
-      </div>
-      {/* Carousel container */}
-      <div
-        className="ease-linear duration-500 flex transform-gpu"
-        style={{ transform: `translateX(-${currentSlider * 100}%)` }}
-      >
-        {/* sliders */}
-        {carouselImages.map((slide, idx) => (
-          <Image
-            width={100}
-            height={60}
-            key={slide}
-            src={slide}
-            unoptimized={true}
-            className="min-w-full h-60 bg-black/20 sm:h-96 md:h-[540px]"
-            alt={`Slider - ${idx + 1}`}
-          />
-        ))}
-      </div>
-    </div>
+    <Carousel
+      loop={true}
+      prevArrow={0}
+      nextArrow={0}
+      autoplay={true}
+      autoplayDelay={3000}
+      className="rounded-xl"
+      navigation={({ setActiveIndex, activeIndex, length }) => (
+        <div className="absolute bottom-4 left-2/4 z-50 flex -translate-x-2/4 gap-2">
+          {new Array(length).fill("").map((_, i) => (
+            <span
+              key={i}
+              className={`block h-1 cursor-pointer rounded-2xl transition-all content-[''] ${
+                activeIndex === i ? "w-8 bg-pale-red" : "w-4 bg-white/50"
+              }`}
+              onClick={() => setActiveIndex(i)}
+            />
+          ))}
+        </div>
+      )}
+    >
+      {carouselImages?.map((slide, index) => (
+        <Image
+          src={slide}
+          alt={`slide${index + 1}`}
+          width={100}
+          height={90}
+          unoptimized={true}
+          className="h-[30rem] w-full "
+        />
+      ))}
+    </Carousel>
   );
 };

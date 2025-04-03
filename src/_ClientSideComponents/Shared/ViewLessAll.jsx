@@ -5,13 +5,13 @@ import { MdOutlineChevronRight } from "react-icons/md";
 export default function ViewLessAll({ HandleAllOffer, isViewAll }) {
   return (
     <Button
-      className="flex justify-between items-center border-0  bg-transparent shadow-none  hover:shadow-none  hover:text-pale-red"
+      className="flex justify-between py-0 items-center border-0  bg-transparent shadow-none  hover:shadow-none  hover:text-pale-red"
       onClick={HandleAllOffer}
     >
       <p className="capitalize text-gray-700 text-sm font-light">
         {isViewAll ? "View Less" : "View All"}
       </p>
-      <MdOutlineChevronRight className="text-pale-red text-lg" />
+      <MdOutlineChevronRight className="text-pale-red text-xl" />
     </Button>
   );
 }
