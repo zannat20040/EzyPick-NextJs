@@ -8,7 +8,7 @@ export default function Pagination({ totalPages, currentPage, onPageChange }) {
   const buttonBgCSS =
     "hover:shadow-none  shadow-none px-3 rounded  bg-pale-red py-2 ";
   return (
-    <div className="flex justify-center  px-5 lg:px-8">
+    <div className="flex justify-center ">
       <Button
         onClick={() => onPageChange(currentPage - 1)}
         disabled={currentPage === 1}

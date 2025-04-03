@@ -26,5 +26,26 @@
     "category": "Winter Collection",
     "discount": "Get Up to 30% Off",
     "bgColor": "#1565c0"
+  },
+  {
+    "image": "/assets/Offers/Launch a New Product.webp",
+    "title": "Stock Clear Offer",
+    "category": "Stock Clear",
+    "discount": "Get Up to 50% Off",
+    "bgColor": "#d8dbe5"
+  },
+  {
+    "image": "/assets/Offers/iPhone-XS-1-1.webp",
+    "title": "Summer Sale Offer",
+    "category": "Summer Sale",
+    "discount": "Sale 20%",
+    "bgColor": "#424242"
+  },
+  {
+    "image": "/assets/Offers/Launch a New Product.webp",
+    "title": "Winter Collection Offer",
+    "category": "Winter Collection",
+    "discount": "Get Up to 30% Off",
+    "bgColor": "#1565c0"
   }
 ]
