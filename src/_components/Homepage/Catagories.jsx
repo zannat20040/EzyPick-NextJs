@@ -20,8 +20,6 @@ export default async function Categories() {
   }
 
   return (
-    <div className="container mx-auto px-5 lg:px-8">
       <CategoryList categories={categories} />
-    </div>
   );
 }

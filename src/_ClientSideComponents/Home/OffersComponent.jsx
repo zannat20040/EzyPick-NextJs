@@ -19,18 +19,23 @@ export default function OffersComponent({ offers }) {
     chunkArray(offers, 3).slice(0, 1)
   );
 
+  const [isViewAll, setIsViewAll] = useState(false);
+
+  const HandleAllOffer = () => {
+    if (isViewAll) {
+      setShowOffers(chunkArray(offers, 3).slice(0, 1)); // Show only first 3 when "View Less"
+    } else {
+      setShowOffers(chunkArray(offers, 3)); // Show all chunks when "View All"
+    }
+    setIsViewAll(!isViewAll);
+  };
+
   return (
     <div className="">
       <Headline
         label={"Get best deal on "}
         higlightedLabel={"Flash Sale"}
-        rightComponent={
-          <ViewLessAll
-            data={offers}
-            chunkArray={chunkArray}
-            setShowOffers={setShowOffers}
-          />
-        }
+        rightComponent={<ViewLessAll HandleAllFunction={HandleAllOffer} isViewAll={isViewAll}/>}
       />
 
       {/* Loop through each group of 3 offers */}

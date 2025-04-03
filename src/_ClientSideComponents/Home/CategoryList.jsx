@@ -1,15 +1,40 @@
+"use client";
+import Headline from "@/_components/shared/Headline";
+import ViewLessAll from "@/_components/shared/ViewLessAll";
 import Image from "next/image";
+import { useState } from "react";
+
 
 const CategoryList = ({ categories }) => {
+  const [showCategories, setShowCategories] = useState(categories.slice(0, 7));
+  const [isViewAll, setIsViewAll] = useState(false); // Track whether "View All" or "View Less" is active.
+
+  // Handle the toggle of categories
+  const HandleAllCatagory = () => {
+    if (isViewAll) {
+      setShowCategories(categories.slice(0, 7)); // Show only the first 7 categories.
+    } else {
+      setShowCategories(categories); // Show all categories.
+    }
+    setIsViewAll(!isViewAll); // Toggle the state for "View All" / "View Less"
+  };
+
   return (
     <div>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-7 gap-2">
-        {categories?.map((category) => (
-          <div className="flex flex-col justify-center items-center gap-2 duration-500 ease-in-out  transition-all hover:bg-soft-gray bg-gray-100   rounded-md cursor-pointer p-2">
-            <div
-              key={category.category}
-              className=" rounded h-20  w-20"
-            >
+      <Headline
+        label="Shop from"
+        higlightedLabel={"Top Categories"}
+        rightComponent={
+          <ViewLessAll
+            HandleAllFunction={HandleAllCatagory}
+            isViewAll={isViewAll}
+          />
+        }
+      />
+      <div className="container mx-auto px-5 lg:px-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-7 gap-2">
+        {showCategories?.map((category) => (
+          <div className="flex flex-col justify-center items-center gap-2 duration-500 ease-in-out  transition-all hover:bg-soft-gray bg-gray-100   cursor-pointer p-2">
+            <div key={category.category} className=" rounded h-20  w-20">
               <Image
                 width={70}
                 height={70}
