@@ -1,8 +1,8 @@
 "use client";
 import { useState } from "react";
 import Headline from "@/_components/shared/Headline";
-import OffersMainCard from "./OffersMainCard";
-import OffersSecondaryCard from "./OffersSecondaryCard";
+import OffersMainCard from "../../_components/Homepage/OffersMainCard";
+import OffersSecondaryCard from "../../_components/Homepage/OffersSecondaryCard";
 import ViewLessAll from "../../_components/shared/ViewLessAll";
 
 // Function to split array into chunks of 3

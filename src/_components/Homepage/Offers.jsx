@@ -1,4 +1,3 @@
-// app/components/Offers.js
 import OffersComponent from "@/_ClientSideComponents/Home/OffersComponent";
 import axios from "axios";
 

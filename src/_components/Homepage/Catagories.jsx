@@ -1,4 +1,3 @@
-// app/categories/page.js
 import axios from 'axios';
 import CategoryList from '@/_ClientSideComponents/Home/CategoryList';
 

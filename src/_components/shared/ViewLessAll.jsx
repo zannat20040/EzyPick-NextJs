@@ -5,7 +5,7 @@ import { MdOutlineChevronRight } from "react-icons/md";
 export default function ViewLessAll({ HandleAllFunction, isViewAll }) {
   return (
     <Button
-      className="flex justify-between py-0 items-center border-0  bg-transparent shadow-none  hover:shadow-none  hover:text-pale-red"
+      className="flex justify-between p-0 items-center border-0  bg-transparent shadow-none  hover:shadow-none  hover:text-pale-red"
       onClick={HandleAllFunction}
     >
       <p className="capitalize text-gray-700 text-sm font-light">
