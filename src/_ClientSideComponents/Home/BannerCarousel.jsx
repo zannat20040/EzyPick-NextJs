@@ -18,7 +18,7 @@ export const BannerCarousel = () => {
       autoplayDelay={3000}
       className="rounded-xl"
       navigation={({ setActiveIndex, activeIndex, length }) => (
-        <div className="absolute bottom-4 left-2/4 z-50 flex -translate-x-2/4 gap-2">
+        <div className="absolute bottom-4 left-2/4 z-[35] flex -translate-x-2/4 gap-2">
           {new Array(length).fill("").map((_, i) => (
             <span
               key={i}
@@ -38,7 +38,7 @@ export const BannerCarousel = () => {
           width={100}
           height={90}
           unoptimized={true}
-          className="h-[30rem] w-full "
+          className="h-[18rem] sm:h-[20rem] md:h-[26rem] lg:h-[30rem] w-full "
         />
       ))}
     </Carousel>

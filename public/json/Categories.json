@@ -1,7 +1,7 @@
 [
     {
       "category": "Phones",
-      "icon": "/assets/icons/phone-icon.png",
+      "icon": "https://www.pngmart.com/files/15/Apple-iPhone-11-PNG-Clipart.png",
       "subcategories": [
         "Apple",
         "Samsung",
@@ -13,7 +13,7 @@
     },
     {
       "category": "Accessories",
-      "icon": "/assets/icons/accessory-icon.png",
+      "icon": "https://toppng.com/uploads/thumbnail/buy-cell-phone-accessories-display-screens-for-lg-l30-mobile-accessories-banner-11562891706eupx3qbg3k.png",
       "subcategories": [
         "Phone Cases",
         "Chargers",
@@ -25,7 +25,7 @@
     },
     {
       "category": "Laptops",
-      "icon": "/assets/icons/laptop-icon.png",
+      "icon": "https://www.pngarts.com/files/4/Laptop-Transparent-Image.png",
       "subcategories": [
         "MacBook",
         "Windows Laptops",
@@ -36,7 +36,7 @@
     },
     {
       "category": "Tablets",
-      "icon": "/assets/icons/tablet-icon.png",
+      "icon": "https://pngimg.com/d/tablet_PNG8567.png",
       "subcategories": [
         "iPad",
         "Android Tablets",
@@ -46,7 +46,7 @@
     },
     {
       "category": "Wearables",
-      "icon": "/assets/icons/wearable-icon.png",
+      "icon": "https://www.pngmart.com/files/13/Smartwatch-PNG-Pic.png",
       "subcategories": [
         "Smartwatches",
         "Fitness Trackers",
@@ -56,7 +56,7 @@
     },
     {
       "category": "Home Appliances",
-      "icon": "/assets/icons/home-appliance-icon.png",
+      "icon": "https://wallpapers.com/images/featured/home-appliance-png-5eqz2hm4hx833zgx.jpg",
       "subcategories": [
         "Refrigerators",
         "Washing Machines",
@@ -68,7 +68,7 @@
     },
     {
       "category": "TVs & Home Entertainment",
-      "icon": "/assets/icons/tv-icon.png",
+      "icon": "https://freepngimg.com/save/52485-home-theater-system-download-free-download-png-hq/1023x635",
       "subcategories": [
         "Smart TVs",
         "LED TVs",
@@ -79,7 +79,7 @@
     },
     {
       "category": "Photography & Cameras",
-      "icon": "/assets/icons/camera-icon.png",
+      "icon": "https://static.vecteezy.com/system/resources/previews/014/527/495/non_2x/plain-black-dslr-camera-free-png.png",
       "subcategories": [
         "DSLR Cameras",
         "Mirrorless Cameras",
@@ -91,7 +91,7 @@
     },
     {
       "category": "Gaming",
-      "icon": "/assets/icons/gaming-icon.png",
+      "icon": "https://static.vecteezy.com/system/resources/previews/046/032/707/non_2x/tech-and-gadget-3d-icon-png.png",
       "subcategories": [
         "Consoles",
         "PC Gaming",
@@ -102,7 +102,7 @@
     },
     {
       "category": "Beauty & Personal Care",
-      "icon": "/assets/icons/beauty-icon.png",
+      "icon": "https://png.pngtree.com/png-clipart/20240713/original/pngtree-cosmetics-beauty-makeup-skin-care-products-png-image_15550074.png",
       "subcategories": [
         "Skincare",
         "Makeup",
@@ -114,7 +114,7 @@
     },
     {
       "category": "Fashion",
-      "icon": "/assets/icons/fashion-icon.png",
+      "icon": "https://www.pngmart.com/files/15/Young-Fashion-Girl-Holding-Shopping-Bag-PNG.png",
       "subcategories": [
         "Men's Clothing",
         "Women's Clothing",
@@ -126,7 +126,7 @@
     },
     {
       "category": "Sports & Outdoors",
-      "icon": "/assets/icons/sports-icon.png",
+      "icon": "https://static.vecteezy.com/system/resources/previews/023/591/977/non_2x/ai-generative-physicaly-education-transparent-free-png.png",
       "subcategories": [
         "Cycling",
         "Running",
@@ -138,7 +138,7 @@
     },
     {
       "category": "Health & Fitness",
-      "icon": "/assets/icons/fitness-icon.png",
+      "icon": "https://www.pngmart.com/files/21/Gym-Equipment-PNG.png",
       "subcategories": [
         "Supplements",
         "Yoga",
@@ -150,7 +150,7 @@
     },
     {
       "category": "Automotive",
-      "icon": "/assets/icons/automotive-icon.png",
+      "icon": "https://www.pngplay.com/wp-content/uploads/7/Black-Car-Transparent-Background.png",
       "subcategories": [
         "Car Parts",
         "Car Electronics",
@@ -162,7 +162,7 @@
     },
     {
       "category": "Books",
-      "icon": "/assets/icons/books-icon.png",
+      "icon": "https://static.vecteezy.com/system/resources/thumbnails/023/337/473/small_2x/ai-generative-books-stock-illustration-free-png.png",
       "subcategories": [
         "Fiction",
         "Non-Fiction",
@@ -174,7 +174,7 @@
     },
     {
       "category": "Music",
-      "icon": "/assets/icons/music-icon.png",
+      "icon": "https://png.pngtree.com/png-vector/20241229/ourmid/pngtree-a-vibrant-acoustic-guitar-surrounded-by-music-accessories-including-hats-bottles-png-image_14975965.png",
       "subcategories": [
         "Instruments",
         "Vinyl Records",

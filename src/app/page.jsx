@@ -13,7 +13,7 @@ export default function Home() {
       </div>
       {/* catagory */}
       <div>
-        <Headline label="Categories" />
+        <Headline label="Shop from" higlightedLabel={"Top Categories"}   />
         <Categories />
       </div>
     </div>
