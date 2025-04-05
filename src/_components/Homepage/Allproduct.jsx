@@ -1,6 +1,6 @@
-import AllProductList from '@/_ClientSideComponents/Home/AllProductList';
 import axios from 'axios';
 import React from 'react'
+import AllProductList from './AllProductList';
 
 async function getProducts() {
     try {
