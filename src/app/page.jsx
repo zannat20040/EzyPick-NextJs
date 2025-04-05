@@ -1,4 +1,5 @@
 import { BannerCarousel } from "@/_ClientSideComponents/Home/BannerCarousel";
+import Allproduct from "@/_components/Homepage/Allproduct";
 import Categories from "@/_components/Homepage/Catagories";
 import Offers from "@/_components/Homepage/Offers";
 import Recommentation from "@/_components/Homepage/Recommentation";
@@ -20,6 +21,15 @@ export default function Home() {
       <div>
         <Recommentation />
       </div>
+      {/* all product */}
+      <div>
+        <Allproduct />
+      </div>
+      {/* footer */}
+      <div>
+        <Allproduct />
+      </div>
+      
     </div>
   );
 }

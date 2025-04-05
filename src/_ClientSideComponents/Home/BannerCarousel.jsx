@@ -33,6 +33,7 @@ export const BannerCarousel = () => {
     >
       {carouselImages?.map((slide, index) => (
         <Image
+          key={`img-${index + 1}`}
           src={slide}
           alt={`slide${index + 1}`}
           width={100}
