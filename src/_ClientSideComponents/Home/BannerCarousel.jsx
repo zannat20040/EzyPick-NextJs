@@ -10,6 +10,7 @@ export const BannerCarousel = () => {
     "/assets/Banner/shopping-online-banner-template_23-2148578529.jpg",
   ];
   return (
+    <div className='container px-5 lg:px-8 mx-auto'>
     <Carousel
       loop={true}
       prevArrow={0}
@@ -43,5 +44,6 @@ export const BannerCarousel = () => {
         />
       ))}
     </Carousel>
+    </div>
   );
 };
