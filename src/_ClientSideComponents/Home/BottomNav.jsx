@@ -1,6 +1,7 @@
 "use client";
 import SearchBar from "@/_components/Homepage/SearchBar";
 import { Button, Collapse, IconButton, Navbar } from "@material-tailwind/react";
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React from "react";
@@ -32,7 +33,7 @@ export default function BottomNav() {
           href={"/"}
           className="mr-4 cursor-pointer py-1.5 text-lg font-bold text-pale-red"
         >
-          EzyPick
+          <Image src="/logo.png" alt="Logo" width={100} height={100} />
         </Link>
 
         {/* Desktop Navigation */}

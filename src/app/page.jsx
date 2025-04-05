@@ -3,6 +3,7 @@ import Allproduct from "@/_components/Homepage/Allproduct";
 import Categories from "@/_components/Homepage/Catagories";
 import Offers from "@/_components/Homepage/Offers";
 import Recommentation from "@/_components/Homepage/Recommentation";
+import Footer from "@/_components/shared/Footer";
 import Headline from "@/_components/shared/Headline";
 
 export default function Home() {
@@ -27,7 +28,7 @@ export default function Home() {
       </div>
       {/* footer */}
       <div>
-        <Allproduct />
+        <Footer />
       </div>
       
     </div>
