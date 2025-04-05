@@ -1,0 +1,182 @@
+[
+  {
+    "id": "P001",
+    "name": "Apple iPhone 15 Pro Max",
+    "category": "Smartphones",
+    "brand": "Apple",
+    "price": 1199.99,
+    "discount": 10,
+    "currency": "USD",
+    "stock": 25,
+    "rating": 4.8,
+    "reviews": 1200,
+    "image": "https://cellularplanet.shop/wp-content/uploads/2023/12/iphone-15-pro-finish-select-202309-6-7inch_GEO_EMEA.png",
+    "description": "Experience the ultimate performance with the Apple iPhone 15 Pro Max featuring an A17 Bionic chip and a titanium frame.",
+    "specifications": {
+      "display": "6.7-inch OLED",
+      "battery": "5000mAh",
+      "camera": "48MP + 12MP + 12MP",
+      "storage": "256GB",
+      "os": "iOS 17"
+    }
+  },
+  {
+    "id": "P002",
+    "name": "Samsung Galaxy S24 Ultra",
+    "category": "Smartphones",
+    "brand": "Samsung",
+    "price": 1299.99,
+    "discount": 15,
+    "currency": "USD",
+    "stock": 30,
+    "rating": 4.7,
+    "reviews": 980,
+    "image": "https://www.pc-tablet.co.in/wp-content/uploads/2024/03/Samsung-Galaxy-Ultra-Days.png",
+    "description": "The Samsung Galaxy S24 Ultra features a 200MP camera, Snapdragon 8 Gen 3, and S-Pen support for productivity.",
+    "specifications": {
+      "display": "6.8-inch Dynamic AMOLED",
+      "battery": "5100mAh",
+      "camera": "200MP + 12MP + 10MP",
+      "storage": "512GB",
+      "os": "Android 14"
+    }
+  },
+  {
+    "id": "P003",
+    "name": "Sony WH-1000XM5",
+    "category": "Headphones",
+    "brand": "Sony",
+    "price": 399.99,
+    "discount": 20,
+    "currency": "USD",
+    "stock": 40,
+    "rating": 5.0,
+    "reviews": 500,
+    "image": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/d5ba7d10-9111-450f-8d1b-be2b65d8c06c.__CR0,0,600,450_PT0_SX600_V1___.png",
+    "description": "Industry-leading noise cancellation and exceptional audio quality with the Sony WH-1000XM5 wireless headphones.",
+    "specifications": {
+      "battery_life": "30 hours",
+      "noise_cancellation": "Yes",
+      "connectivity": "Bluetooth 5.2",
+      "weight": "250g"
+    }
+  },
+  {
+    "id": "P004",
+    "name": "Dell XPS 15",
+    "category": "Laptops",
+    "brand": "Dell",
+    "price": 1799.99,
+    "discount": 12,
+    "currency": "USD",
+    "stock": 15,
+    "rating": 3.6,
+    "reviews": 800,
+    "image": "https://i.dell.com/is/image/DellContent/content/dam/ss2/product-images/dell-client-products/notebooks/xps-notebooks/xps-15-7590/global-spi/ng/touch/notebook-xps-15-7590-t-relsize-500-ng.psd?qlt=95&fit=constrain,1&hei=210&wid=500&fmt=png-alpha",
+    "description": "The Dell XPS 15 features a stunning 4K OLED display, Intel Core i9 processor, and powerful RTX 4060 graphics.",
+    "specifications": {
+      "display": "15.6-inch 4K OLED",
+      "processor": "Intel Core i9-13900H",
+      "ram": "32GB DDR5",
+      "storage": "1TB SSD",
+      "graphics": "NVIDIA RTX 4060",
+      "os": "Windows 11"
+    }
+  },
+  {
+    "id": "P005",
+    "name": "Nike Air Zoom Pegasus 39",
+    "category": "Shoes",
+    "brand": "Nike",
+    "price": 139.99,
+    "discount": 18,
+    "currency": "USD",
+    "stock": 60,
+    "rating": 4.7,
+    "reviews": 1500,
+    "image": "https://media.self.com/photos/62fc08c11c14745b2aaa697c/2:1/w_1280,c_limit/Review-Nike-Air-Zoom-Pegasus-39-promo.png?mbid=social_retweet",
+    "description": "Experience comfort and performance with the Nike Air Zoom Pegasus 39, perfect for running and training.",
+    "specifications": {
+      "material": "Mesh Upper, Rubber Sole",
+      "weight": "290g",
+      "sizes": ["7", "8", "9", "10", "11", "12"],
+      "color": ["Black", "White", "Blue", "Red"]
+    }
+  },
+  {
+    "id": "P006",
+    "name": "Dyson V15 Detect Cordless Vacuum",
+    "category": "Home Appliances",
+    "brand": "Dyson",
+    "price": 749.99,
+    "discount": 10,
+    "currency": "USD",
+    "stock": 20,
+    "rating": 4.0,
+    "reviews": 1200,
+    "image": "https://atlas-content-cdn.pixelsquid.com/assets_v2/277/2772164989065107367/jpeg-600/G03.jpg",
+    "description": "The Dyson V15 Detect features laser dust detection, powerful suction, and intelligent cleaning modes.",
+    "specifications": {
+      "suction_power": "230AW",
+      "battery_life": "60 minutes",
+      "weight": "6.8 lbs"
+    }
+  },
+  {
+    "id": "P007",
+    "name": "Garmin Fenix 7X Solar Smartwatch",
+    "category": "Fitness & Wearables",
+    "brand": "Garmin",
+    "price": 899.99,
+    "discount": 15,
+    "currency": "USD",
+    "stock": 35,
+    "rating": 2.1,
+    "reviews": 890,
+    "image": "https://polywatch.com.my/cdn/shop/products/fenix7X-SapphireSolar_HR_carbon_40382547-b941-4984-a7fa-453b975178a9.png?v=1644850462&width=480",
+    "description": "Advanced multisport GPS smartwatch with solar charging, health tracking, and premium design.",
+    "specifications": {
+      "battery_life": "37 days",
+      "water_resistance": "10 ATM",
+      "gps": "Yes",
+      "heart_rate_monitor": "Yes"
+    }
+  },
+  {
+    "id": "P008",
+    "name": "Chanel Coco Mademoiselle Eau de Parfum",
+    "category": "Beauty & Fragrance",
+    "brand": "Chanel",
+    "price": 145.0,
+    "discount": 5,
+    "currency": "USD",
+    "stock": 50,
+    "rating": 4.8,
+    "reviews": 2000,
+    "image": "https://www.perfumehousebd.com/wp-content/uploads/2021/12/39-1.png",
+    "description": "A luxurious and timeless fragrance for women with notes of citrus, jasmine, and vanilla.",
+    "specifications": {
+      "volume": "100ml",
+      "scent_family": "Floral & Woody"
+    }
+  },
+  {
+    "id": "P009",
+    "name": "Ray-Ban Aviator Classic Sunglasses",
+    "category": "Accessories",
+    "brand": "Ray-Ban",
+    "price": 159.99,
+    "discount": 12,
+    "currency": "USD",
+    "stock": 100,
+    "rating": 4.6,
+    "reviews": 1700,
+    "image": "https://assets2.clearly.co.nz/cdn-record-files-pi/5671c48a-8b74-490e-bdf3-a35900054e90/bc7b86ad-5fe9-4629-b44d-ad1b00799058/0RB3025__W0879__STD__shad__qt.png",
+    "description": "Iconic aviator sunglasses with polarized lenses for a stylish and protective look.",
+    "specifications": {
+      "frame_material": "Metal",
+      "lens_type": "Polarized",
+      "uv_protection": "100%"
+    }
+  }
+]

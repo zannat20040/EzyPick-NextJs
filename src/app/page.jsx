@@ -1,6 +1,7 @@
 import { BannerCarousel } from "@/_ClientSideComponents/Home/BannerCarousel";
 import Categories from "@/_components/Homepage/Catagories";
 import Offers from "@/_components/Homepage/Offers";
+import Recommentation from "@/_components/Homepage/Recommentation";
 import Headline from "@/_components/shared/Headline";
 
 export default function Home() {
@@ -14,6 +15,10 @@ export default function Home() {
       {/* catagory */}
       <div>
         <Categories />
+      </div>
+      {/* top recommendation */}
+      <div>
+        <Recommentation />
       </div>
     </div>
   );

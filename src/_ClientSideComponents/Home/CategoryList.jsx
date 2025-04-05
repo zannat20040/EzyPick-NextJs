@@ -7,16 +7,15 @@ import { useState } from "react";
 
 const CategoryList = ({ categories }) => {
   const [showCategories, setShowCategories] = useState(categories.slice(0, 7));
-  const [isViewAll, setIsViewAll] = useState(false); // Track whether "View All" or "View Less" is active.
+  const [isViewAll, setIsViewAll] = useState(false); 
 
-  // Handle the toggle of categories
   const HandleAllCatagory = () => {
     if (isViewAll) {
-      setShowCategories(categories.slice(0, 7)); // Show only the first 7 categories.
+      setShowCategories(categories.slice(0, 7)); 
     } else {
-      setShowCategories(categories); // Show all categories.
+      setShowCategories(categories); 
     }
-    setIsViewAll(!isViewAll); // Toggle the state for "View All" / "View Less"
+    setIsViewAll(!isViewAll); 
   };
 
   return (
