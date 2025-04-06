@@ -18,7 +18,8 @@
       "camera": "48MP + 12MP + 12MP",
       "storage": "256GB",
       "os": "iOS 17"
-    }
+    },
+    "postBy": "John"
   },
   {
     "id": "P002",
@@ -39,7 +40,8 @@
       "camera": "200MP + 12MP + 10MP",
       "storage": "512GB",
       "os": "Android 14"
-    }
+    },
+    "postBy": "Anna"
   },
   {
     "id": "P003",
@@ -59,7 +61,8 @@
       "noise_cancellation": "Yes",
       "connectivity": "Bluetooth 5.2",
       "weight": "250g"
-    }
+    },
+    "postBy": "Lisa"
   },
   {
     "id": "P004",
@@ -81,7 +84,8 @@
       "storage": "1TB SSD",
       "graphics": "NVIDIA RTX 4060",
       "os": "Windows 11"
-    }
+    },
+    "postBy": "David"
   },
   {
     "id": "P005",
@@ -101,7 +105,8 @@
       "weight": "290g",
       "sizes": ["7", "8", "9", "10", "11", "12"],
       "color": ["Black", "White", "Blue", "Red"]
-    }
+    },
+    "postBy": "Sophia"
   },
   {
     "id": "P006",
@@ -120,7 +125,8 @@
       "suction_power": "230AW",
       "battery_life": "60 minutes",
       "weight": "6.8 lbs"
-    }
+    },
+    "postBy": "Michael"
   },
   {
     "id": "P007",
@@ -140,7 +146,8 @@
       "water_resistance": "10 ATM",
       "gps": "Yes",
       "heart_rate_monitor": "Yes"
-    }
+    },
+    "postBy": "James"
   },
   {
     "id": "P008",
@@ -158,7 +165,8 @@
     "specifications": {
       "volume": "100ml",
       "scent_family": "Floral & Woody"
-    }
+    },
+    "postBy": "Emily"
   },
   {
     "id": "P009",
@@ -177,6 +185,7 @@
       "frame_material": "Metal",
       "lens_type": "Polarized",
       "uv_protection": "100%"
-    }
+    },
+    "postBy": "Daniel"
   }
 ]
