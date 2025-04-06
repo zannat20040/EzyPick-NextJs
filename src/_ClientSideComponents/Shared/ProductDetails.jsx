@@ -1,9 +1,9 @@
 "use client";
 import useFetchProduct from "@/hooks/useFetchProduct";
 import Image from "next/image";
-import CustomRating from "../../_components/shared/ustomRating";
 import { FaMinus, FaPlus } from "react-icons/fa6";
 import { useState } from "react";
+import CustomRating from "@/_components/shared/ustomRating";
 
 export default function ProductDetails({ id }) {
   const { product, loading, error } = useFetchProduct(id);
@@ -17,9 +17,46 @@ export default function ProductDetails({ id }) {
       setQuantity(quantity - 1);
     }
   };
+
+  function transformSpecifications(specs) {
+    let transformed = [];
+    for (let key in specs) {
+      if (Array.isArray(specs[key])) {
+        transformed.push(
+          <div key={key} className="flex flex-col gap-1 mt-2">
+            <div>
+              <span className="font-bold">
+                {key.charAt(0).toUpperCase() + key.slice(1)} :
+              </span>{" "}
+              <span>{specs[key][0]}</span>
+            </div>
+            <div className="flex gap-1">
+              {specs[key].map((spec, index) => (
+                <button
+                  className="btn  border border-soft-gray bg-white hover:bg-gray-100"
+                  key={index}
+                >
+                  {spec}
+                </button>
+              ))}
+            </div>
+          </div>
+        );
+      } else {
+        transformed.push(
+          <div key={key}>
+            <strong>{key.charAt(0).toUpperCase() + key.slice(1)} :</strong>{" "}
+            {specs[key]}
+          </div>
+        );
+      }
+    }
+    return transformed;
+  }
+
   return (
-    <div className=" px-4 container mx-auto py-10">
-      <div className="card rounded grid grid-cols-1 md:grid-cols-2 gap-5  justify-between items-center bg-base-100 ">
+    <div className="px-4 container mx-auto py-10">
+      <div className="card rounded grid grid-cols-1 md:grid-cols-2 gap-5 justify-between items-center bg-base-100 ">
         <figure className="rounded">
           <Image
             width={100}
@@ -29,15 +66,24 @@ export default function ProductDetails({ id }) {
             className="rounded w-full h-full"
           />
         </figure>
-        <div className="p-0 md:card-body rounded">
-          <span>{product?.name}</span>
+        <div className=" flex flex-col gap-0 rounded p-5 ">
+          <span className="text-gray-500 text-sm">{product?.postBy}</span>
           <h2 className="card-title text-2xl">{product?.name}</h2>
-          <CustomRating rating={product?.rating} />
+          <div className="flex items-center gap-3">
+            <CustomRating rating={product?.rating} />
+            <span className="text-sm text-gray-500">
+              {product?.rating}{" "}
+              <span>(Based on {product?.reviews} reviews)</span>
+            </span>
+          </div>
 
-          <p className="my-5 text-3xl font-bold">${product?.price}</p>
+          <p className="mt-2 text-3xl font-bold">${product?.price}</p>
+
+          <div className="mt-3">{transformSpecifications(product?.specifications)}</div>
+
           <p className="text-gray">{product?.description}</p>
 
-          <div className="mt-5 flex  gap-2 rounded">
+          <div className="mt-5 flex gap-2 rounded">
             <div className="flex rounded items-center bg-neutral-100 ">
               <button
                 onClick={HandleAdd}
