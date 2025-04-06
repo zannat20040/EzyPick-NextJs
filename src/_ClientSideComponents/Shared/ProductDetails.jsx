@@ -5,9 +5,11 @@ import { FaMinus, FaPlus } from "react-icons/fa6";
 import { useState } from "react";
 import CustomRating from "@/_components/shared/ustomRating";
 import TransformSpecifications from "../ProductDetails/TransformSpecifications";
+import { ProductDetailsTab } from "../ProductDetails/ProductDetailsTab";
 
 export default function ProductDetails({ id }) {
   const { product, loading, error } = useFetchProduct(id);
+  const [productImg, setProductImg] = useState(product?.image);
   console.log(product);
   const [quantity, setQuantity] = useState(1);
   const HandleAdd = () => {
@@ -20,31 +22,34 @@ export default function ProductDetails({ id }) {
   };
 
   return (
-    <div className="px-4 container mx-auto py-10">
+    <div className="px-5 lg:px-8 container mx-auto py-10">
       <div className="card rounded grid grid-cols-1 md:grid-cols-2 gap-5 justify-between items-center bg-base-100 ">
         {/* left */}
         <div>
-          <figure className="rounded">
+          <figure className="rounded bg-gray-100 p-5 ">
             <Image
               width={100}
               height={100}
-              src={product?.image}
+              src={productImg}
               alt={product?.name}
-              className="rounded w-full h-full"
+              className="rounded w-full h-full "
             />
           </figure>
           <div className="flex gap-2 items-center mt-2">
-          {product?.imageGallery.map((img, index) => (
-            <div className="h-16 w-16 rounded border border-pale-red">
-              <Image
-                width={100}
-                height={100}
-                src={img}
-                alt={`imgGallery${index + 1}`}
-                className="rounded w-full h-full text-xs"
-              />
-            </div>
-          ))}
+            {product?.imageGallery.map((img, index) => (
+              <div
+                className="h-16 w-16 rounded   p-3 bg-gray-100  cursor-pointer"
+                onClick={() => setProductImg(img)}
+              >
+                <Image
+                  width={100}
+                  height={100}
+                  src={img}
+                  alt={`imgGallery${index + 1}`}
+                  className="rounded w-full h-full text-xs"
+                />
+              </div>
+            ))}
           </div>
         </div>
 
@@ -98,6 +103,31 @@ export default function ProductDetails({ id }) {
               Add to cart
             </button>
           </div>
+        </div>
+      </div>
+
+      {/* details */}
+      {/* <ProductDetailsTab details={product?.details} /> */}
+
+      <div class="tabs tabs-lift mt-10">
+        <input
+          type="radio"
+          name="my_tabs_3"
+          class="tab checked:text-pale-red "
+          aria-label="Details"
+        />
+        <div class="tab-content bg-base-100 border-base-300 p-6  border-t border-0">
+          {product?.description}
+        </div>
+
+        <input
+          type="radio"
+          name="my_tabs_3"
+          class="tab checked:text-pale-red "
+          aria-label="Review"
+        />
+        <div class="tab-content bg-base-100 border-base-300 p-6 border-t border-0">
+          Tab content 2
         </div>
       </div>
     </div>

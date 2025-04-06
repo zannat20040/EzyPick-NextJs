@@ -72,7 +72,7 @@ const nextConfig = {
       },
       {
         protocol: "https",
-        hostname: "static.nike.com",
+        hostname: "m.media-amazon.com",
       },
       {
         protocol: "https",
@@ -83,7 +83,7 @@ const nextConfig = {
         hostname: "www.notebookcheck.net",
       }, {
         protocol: "https",
-        hostname: "i.ebayimg.com",
+        hostname: "encrypted-tbn0.gstatic.com",
       },{
         protocol: "https",
         hostname: "cdn.runrepeat.com",
