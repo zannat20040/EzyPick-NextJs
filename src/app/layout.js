@@ -4,6 +4,7 @@ import EzyPickNavbar from "@/_components/shared/EzyPickNavbar";
 import { Toaster } from "react-hot-toast";
 import ThemeProviderWrapper from "../_ClientSideComponents/ThemeProviderWrapper";
 import { AuthProvider } from "@/Context/AuthContext";
+import Footer from "@/_components/shared/Footer";
 
 const dmSans = DM_Sans({
   variable: "--font-dm-sans", // Custom variable for Tailwind
@@ -25,6 +26,7 @@ export default function RootLayout({ children }) {
             <Toaster />
             <EzyPickNavbar />
             {children}
+            <Footer />
           </AuthProvider>
         </ThemeProviderWrapper>
       </body>

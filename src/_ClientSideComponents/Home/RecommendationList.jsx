@@ -2,22 +2,19 @@
 import Headline from "@/_components/shared/Headline";
 import ProductCard from "@/_components/shared/ProductCard";
 import ViewLessAll from "@/_components/shared/ViewLessAll";
-import  {useState} from "react";
+import { useState } from "react";
 
-export default function RecommendationList({ recommendations }) {
-  const [showRecommendation, setShowRecommendation] = useState(
-    recommendations.slice(0, 12)
-  );
+export default function RecommendationList({ recommendations = [] }) {
   const [isViewAll, setIsViewAll] = useState(false);
 
+  const showRecommendation = isViewAll
+    ? recommendations
+    : recommendations.slice(0, 12);
+
   const HandleAllRecommendation = () => {
-    if (isViewAll) {
-      setShowRecommendation(recommendations.slice(0, 12));
-    } else {
-      setShowRecommendation(recommendations);
-    }
-    setIsViewAll(!isViewAll);
+    setIsViewAll((prev) => !prev);
   };
+
   return (
     <div className=" ">
       <Headline

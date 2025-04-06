@@ -26,10 +26,6 @@ export default function Home() {
       <div>
         <Allproduct />
       </div>
-      {/* footer */}
-      <div>
-        <Footer />
-      </div>
       
     </div>
   );

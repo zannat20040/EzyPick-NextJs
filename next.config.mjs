@@ -81,12 +81,26 @@ const nextConfig = {
       {
         protocol: "https",
         hostname: "www.notebookcheck.net",
-      }, {
+      },
+      {
         protocol: "https",
         hostname: "encrypted-tbn0.gstatic.com",
-      },{
+      },
+      {
         protocol: "https",
         hostname: "cdn.runrepeat.com",
+      },
+      {
+        protocol: "https",
+        hostname: "fdn2.gsmarena.com",
+      },
+      {
+        protocol: "https",
+        hostname: "store.storeimages.cdn-apple.com",
+      },
+      {
+        protocol: "https",
+        hostname: "images.macrumors.com",
       },
     ],
   },

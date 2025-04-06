@@ -9,12 +9,6 @@ export default function AllProductList({ allProducts }) {
       <Headline
         label="Pick for you"
         higlightedLabel="Exclusive Deals"
-        // rightComponent={
-        //   <ViewLessAll
-        //     HandleAllFunction={HandleAllProducts}
-        //     isViewAll={isViewAll}
-        //   />
-        // }
       />
       <div className="container mx-auto px-5 lg:px-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-2">
         {allProducts.map((product) => (

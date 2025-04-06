@@ -4,7 +4,7 @@ import { Breadcrumbs } from "@material-tailwind/react";
 export function BreadCrumbsComp() {
   const crumbList = ["Components", "Breadcrumbs"];
   return (
-    <div className="container px-5 lg:px-8 mx-auto">
+    <div className="container px-5 lg:px-8 mx-auto mt-5">
       <Breadcrumbs>
         <a href="#" className="opacity-60 text-pale-red">
           <svg
@@ -17,7 +17,7 @@ export function BreadCrumbsComp() {
           </svg>
         </a>
         {crumbList.map((crumb, index) => (
-          <a
+          <a key={crumb}
             href="#"
             className={` hover:text-pale-red ${
               index === crumbList.length - 1 ? "opacity-100" : "opacity-60"

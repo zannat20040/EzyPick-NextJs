@@ -1,6 +1,6 @@
-'use client'
-import { useState, useEffect } from 'react';
-import axios from 'axios';
+"use client";
+import { useState, useEffect } from "react";
+import axios from "axios";
 
 const useFetchProduct = (id) => {
   const [product, setProduct] = useState(null);
@@ -15,11 +15,10 @@ const useFetchProduct = (id) => {
           `${process.env.NEXT_PUBLIC_BASE_URL}/json/Recommendation.json`
         );
         const data = response.data;
-        console.log(data)
         const foundProduct = data.find((item) => item.id === id);
         setProduct(foundProduct);
       } catch (err) {
-        setError(err.message || 'Failed to fetch product');
+        setError(err.message || "Failed to fetch product");
       } finally {
         setLoading(false);
       }
@@ -30,7 +29,7 @@ const useFetchProduct = (id) => {
     }
   }, [id]);
 
-  return { product, loading, error };
+  return { product, loading, error, setLoading, setError };
 };
 
 export default useFetchProduct;
