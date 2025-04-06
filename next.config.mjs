@@ -65,9 +65,28 @@ const nextConfig = {
       {
         protocol: "https",
         hostname: "wallpapers.com",
-      },   {
+      },
+      {
         protocol: "https",
         hostname: "media.self.com",
+      },
+      {
+        protocol: "https",
+        hostname: "static.nike.com",
+      },
+      {
+        protocol: "https",
+        hostname: "images.samsung.com",
+      },
+      {
+        protocol: "https",
+        hostname: "www.notebookcheck.net",
+      }, {
+        protocol: "https",
+        hostname: "i.ebayimg.com",
+      },{
+        protocol: "https",
+        hostname: "cdn.runrepeat.com",
       },
     ],
   },

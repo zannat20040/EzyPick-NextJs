@@ -19,6 +19,11 @@
       "storage": "256GB",
       "os": "iOS 17"
     },
+    "imageGallery": [
+      "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-15-pro-model-unselect-gallery-1-202309?wid=5120&hei=2880&fmt=jpeg&qlt=80&.v=1693346846701",
+      "https://images.macrumors.com/t/2T69mFiA7fq5yPNU8iMF13AiLf4=/1600x/article-new/2023/09/iPhone-15-Pro-Lineup-Feature.jpg",
+      "https://fdn2.gsmarena.com/vv/pics/apple/apple-iphone-15-pro-max-1.jpg"
+    ],
     "postBy": "John"
   },
   {
@@ -41,6 +46,11 @@
       "storage": "512GB",
       "os": "Android 14"
     },
+    "imageGallery": [
+      "https://images.samsung.com/is/image/samsung/p6pim/in/sm-s928bzkcins/gallery/in-galaxy-s24-ultra-sm-s928-481987-sm-s928bzkcins-539717641",
+      "https://www.notebookcheck.net/fileadmin/Notebooks/News/_nc3/s24ultra.jpg",
+      "https://fdn2.gsmarena.com/vv/pics/samsung/samsung-galaxy-s24-ultra-1.jpg"
+    ],
     "postBy": "Anna"
   },
   {
@@ -106,6 +116,11 @@
       "weight": "290g",
       "sizes": ["7", "8", "9", "10", "11", "12"]
     },
+    "imageGallery": [
+      "https://static.nike.com/a/images/t_prod_ss/w_640,c_limit,f_auto/d9e1f3fd-7484-4d68-9708-cc80b3ab79e2/nike-air-zoom-pegasus-39.png",
+      "https://i.ebayimg.com/images/g/jpAAAOSw0yFiUDGh/s-l1600.jpg",
+      "https://cdn.runrepeat.com/i/nike/40932/nike-air-zoom-pegasus-39-black-white-racer-blue-pure-platinum-mens-running-shoes.jpeg"
+    ],
     "postBy": "Sophia"
   },
   {

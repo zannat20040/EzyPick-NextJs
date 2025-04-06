@@ -7,7 +7,7 @@ import Link from "next/link";
 
 export default function ProductCard({ product }) {
   return (
-      <Link
+      <Link key={product.id}
         href={`/product/${product.name}/pid-${product.id}`}
         className=" bg-base-100 shadow relative rounded group hover:bg-gray-200 duration-300 transition-all ease-in-out flex flex-col h-full w-full"
       >
