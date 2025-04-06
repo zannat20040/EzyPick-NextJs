@@ -102,9 +102,9 @@
     "description": "Experience comfort and performance with the Nike Air Zoom Pegasus 39, perfect for running and training.",
     "specifications": {
       "material": "Mesh Upper, Rubber Sole",
+      "color": ["Black", "White", "Blue", "Red"],
       "weight": "290g",
-      "sizes": ["7", "8", "9", "10", "11", "12"],
-      "color": ["Black", "White", "Blue", "Red"]
+      "sizes": ["7", "8", "9", "10", "11", "12"]
     },
     "postBy": "Sophia"
   },

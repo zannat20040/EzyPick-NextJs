@@ -4,6 +4,7 @@ import Image from "next/image";
 import { FaMinus, FaPlus } from "react-icons/fa6";
 import { useState } from "react";
 import CustomRating from "@/_components/shared/ustomRating";
+import TransformSpecifications from "../ProductDetails/TransformSpecifications";
 
 export default function ProductDetails({ id }) {
   const { product, loading, error } = useFetchProduct(id);
@@ -17,42 +18,6 @@ export default function ProductDetails({ id }) {
       setQuantity(quantity - 1);
     }
   };
-
-  function transformSpecifications(specs) {
-    let transformed = [];
-    for (let key in specs) {
-      if (Array.isArray(specs[key])) {
-        transformed.push(
-          <div key={key} className="flex flex-col gap-1 mt-2">
-            <div>
-              <span className="font-bold">
-                {key.charAt(0).toUpperCase() + key.slice(1)} :
-              </span>{" "}
-              <span>{specs[key][0]}</span>
-            </div>
-            <div className="flex gap-1">
-              {specs[key].map((spec, index) => (
-                <button
-                  className="btn  border border-soft-gray bg-white hover:bg-gray-100"
-                  key={index}
-                >
-                  {spec}
-                </button>
-              ))}
-            </div>
-          </div>
-        );
-      } else {
-        transformed.push(
-          <div key={key}>
-            <strong>{key.charAt(0).toUpperCase() + key.slice(1)} :</strong>{" "}
-            {specs[key]}
-          </div>
-        );
-      }
-    }
-    return transformed;
-  }
 
   return (
     <div className="px-4 container mx-auto py-10">
@@ -68,8 +33,8 @@ export default function ProductDetails({ id }) {
         </figure>
         <div className=" flex flex-col gap-0 rounded p-5 ">
           <span className="text-gray-500 text-sm">{product?.postBy}</span>
-          <h2 className="card-title text-2xl">{product?.name}</h2>
-          <div className="flex items-center gap-3">
+          <h2 className="card-title text-2xl mb-2">{product?.name}</h2>
+          <div className="flex items-center gap-3 mb-2">
             <CustomRating rating={product?.rating} />
             <span className="text-sm text-gray-500">
               {product?.rating}{" "}
@@ -77,11 +42,19 @@ export default function ProductDetails({ id }) {
             </span>
           </div>
 
-          <p className="mt-2 text-3xl font-bold">${product?.price}</p>
+          <p className="mt-2 text-2xl  text-pale-red">${product?.price}</p>
 
-          <div className="mt-3">{transformSpecifications(product?.specifications)}</div>
+          <TransformSpecifications specs={product?.specifications} />
+          {/* <div className="mt-3 flex flex-wrap gap-2 items-center">
+            {transformSpecifications(product?.specifications)}
+          </div> */}
 
-          <p className="text-gray">{product?.description}</p>
+          <p className="font-bold text-sm my-5">
+            Last {product?.stock} left -{" "}
+            <span className="font-normal">make it yours</span>
+          </p>
+
+          <p className="text-gray ">{product?.description}</p>
 
           <div className="mt-5 flex gap-2 rounded">
             <div className="flex rounded items-center bg-neutral-100 ">
