@@ -26,7 +26,7 @@ export default function ProductDetails({ id }) {
       <div className="card rounded grid grid-cols-1 md:grid-cols-2 gap-5 justify-between items-center bg-base-100 ">
         {/* left */}
         <div>
-          <figure className="rounded bg-gray-100 p-5 ">
+          <figure className="rounded bg-white p-5 border border-gray-200 ">
             <Image
               width={100}
               height={100}
@@ -38,7 +38,7 @@ export default function ProductDetails({ id }) {
           <div className="flex gap-2 items-center mt-2">
             {product?.imageGallery.map((img, index) => (
               <div
-                className="h-16 w-16 rounded   p-3 bg-gray-100  cursor-pointer"
+                className="h-16 w-16 rounded   p-2 bg-white border border-gray-200 cursor-pointer"
                 onClick={() => setProductImg(img)}
               >
                 <Image
@@ -106,30 +106,8 @@ export default function ProductDetails({ id }) {
         </div>
       </div>
 
-      {/* details */}
-      {/* <ProductDetailsTab details={product?.details} /> */}
-
-      <div class="tabs tabs-lift mt-10">
-        <input
-          type="radio"
-          name="my_tabs_3"
-          class="tab checked:text-pale-red "
-          aria-label="Details"
-        />
-        <div class="tab-content bg-base-100 border-base-300 p-6  border-t border-0">
-          {product?.description}
-        </div>
-
-        <input
-          type="radio"
-          name="my_tabs_3"
-          class="tab checked:text-pale-red "
-          aria-label="Review"
-        />
-        <div class="tab-content bg-base-100 border-base-300 p-6 border-t border-0">
-          Tab content 2
-        </div>
-      </div>
+      {/* tab */}
+      <ProductDetailsTab details={product?.description} />
     </div>
   );
 }

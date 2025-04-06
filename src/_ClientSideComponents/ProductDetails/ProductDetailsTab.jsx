@@ -7,50 +7,29 @@ import {
   TabPanel,
 } from "@material-tailwind/react";
 
-export function ProductDetailsTab({ details }) {
-  const [activeTab, setActiveTab] = React.useState("details");
-  const data = [
-    {
-      label: "Details",
-      value: "details",
-      desc: `It really matters and then like it really doesn't matter.
-      What matters is the people who are sparked by it. And the people 
-      who are like offended by it, it doesn't matter.`,
-    },
-    {
-      label: "Review",
-      value: "review",
-      desc: `Because it's about motivating the doers. Because I'm here
-      to follow my dreams and inspire other people to follow their dreams, too.`,
-    }
-  ];
+export function ProductDetailsTab({ details, review }) {
   return (
-    <Tabs value={activeTab} className='mt-16'>
-      <TabsHeader
-        className=" rounded-none  border-b  bg-transparent p-0 "
-        indicatorProps={{
-          className:
-            "bg-transparent border-b-2 border-pale-red  shadow-none rounded-none ",
-        }}
-      >
-        {data.map(({ label, value }) => (
-          <Tab
-            key={value}
-            value={value}
-            onClick={() => setActiveTab(value)}
-            className={`${activeTab === value ? "text-pale-red" : ""} `}
-          >
-            {label}
-          </Tab>
-        ))}
-      </TabsHeader>
-      <TabsBody>
-        {data.map(({ value, desc }) => (
-          <TabPanel key={value} value={value}>
-            {desc}
-          </TabPanel>
-        ))}
-      </TabsBody>
-    </Tabs>
+    <div class="tabs tabs-lift mt-10">
+      <input
+        type="radio"
+        name="my_tabs_3"
+        class="tab checked:text-pale-red "
+        aria-label="Details"
+        defaultChecked
+      />
+      <div class="tab-content bg-base-100 border-base-300 p-6  border-t border-0">
+        {details}
+      </div>
+
+      <input
+        type="radio"
+        name="my_tabs_3"
+        class="tab checked:text-pale-red "
+        aria-label="Review"
+      />
+      <div class="tab-content bg-base-100 border-base-300 p-6 border-t border-0">
+        Tab content 2
+      </div>
+    </div>
   );
 }
