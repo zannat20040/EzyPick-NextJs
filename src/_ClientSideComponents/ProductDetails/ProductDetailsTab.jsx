@@ -1,34 +1,28 @@
+import ProductReview from "@/_components/ProductDetails/ProductReview";
 import React from "react";
-import {
-  Tabs,
-  TabsHeader,
-  TabsBody,
-  Tab,
-  TabPanel,
-} from "@material-tailwind/react";
 
-export function ProductDetailsTab({ details, review }) {
+export function ProductDetailsTab({ details, productId }) {
   return (
-    <div class="tabs tabs-lift mt-10">
+    <div className="tabs tabs-lift mt-10">
       <input
         type="radio"
         name="my_tabs_3"
-        class="tab checked:text-pale-red "
-        aria-label="Details"
+        className="tab checked:text-pale-red "
+        aria-label="Product Details"
         defaultChecked
       />
-      <div class="tab-content bg-base-100 border-base-300 p-6  border-t border-0">
+      <div className="tab-content bg-base-100 border-base-300 p-6  border-t border-0">
         {details}
       </div>
 
       <input
         type="radio"
         name="my_tabs_3"
-        class="tab checked:text-pale-red "
-        aria-label="Review"
+        className="tab checked:text-pale-red "
+        aria-label="Product Review"
       />
-      <div class="tab-content bg-base-100 border-base-300 p-6 border-t border-0">
-        Tab content 2
+      <div className="tab-content bg-base-100 border-base-300 p-6 border-t border-0">
+        <ProductReview productId={productId} />
       </div>
     </div>
   );

@@ -62,7 +62,7 @@ export default function ProductDetails({ id }) {
               />
             </figure>
             <div className="flex gap-2 items-center mt-2">
-              {product?.imageGallery.map((img, index) => (
+              {product?.imageGallery?.map((img, index) => (
                 <div
                   className="h-16 w-16 rounded   p-2 bg-white border border-gray-200 cursor-pointer"
                   onClick={() => setProductImg(img)}
@@ -133,7 +133,7 @@ export default function ProductDetails({ id }) {
         </div>
 
         {/* tab */}
-        <ProductDetailsTab details={product?.description} />
+        <ProductDetailsTab details={product?.description} productId={product?.id}/>
       </div>
       {/* related work*/}
       <RecommendationList recommendations={relatedProducts} />

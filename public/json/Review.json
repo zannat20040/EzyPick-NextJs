@@ -1,0 +1,128 @@
+[
+  {
+    "product_id": "P001",
+    "review_id": "r1",
+    "user_id": "67890",
+    "username": "john_doe",
+    "rating": 4.5,
+    "review_text": "Great product! It's exactly what I was looking for. The quality is amazing, and it works as expected. Would definitely recommend it to others.",
+    "review_date": "2025-04-16T10:30:00Z",
+    "helpful_count": 20,
+    "not_helpful_count": 2,
+    "verified_purchase": true,
+    "review_title": "Fantastic Quality and Performance",
+    "likes": 50,
+    "dislikes": 2,
+    "responses": [
+      {
+        "response_id": "r1c1",
+        "user_id": "11223",
+        "username": "seller_jane",
+        "response_text": "Thank you for your kind words, John! We're glad to hear that you’re satisfied with the product.",
+        "response_date": "2025-04-16T12:00:00Z",
+        "response_type": "seller"
+      },
+      {
+        "response_id": "r1c2",
+        "user_id": "33445",
+        "username": "alice_walker",
+        "response_text": "I agree with this review. The quality is outstanding!",
+        "response_date": "2025-04-16T14:00:00Z",
+        "response_type": "customer"
+      }
+    ]
+  },
+  {
+    "product_id": "P003",
+    "review_id": "r2",
+    "user_id": "11223",
+    "username": "jane_smith",
+    "rating": 3.0,
+    "review_text": "The product is decent but had some issues with the setup. Took a bit longer than expected, but it works fine now. Not bad for the price.",
+    "review_date": "2025-04-15T14:00:00Z",
+    "helpful_count": 12,
+    "not_helpful_count": 5,
+    "verified_purchase": false,
+    "review_title": "Good but Difficult Setup",
+    "likes": 20,
+    "dislikes": 3,
+    "responses": [
+      {
+        "response_id": "r2c1",
+        "user_id": "55667",
+        "username": "mark_taylor",
+        "response_text": "I had the same issue with the setup, but once it was done, everything worked fine.",
+        "response_date": "2025-04-15T16:00:00Z",
+        "response_type": "customer"
+      },
+      {
+        "response_id": "r2c2",
+        "user_id": "99887",
+        "username": "susan_lee",
+        "response_text": "We're sorry to hear about the setup issues, Jane. Our team is always here to assist you with troubleshooting.",
+        "response_date": "2025-04-16T09:00:00Z",
+        "response_type": "seller"
+      }
+    ]
+  },
+  {
+    "product_id": "P004",
+    "review_id": "r3",
+    "user_id": "33445",
+    "username": "alice_walker",
+    "rating": 5.0,
+    "review_text": "Absolutely love this product! It's a game-changer for my daily routine. Super easy to use, and the design is sleek. Worth every penny.",
+    "review_date": "2025-04-14T09:15:00Z",
+    "helpful_count": 45,
+    "not_helpful_count": 0,
+    "verified_purchase": true,
+    "review_title": "Best Purchase I've Made",
+    "likes": 100,
+    "dislikes": 0,
+    "responses": []
+  },
+  {
+    "product_id": "P005",
+    "review_id": "r4",
+    "user_id": "55667",
+    "username": "mark_taylor",
+    "rating": 2.0,
+    "review_text": "Not satisfied with the product. It broke down after only a few days of use. I expected better durability for the price. Very disappointed.",
+    "review_date": "2025-04-13T16:45:00Z",
+    "helpful_count": 5,
+    "not_helpful_count": 20,
+    "verified_purchase": true,
+    "review_title": "Poor Durability",
+    "likes": 10,
+    "dislikes": 50,
+    "responses": [
+      {
+        "response_id": "r4c1",
+        "user_id": "99887",
+        "username": "susan_lee",
+        "response_text": "We are sorry for your experience, Mark. Please contact our support team for assistance and we’ll make sure to address the issue.",
+        "response_date": "2025-04-14T08:00:00Z",
+        "response_type": "seller"
+      },
+      {
+        "response_id": "r7c0",
+        "user_id": "55667",
+        "username": "mark_taylor",
+        "response_text": "We are sorry for your experience, Mark. Please contact our support team for assistance and we’ll make sure to address the issue.",
+        "response_date": "2025-04-14T08:00:00Z",
+        "response_type": "customer"
+      }
+    ]
+  },
+  {
+    "product_id": "P008",
+    "user_id": "99887",
+    "username": "susan_lee",
+    "review_text": "Great product! I love how it functions. Perfect for daily use.",
+    "rating": 4.5,
+    "review_date": "2025-04-12T11:20:00Z",
+    "likes": 30,
+    "dislikes": 2,
+    "verified_purchase": true
+  }
+]

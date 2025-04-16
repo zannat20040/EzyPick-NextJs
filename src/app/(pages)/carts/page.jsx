@@ -16,10 +16,7 @@ export default function page() {
       <div className="w-1/2 max-w-2xl mx-auto border-dashed mt-10 border-pale-red p-10 border ">
         <h1 className="uppercase  text-lg">order details</h1>
         <div className="my-5">
-          {/* {items.map((item, index) => (
-         
-        ))} */}
-
+       
           <div className="flex flex-col justify-start sm:grid sm:grid-cols-8 gap-5 sm:justify-between ">
             <div className="flex gap-3 col-span-5">
               <span>01. </span>
