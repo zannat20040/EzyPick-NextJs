@@ -58,7 +58,17 @@ export default function BottomNav() {
           <div className="sm:block hidden">
             <SearchBar />
           </div>
-          <FaCartShopping className="hidden lg:inline-block" />
+          <Link href="/carts">
+            <FaCartShopping
+              className={`hover:text-pale-red hidden lg:inline-block ${
+                pathname === "/authentication" ||
+                pathname === "/authentication/register"
+                  ? "text-pale-red"
+                  : ""
+              }`}
+            />
+          </Link>
+
           <Link href="/authentication">
             <FaRegUser
               className={`hover:text-pale-red hidden lg:inline-block ${
