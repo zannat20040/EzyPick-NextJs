@@ -24,7 +24,8 @@
       "https://images.macrumors.com/t/2T69mFiA7fq5yPNU8iMF13AiLf4=/1600x/article-new/2023/09/iPhone-15-Pro-Lineup-Feature.jpg",
       "https://fdn2.gsmarena.com/vv/pics/apple/apple-iphone-15-pro-max-1.jpg"
     ],
-    "postBy": "John"
+    "postBy": "John",
+    "deliveryOptions": "Home delivery"
   },
   {
     "id": "P002",
@@ -51,7 +52,8 @@
       "https://www.notebookcheck.net/fileadmin/Notebooks/News/_nc3/s24ultra.jpg",
       "https://fdn2.gsmarena.com/vv/pics/samsung/samsung-galaxy-s24-ultra-1.jpg"
     ],
-    "postBy": "Anna"
+    "postBy": "Anna",
+    "deliveryOptions": "Fast delivery"
   },
   {
     "id": "P003",
@@ -72,7 +74,8 @@
       "connectivity": "Bluetooth 5.2",
       "weight": "250g"
     },
-    "postBy": "Lisa"
+    "postBy": "Lisa",
+    "deliveryOptions": "Standerd delivery"
   },
   {
     "id": "P004",
@@ -95,7 +98,8 @@
       "graphics": "NVIDIA RTX 4060",
       "os": "Windows 11"
     },
-    "postBy": "David"
+    "postBy": "David",
+    "deliveryOptions": "Home delivery"
   },
   {
     "id": "P005",
@@ -121,7 +125,8 @@
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTgVuDB-g1ivx2UDtUTUbVvF8YjRB3YUhPTUQ&s",
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRwTC7jPy36hvonRDYhc8rZUaonz57CFdvZCw&s"
     ],
-    "postBy": "Sophia"
+    "postBy": "Sophia",
+    "deliveryOptions": "Fast delivery"
   },
   {
     "id": "P006",
@@ -141,7 +146,8 @@
       "battery_life": "60 minutes",
       "weight": "6.8 lbs"
     },
-    "postBy": "Michael"
+    "postBy": "Michael",
+    "deliveryOptions": "Fast delivery"
   },
   {
     "id": "P007",
@@ -162,7 +168,8 @@
       "gps": "Yes",
       "heart_rate_monitor": "Yes"
     },
-    "postBy": "James"
+    "postBy": "James",
+    "deliveryOptions": "Home delivery"
   },
   {
     "id": "P008",
@@ -181,7 +188,8 @@
       "volume": "100ml",
       "scent_family": "Floral & Woody"
     },
-    "postBy": "Emily"
+    "postBy": "Emily",
+    "deliveryOptions": "Home delivery"
   },
   {
     "id": "P009",
@@ -201,6 +209,7 @@
       "lens_type": "Polarized",
       "uv_protection": "100%"
     },
-    "postBy": "Daniel"
+    "postBy": "Daniel",
+    "deliveryOptions": "Fast delivery"
   }
 ]
