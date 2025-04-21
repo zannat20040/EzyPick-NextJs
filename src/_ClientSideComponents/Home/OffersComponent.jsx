@@ -55,7 +55,6 @@ export default function OffersComponent({ offers }) {
             <>
               {/* First Large Offer */}
               <OffersSecondaryCard secondaryOffers={group.slice(1)} />
-
               {/* Two Smaller Offers */}
               <OffersMainCard mainOffer={group[0]} />
             </>
