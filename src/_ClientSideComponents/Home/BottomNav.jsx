@@ -1,15 +1,18 @@
 "use client";
 import SearchBar from "@/_components/Homepage/SearchBar";
-import { Button, Collapse, IconButton, Navbar } from "@material-tailwind/react";
+import { useAuth } from "@/Context/AuthContext";
+import { Collapse, IconButton, Navbar } from "@material-tailwind/react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React from "react";
 import { FaCartShopping, FaRegUser } from "react-icons/fa6";
+import { MdOutlineLogout } from "react-icons/md";
 
 export default function BottomNav() {
   const pathname = usePathname();
   const [openNav, setOpenNav] = React.useState(false);
+  const { user, signOutUser } = useAuth();
 
   React.useEffect(() => {
     window.addEventListener(
@@ -21,10 +24,11 @@ export default function BottomNav() {
   // Define your navigation items with their paths
   const navItems = [
     { label: "Home", path: "/" },
-    { label: "Add Product", path: "/add-product" },
-    { label: "Shop", path: "/shop" },
-    { label: "Blog", path: "/blog" },
+    // { label: "Add Product", path: "/add-product" },
+    // { label: "Shop", path: "/shop" },
+    // { label: "Blog", path: "/blog" },
   ];
+  const protectedNavItems = [{ label: "My Order", path: "/order" }];
 
   return (
     <Navbar className="mx-auto bg-white h-max w-full rounded-none px-0 shadow-none py-2 lg:py-4">
@@ -51,6 +55,23 @@ export default function BottomNav() {
                 </Link>
               </li>
             ))}
+            {user && (
+              <>
+                {" "}
+                {protectedNavItems.map((item) => (
+                  <li key={item.path}>
+                    <Link
+                      href={item.path}
+                      className={`hover:text-pale-red transition-colors ${
+                        pathname === item.path ? "text-pale-red" : ""
+                      }`}
+                    >
+                      {item.label}
+                    </Link>
+                  </li>
+                ))}
+              </>
+            )}
           </ul>
         </div>
 
@@ -79,6 +100,12 @@ export default function BottomNav() {
               }`}
             />
           </Link>
+          {user && (
+            <MdOutlineLogout
+              onClick={signOutUser}
+              className={`text-lg cursor-pointer hover:text-pale-red hidden lg:inline-block `}
+            />
+          )}
         </div>
 
         {/* Mobile menu button */}
@@ -149,6 +176,14 @@ export default function BottomNav() {
               Login / Signup
             </Link>
           </li>
+          {user && (
+            <li>
+              <MdOutlineLogout
+                onClick={signOutUser}
+                className={`text-lg cursor-pointer hover:text-pale-red hidden lg:inline-block `}
+              />
+            </li>
+          )}
         </ul>
       </Collapse>
     </Navbar>

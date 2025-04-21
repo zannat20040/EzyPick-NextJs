@@ -1,6 +1,7 @@
 "use client";
 import { useAuth } from "@/Context/AuthContext";
 import axiosInstance from "@/utils/axiosInstance";
+import { useRouter } from "next/navigation";
 import React from "react";
 import toast from "react-hot-toast";
 import { FaGoogle } from "react-icons/fa6";
@@ -8,21 +9,22 @@ import { IoIosCall } from "react-icons/io";
 
 export default function SocialLogin() {
   const { googleSignIn } = useAuth();
- 
+  const router = useRouter();
+
   const handleGoogleSignIn = async () => {
     try {
       const userCredential = await googleSignIn();
       if (userCredential?.user) {
         const userData = {
+          first_name: userCredential.user.displayName.split(" ")[0],
+          last_name: userCredential.user.displayName.split(" ")[1] || "",
           email: userCredential.user.email,
-          firstname: userCredential.user.displayName.split(" ")[0],
-          lastname: userCredential.user.displayName.split(" ")[1] || "",
-          role: "seller",
-          isGoogleUser: true,
+          password: "googlelogin",
         };
 
-        await axiosInstance.post("/api/users/register", userData);
+        await axiosInstance.post("/items/users", userData);
         toast.success("You have successfully logged in and registered!");
+        router.push("/order");
       } else {
         toast.error("Google sign-in failed. Please try again.");
       }
@@ -32,8 +34,6 @@ export default function SocialLogin() {
     }
   };
 
-
-
   return (
     <>
       <div className="flex items-center pt-4 space-x-2 text-gray">
@@ -42,10 +42,7 @@ export default function SocialLogin() {
         <div className="flex-1 h-px bg-soft-gray"></div>
       </div>
       <div className="flex justify-center space-x-4">
-     
-        <button
-          className="p-3 rounded-full hover:bg-soft-gray duration-300 transition-all"
-        >
+        <button className="p-3 rounded-full hover:bg-soft-gray duration-300 transition-all">
           <IoIosCall className="text-lg" />
         </button>
         <button
@@ -55,7 +52,6 @@ export default function SocialLogin() {
           <FaGoogle />
         </button>
       </div>
-   
     </>
   );
 }

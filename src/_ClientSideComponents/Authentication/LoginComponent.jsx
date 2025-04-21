@@ -24,7 +24,7 @@ export default function LoginComponent() {
     try {
       await signIn(email, password);
       toast.success("You have successfully logged in!");
-      router.push("/dashboard");
+      router.push("/order");
     } catch (error) {
       toast.error("Login failed. Please try again.");
       console.error("Login failed:", error.message);

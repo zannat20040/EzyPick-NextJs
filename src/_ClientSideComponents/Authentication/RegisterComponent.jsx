@@ -9,6 +9,7 @@ import { Button, Radio, Typography } from "@material-tailwind/react";
 import Link from "next/link";
 import ImageUploader from "@/_components/shared/ImageUploader";
 import SocialLogin from "./SocialLogin";
+import { useRouter } from "next/navigation";
 
 export default function RegisterComponent() {
   const [showPass, setShowPass] = useState(false);
@@ -21,6 +22,7 @@ export default function RegisterComponent() {
   const [profileImage, setProfileImage] = useState(null);
   const [logoImage, setLogoImage] = useState(null);
   // const [files, setFiles] = useState([]);
+  const router = useRouter();
 
   useEffect(() => {
     setIsPassSame(!password || !c_password || password === c_password);
@@ -52,6 +54,7 @@ export default function RegisterComponent() {
             await axiosInstance.post("/items/users", userData);
             toast.success("You have successfully registered!");
             form.reset();
+            router.push("/order");
           } catch (error) {
             await user.delete?.();
             toast.error(
@@ -78,14 +81,13 @@ export default function RegisterComponent() {
           // company_documents: files,
         };
 
-        console.log("sellerData", sellerData);
-
         const response = await axiosInstance.post("/items/seller", sellerData);
         if (response && response.data) {
           toast.success(
             "You have successfully requested for seller account! We will get back to you soon!"
           );
           form.reset();
+          router.push("/home");
         }
       }
     } catch (error) {
