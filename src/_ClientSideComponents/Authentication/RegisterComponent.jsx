@@ -50,7 +50,7 @@ export default function RegisterComponent() {
           try {
             await axiosInstance.post("/items/users", userData);
             toast.success("You have successfully registered!");
-            form.reset()
+            form.reset();
           } catch (error) {
             await user.delete?.();
             toast.error(
@@ -84,7 +84,7 @@ export default function RegisterComponent() {
           toast.success(
             "You have successfully requested for seller account! We will get back to you soon!"
           );
-          form.reset()
+          form.reset();
         }
       }
     } catch (error) {
@@ -287,7 +287,7 @@ export default function RegisterComponent() {
       </div>
 
       <Button
-        disabled={!isPassSame || password.length < 6 || loading}
+        disabled={loading || !isPassSame || password.length < 6}
         type="submit"
         className="hover:bg-black bg-pale-red w-full text-white uppercase font-medium rounded"
       >
