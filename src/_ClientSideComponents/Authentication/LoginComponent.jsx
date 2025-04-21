@@ -1,38 +1,41 @@
-'use client'
-import { Button } from '@material-tailwind/react';
-import Link from 'next/link';
-import React from 'react'
+"use client";
+import { Button } from "@material-tailwind/react";
+import Link from "next/link";
+import React, { useState } from "react";
+import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
+import { useAuth } from "@/Context/AuthContext";
+import { GoEye, GoEyeClosed } from "react-icons/go"; // 👁️ Import icons
+import SocialLogin from "./SocialLogin";
 
 export default function LoginComponent() {
-    const handleUserLogin = async (e) => {
-        e.preventDefault();
-        const email = e.target.email.value;
-        const password = e.target.password.value;
-    
-        try {
-          // Make an API call using axios
-          const response = await axiosInstance.post("/api/users/login", {
-            email,
-            password,
-          });
-    
-          // If login is successful
-          if (response.status === 200) {
-            toast.success("You have successfully logged in!");
-          }
-        } catch (error) {
-          const errormsg =
-            error.response?.data?.error ||
-            
-            "Login failed. Please try again.";
-    
-          toast.error(errormsg);
-    
-          console.error("Login failed:", errormsg);
-        }
-      };
+  const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const { signIn } = useAuth();
+  const router = useRouter();
+
+  const handleUserLogin = async (e) => {
+    e.preventDefault();
+    const email = e.target.email.value;
+    const password = e.target.password.value;
+
+    setLoading(true);
+
+    try {
+      await signIn(email, password);
+      toast.success("You have successfully logged in!");
+      router.push("/dashboard");
+    } catch (error) {
+      toast.error("Login failed. Please try again.");
+      console.error("Login failed:", error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
-    <form onSubmit={handleUserLogin} className="space-y-2" method="POST">
+    <div>
+      <form onSubmit={handleUserLogin} className="space-y-2" method="POST">
         <div className="space-y-2 text-sm">
           <input
             type="email"
@@ -40,32 +43,54 @@ export default function LoginComponent() {
             id="email"
             placeholder="example@mail.com"
             className="w-full px-4 py-3 rounded border border-soft-gray focus:outline-none"
+            required
           />
         </div>
-        <div className="space-y-2 text-sm">
+
+        <div className="space-y-2 text-sm relative">
           <input
-            type="password"
+            type={showPassword ? "text" : "password"}
             name="password"
             id="password"
             placeholder="Password"
             className="w-full px-4 py-3 rounded border border-soft-gray focus:outline-none"
+            required
           />
-          <div className="flex justify-end text-xs">
-            <Link
-              href="#"
-              className="hover:underline hover:text-pale-red transition-all duration-300"
-            >
-              Forgot Password?
-            </Link>
-          </div>
+
+          {/* Show/Hide Password Toggle */}
+
+          {showPassword ? (
+            <GoEyeClosed
+              onClick={() => setShowPassword((prev) => !prev)}
+              className="cursor-pointer absolute top-4 bottom-0 right-3 !mt-0  "
+            />
+          ) : (
+            <GoEye
+              onClick={() => setShowPassword((prev) => !prev)}
+              className="cursor-pointer absolute top-4 bottom-0 right-3 !mt-0  "
+            />
+          )}
         </div>
-        {/* Sign in Button */}
+
+        <div className="flex justify-end text-xs mt-1">
+          <Link
+            href="#"
+            className="hover:underline hover:text-pale-red transition-all duration-300"
+          >
+            Forgot Password?
+          </Link>
+        </div>
+
         <Button
           type="submit"
+          disabled={loading}
           className="bg-pale-red w-full text-white uppercase font-medium rounded"
         >
-          Log in
+          {loading ? "Logging in..." : "Log in"}
         </Button>
       </form>
-  )
+
+      <SocialLogin />
+    </div>
+  );
 }

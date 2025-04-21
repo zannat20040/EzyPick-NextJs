@@ -7,7 +7,7 @@ export default function RegisterPage() {
   return (
     <div className="mt-10  container px-4  space-y-3 rounded  bg-white">
       <RegisterComponent />
-      <SocialLogin />
+      {/* <SocialLogin /> */}
       <p className="text-sm text-center gap-2 flex justify-center sm:px-6 text-gray">
         Don&apos;t have an account?
         <Link

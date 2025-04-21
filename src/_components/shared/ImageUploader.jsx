@@ -140,8 +140,8 @@ export default function ImageUploader({
           htmlFor={inputId}
         >
           <FiUploadCloud className="text-2xl" />
-          <div className="space-y-1.5 text-center">
-            <h5 className="whitespace-nowrap text-lg font-medium tracking-tight">
+          <div className=" text-center">
+            <h5 className="whitespace-nowrap  font-medium tracking-tight">
               {placeholder}
             </h5>
             <p className="text-sm text-gray-500">{additional_note}</p>

@@ -5,12 +5,6 @@ import React from "react";
 import toast from "react-hot-toast";
 import { FaGoogle } from "react-icons/fa6";
 import { IoIosCall } from "react-icons/io";
-import {
-  getAuth,
-  RecaptchaVerifier,
-  signInWithPhoneNumber,
-} from "firebase/auth";
-import app from "../../utils/firebase.config.js";
 
 export default function SocialLogin() {
   const { googleSignIn } = useAuth();
