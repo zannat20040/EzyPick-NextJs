@@ -87,7 +87,7 @@ export default function RegisterComponent() {
             "You have successfully requested for seller account! We will get back to you soon!"
           );
           form.reset();
-          router.push("/home");
+          router.push("/");
         }
       }
     } catch (error) {

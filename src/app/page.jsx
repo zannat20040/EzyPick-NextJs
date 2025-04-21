@@ -1,4 +1,4 @@
-import { BannerCarousel } from "@/_ClientSideComponents/Home/BannerCarousel";
+import { BannerCarousel } from "@/_components/Homepage/Banner/BannerCarousel";
 import Allproduct from "@/_components/Homepage/Allproduct";
 import Categories from "@/_components/Homepage/Catagories";
 import Offers from "@/_components/Homepage/Offers";
