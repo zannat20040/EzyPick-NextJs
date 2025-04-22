@@ -9,20 +9,14 @@ import { ProductDetailsTab } from "../ProductDetails/ProductDetailsTab";
 import RecommendationList from "../Homepage/Recommend/RecommendationList";
 import axios from "axios";
 import axiosInstance from "@/utils/axiosInstance";
+import toast from "react-hot-toast";
 
 export default function ProductDetails({ id }) {
   const { product, setLoading, setError } = useFetchProduct(id);
   const [productImg, setProductImg] = useState(product?.image);
   const [relatedProducts, setRelatedProducts] = useState([]);
   const [quantity, setQuantity] = useState(1);
-  const HandleAdd = () => {
-    setQuantity(quantity + 1);
-  };
-  const HandleRemove = () => {
-    if (quantity > 1) {
-      setQuantity(quantity - 1);
-    }
-  };
+  const [postedByUser, setPostedByUser] = useState(null);
 
   useEffect(() => {
     const fetchRelatedProduct = async () => {
@@ -47,8 +41,6 @@ export default function ProductDetails({ id }) {
     }
   }, [product]);
 
-  const [postedByUser, setPostedByUser] = useState(null);
-
   useEffect(() => {
     const fetchPostedByUser = async () => {
       if (!product?.user_created) return;
@@ -63,7 +55,40 @@ export default function ProductDetails({ id }) {
     fetchPostedByUser();
   }, [product?.user_created]);
 
-  console.log(product)
+  const HandleAdd = () => {
+    if (quantity < product.stock) {
+      setQuantity(quantity + 1);
+    }
+  };
+  const HandleRemove = () => {
+    if (quantity > 1) {
+      setQuantity(quantity - 1);
+    }
+  };
+
+  const HandleCart = async () => {
+    const cartData = {
+      user_created: product.user_created,
+      product_id: postedByUser.id,
+      product_name: product.name,
+      image_url: `${process.env.NEXT_PUBLIC_BASE_URL}/asset/${product.image}`,
+      price_per_unit: product.price,
+      total_price: product.price * quantity,
+      category: product.category,
+      quantity: quantity,
+    };
+
+    try {
+      const res = await axiosInstance.post("/items/cart", cartData);
+      toast.success("Item added to cart successfully!");
+    } catch (err) {
+      toast.success(
+        err.res.data.data.errors[0] ||
+          err.message ||
+          "Failed to add item to cart"
+      );
+    }
+  };
 
   return (
     <div>
@@ -102,8 +127,9 @@ export default function ProductDetails({ id }) {
           {/* right  */}
           <div className=" flex flex-col gap-0 rounded p-5 ">
             <span className="text-gray-500 text-sm">
-              {`${postedByUser?.first_name} ${postedByUser?.last_name}` ||
-                "Unknown User"}
+              {postedByUser
+                ? `${postedByUser?.first_name} ${postedByUser?.last_name}`
+                : "Unknown User"}
             </span>
             <h2 className="card-title text-2xl mb-2">{product?.name}</h2>
 

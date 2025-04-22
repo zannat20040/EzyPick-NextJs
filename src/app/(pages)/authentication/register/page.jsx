@@ -1,6 +1,6 @@
 import Link from "next/link";
-import RegisterComponent from "@/_ClientSideComponents/Authentication/RegisterComponent";
-import SocialLogin from "@/_ClientSideComponents/Authentication/SocialLogin";
+import RegisterComponent from "@/_components/Authentication/RegisterComponent";
+import SocialLogin from "@/_components/Authentication/SocialLogin";
 
 export default function RegisterPage() {
   

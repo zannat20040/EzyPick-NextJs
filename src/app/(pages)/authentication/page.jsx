@@ -1,6 +1,6 @@
 import React from "react"; // Import useState
 import Link from "next/link";
-import LoginComponent from "@/_ClientSideComponents/Authentication/LoginComponent";
+import LoginComponent from "@/_components/Authentication/LoginComponent";
 
 export default function LoginPage() {
   return (
