@@ -1,8 +1,8 @@
 import { BannerCarousel } from "@/_components/Homepage/Banner/BannerCarousel";
-import Allproduct from "@/_components/Homepage/Allproduct";
+import Allproduct from "@/_components/AllProduct/Allproduct";
 import Categories from "@/_components/Homepage/Category/Catagories";
 import Offers from "@/_components/Homepage/Offer/Offers";
-import Recommentation from "@/_components/Homepage/Recommentation";
+import Recommentation from "@/_components/Homepage/Recommend/Recommentation";
 import Footer from "@/_components/shared/Footer";
 import Headline from "@/_components/shared/Headline";
 

@@ -3,6 +3,11 @@ const nextConfig = {
   images: {
     remotePatterns: [
       {
+        protocol: "http", // Use http for localhost
+        hostname: "localhost",
+        port: "8055", // Add the port if used
+      },
+      {
         protocol: "https",
         hostname: "cellularplanet.shop",
       },

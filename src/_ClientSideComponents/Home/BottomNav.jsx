@@ -1,5 +1,5 @@
 "use client";
-import SearchBar from "@/_components/Homepage/SearchBar";
+import SearchBar from "@/_components/Homepage/Additional/SearchBar";
 import { useAuth } from "@/Context/AuthContext";
 import { Collapse, IconButton, Navbar } from "@material-tailwind/react";
 import Image from "next/image";

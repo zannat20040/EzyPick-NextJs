@@ -1,8 +1,8 @@
 "use client";
 import { useEffect, useState } from "react";
 import Headline from "@/_components/shared/Headline";
-import OffersMainCard from "../OffersMainCard";
-import OffersSecondaryCard from "../OffersSecondaryCard";
+import OffersMainCard from "./OffersMainCard";
+import OffersSecondaryCard from "./OffersSecondaryCard";
 import ViewLessAll from "../../shared/ViewLessAll";
 import axiosInstance from "@/utils/axiosInstance";
 

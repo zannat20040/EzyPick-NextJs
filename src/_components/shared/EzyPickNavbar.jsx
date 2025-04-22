@@ -8,7 +8,7 @@ import { TfiEmail, TfiLocationPin } from "react-icons/tfi";
 import { MdOutlineFacebook } from "react-icons/md";
 import { IoIosCall } from "react-icons/io";
 import BottomNav from "@/_ClientSideComponents/Home/BottomNav";
-import SearchBar from "../Homepage/SearchBar";
+import SearchBar from "../Homepage/Additional/SearchBar";
 
 export default function EzyPickNavbar() {
  

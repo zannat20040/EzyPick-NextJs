@@ -1,5 +1,5 @@
 import ProductDetails from "@/_ClientSideComponents/Shared/ProductDetails";
-import AllProductList from "@/_components/Homepage/AllProductList";
+import AllProductList from "@/_components/AllProduct/AllProductList";
 import { BreadCrumbsComp } from "@/_components/shared/BreadCrumbsComp";
 import axios from "axios";
 import React from "react";
