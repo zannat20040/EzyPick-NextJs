@@ -1,4 +1,4 @@
-import ProductDetails from "@/_ClientSideComponents/Shared/ProductDetails";
+import ProductDetails from "@/_components/shared/ProductDetails";
 import AllProductList from "@/_components/AllProduct/AllProductList";
 import { BreadCrumbsComp } from "@/_components/shared/BreadCrumbsComp";
 import axios from "axios";

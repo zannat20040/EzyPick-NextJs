@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import CustomRating from "@/_components/shared/ustomRating";
 import TransformSpecifications from "../ProductDetails/TransformSpecifications";
 import { ProductDetailsTab } from "../ProductDetails/ProductDetailsTab";
-import RecommendationList from "../../_components/Homepage/Recommend/RecommendationList";
+import RecommendationList from "../Homepage/Recommend/RecommendationList";
 import axios from "axios";
 import axiosInstance from "@/utils/axiosInstance";
 
