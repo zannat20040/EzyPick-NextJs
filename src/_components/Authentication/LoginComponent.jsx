@@ -7,50 +7,56 @@ import { useRouter } from "next/navigation";
 import { useAuth } from "@/Context/AuthContext";
 import { GoEye, GoEyeClosed } from "react-icons/go"; // 👁️ Import icons
 import SocialLogin from "./SocialLogin";
-import axiosInstance from "@/utils/axiosInstance";
+import getUserByEmail from "@/utils/getUserByEmail";
 
 export default function LoginComponent() {
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const { signIn } = useAuth();
   const router = useRouter();
+
   const handleUserLogin = async (e) => {
     e.preventDefault();
     const email = e.target.email.value;
     const password = e.target.password.value;
-  
+
     setLoading(true);
-  
+
     try {
-      await signIn(email, password);
-      toast.success("You have successfully logged in!");
-  
-      const res = await axiosInstance.get(
-        `/items/users?filter[email][_eq]=${encodeURIComponent(email)}`
-      );
-  
-      const user = res.data.data[0];
-  
-      if (user) {
-        // ✅ Save user ID in localStorage
-        localStorage.setItem("directus_user", JSON.stringify(user));
-  
-        toast.success("User ID saved");
-        console.log("🎯 Directus user:", user);
-      } else {
-        toast.warning("User not found in Directus");
+      // Firebase login
+      const userCredential = await signIn(email, password);
+      const firebaseUser = userCredential?.user;
+      console.log('--------',userCredential)
+
+      if (!firebaseUser) {
+        toast.error("Login failed.");
+        return;
       }
-  
-      router.push("/order");
+      // Fetch user data from backend
+      const userData = await getUserByEmail(email);
+
+      if (!userData) {
+        toast.error("User not found in Database.");
+        return;
+      }
+
+      toast.success("Login successful!");
+
+      // Redirect based on role
+      if (userData.role === "buyer") {
+        router.push("/order");
+      } else if (userData.role === "seller") {
+        router.push("/");
+      } else {
+        router.push("/");
+      }
     } catch (error) {
       toast.error("Login failed. Please try again.");
-      console.error("Login failed:", error.message);
+      console.error("Login error:", error.message);
     } finally {
       setLoading(false);
     }
   };
-  
-  
 
   return (
     <div>

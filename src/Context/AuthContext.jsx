@@ -39,13 +39,9 @@ export const AuthProvider = ({ children }) => {
     return createUserWithEmailAndPassword(auth, email, password);
   };
 
-  const signIn = async (email, password) => {
-    try {
-      await signInWithEmailAndPassword(auth, email, password);
-    } catch (error) {
-      console.error("Signin error:", error.message);
-      throw error;
-    }
+  const signIn = (email, password) => {
+    setLoading(true);
+    return signInWithEmailAndPassword(auth, email, password);
   };
 
   const signOutUser = async () => {
