@@ -1,11 +1,12 @@
 "use client";
 import SearchBar from "@/_components/Homepage/Additional/SearchBar";
 import { useAuth } from "@/Context/AuthContext";
+import getUserByEmail from "@/utils/getUserByEmail";
 import { Collapse, IconButton, Navbar } from "@material-tailwind/react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { FaCartShopping, FaRegUser } from "react-icons/fa6";
 import { MdOutlineLogout } from "react-icons/md";
 
@@ -13,8 +14,20 @@ export default function BottomNav() {
   const pathname = usePathname();
   const [openNav, setOpenNav] = React.useState(false);
   const { user, signOutUser } = useAuth();
+  const [userData, setUserData] = useState(null); // ✅ user data state
 
-  React.useEffect(() => {
+  useEffect(() => {
+    const fetchUserData = async () => {
+      if (user?.email) {
+        const data = await getUserByEmail(user.email);
+        setUserData(data); // ✅ store resolved user data
+      }
+    };
+
+    fetchUserData();
+  }, [user]);
+
+  useEffect(() => {
     window.addEventListener(
       "resize",
       () => window.innerWidth >= 960 && setOpenNav(false)
@@ -28,7 +41,10 @@ export default function BottomNav() {
     // { label: "Shop", path: "/shop" },
     // { label: "Blog", path: "/blog" },
   ];
-  const protectedNavItems = [{ label: "My Order", path: "/order" }];
+  const protectedBuyerNavItems = [{ label: "My Order", path: "/order" }];
+  const protectedSellerNavItems = [
+    { label: "Add Product", path: "/add-product" },
+  ];
 
   return (
     <Navbar className="mx-auto bg-white h-max w-full rounded-none px-0 shadow-none py-2 lg:py-4">
@@ -55,10 +71,25 @@ export default function BottomNav() {
                 </Link>
               </li>
             ))}
-            {user && (
+            {user && userData?.role === "buyer" && (
               <>
-                {" "}
-                {protectedNavItems.map((item) => (
+                {protectedBuyerNavItems.map((item) => (
+                  <li key={item.path}>
+                    <Link
+                      href={item.path}
+                      className={`hover:text-pale-red transition-colors ${
+                        pathname === item.path ? "text-pale-red" : ""
+                      }`}
+                    >
+                      {item.label}
+                    </Link>
+                  </li>
+                ))}
+              </>
+            )}
+            {user && userData?.role === "seller" && (
+              <>
+                {protectedSellerNavItems.map((item) => (
                   <li key={item.path}>
                     <Link
                       href={item.path}
@@ -163,6 +194,38 @@ export default function BottomNav() {
               </Link>
             </li>
           ))}
+          {user && userData?.role === "buyer" && (
+            <>
+              {protectedBuyerNavItems.map((item) => (
+                <li key={item.path}>
+                  <Link
+                    href={item.path}
+                    className={`hover:text-pale-red transition-colors ${
+                      pathname === item.path ? "text-pale-red" : ""
+                    }`}
+                  >
+                    {item.label}
+                  </Link>
+                </li>
+              ))}
+            </>
+          )}
+          {user && userData?.role === "seller" && (
+            <>
+              {protectedSellerNavItems.map((item) => (
+                <li key={item.path}>
+                  <Link
+                    href={item.path}
+                    className={`hover:text-pale-red transition-colors ${
+                      pathname === item.path ? "text-pale-red" : ""
+                    }`}
+                  >
+                    {item.label}
+                  </Link>
+                </li>
+              ))}
+            </>
+          )}
           <li>
             <Link
               href="/authentication"
