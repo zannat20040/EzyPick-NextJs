@@ -1,7 +1,10 @@
 "use client";
 import axiosInstance from "@/utils/axiosInstance";
+import { Button } from "@material-tailwind/react";
 import { useEffect, useState } from "react";
 import { RxCrossCircled } from "react-icons/rx";
+import { CiSquarePlus } from "react-icons/ci";
+import { FaRegSquarePlus } from "react-icons/fa6";
 
 export default function DeliveryOptionsSection({
   selectedOptions = [],
@@ -60,7 +63,7 @@ export default function DeliveryOptionsSection({
   return (
     <>
       <div className=" text-gray-600 ">
-        <p className="mt-2 mb-4">Add Delivery Types</p>
+        <p className="mt-2 mb-4 text-sm ">Add Delivery Types</p>
         {options.map((option) => (
           <label
             key={option}
@@ -77,7 +80,7 @@ export default function DeliveryOptionsSection({
         ))}
       </div>
 
-      <div className="flex gap-2 mt-3">
+      <div className="flex gap-1 mt-3">
         <input
           type="text"
           value={newOption}
@@ -85,17 +88,20 @@ export default function DeliveryOptionsSection({
           placeholder="Add new delivery option"
           className="w-full px-2 py-1 rounded border border-soft-gray focus:outline-none text-sm"
         />
-        <button
+        <Button
           type="button"
           onClick={handleAddNewOption}
-          className="bg-pale-red text-white px-4 rounded text-sm hover:bg-red-600"
+          className="p-0 bg-white hover:shadow-none shadow-none text-white uppercase font-medium rounded"
         >
-          Add
-        </button>
+          <CiSquarePlus  className="text-3xl text-pale-red "/>
+        </Button>
       </div>
       {error && (
         <p className="text-red-600 p-1 flex items-center gap-2 bg-red-50 mt-2 text-xs  px-3 rounded font-semibold">
-          <RxCrossCircled className="text-red-600 text-base" />
+          <RxCrossCircled
+            className="text-red-600 text-base cursor-pointer"
+            onClick={() => setError("")}
+          />
           {error}
         </p>
       )}
