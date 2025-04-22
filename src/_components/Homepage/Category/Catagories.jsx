@@ -1,5 +1,5 @@
 import axios from 'axios';
-import CategoryList from '@/_ClientSideComponents/Home/CategoryList';
+import CategoryList from '@/_components/Homepage/Category/CategoryList';
 
 async function getCategories() {
   try {

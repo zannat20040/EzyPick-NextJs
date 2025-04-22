@@ -1,6 +1,6 @@
 import { BannerCarousel } from "@/_components/Homepage/Banner/BannerCarousel";
 import Allproduct from "@/_components/Homepage/Allproduct";
-import Categories from "@/_components/Homepage/Catagories";
+import Categories from "@/_components/Homepage/Category/Catagories";
 import Offers from "@/_components/Homepage/Offer/Offers";
 import Recommentation from "@/_components/Homepage/Recommentation";
 import Footer from "@/_components/shared/Footer";

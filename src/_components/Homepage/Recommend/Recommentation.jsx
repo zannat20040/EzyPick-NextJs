@@ -1,4 +1,4 @@
-import RecommendationList from "@/_ClientSideComponents/Home/RecommendationList";
+import RecommendationList from "@/_components/Homepage/Recommend/RecommendationList";
 import axios from "axios";
 import React from "react";
 
