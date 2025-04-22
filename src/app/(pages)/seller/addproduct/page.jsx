@@ -1,4 +1,5 @@
 "use client";
+import CategorySelector from "@/_components/Add Product/CatergorySelector";
 import DeliveryOptionsSection from "@/_components/Add Product/DeliveryOptionsSection";
 import DynamicSpecifications from "@/_components/Add Product/DynamicSpecifications";
 import ProductDetailsAdd from "@/_components/Add Product/ProductDetailsAdd";
@@ -39,6 +40,7 @@ export default function page() {
         <div className="">
           <DeliveryOptionsSection selectedOptions={deliveryOptions}
         onChange={setDeliveryOptions}/>
+        <CategorySelector />
         </div>
       </form>
     </div>
