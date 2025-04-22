@@ -1,15 +1,20 @@
 import Image from "next/image";
 import React from "react";
 
-export default function OffersSecondaryCard({ secondaryOffers }) {
+export default function OffersSecondaryCard({
+  secondaryOffers,
+}) {
   return (
     <div className="grid grid-cols-1 gap-5 w-full">
       {secondaryOffers.length > 0 &&
         secondaryOffers.map((offer, index) => (
-          <div className="h-full relative" key={offer.title || index}>
+          <div
+            className="h-full max-h-[330px] relative"
+            key={offer.title || index}
+          >
             <Image
-              src={offer.image}
-              alt={offer.title || "secondary offer"}
+              src={`${process.env.NEXT_PUBLIC_API_URL}/assets/${offer.image}`} // assumes image is stored as URL path
+              alt={offer.name || "secondary offer"}
               width={1024}
               height={650}
               unoptimized={true}
@@ -18,12 +23,14 @@ export default function OffersSecondaryCard({ secondaryOffers }) {
             />
             <div
               style={{
-                background: `linear-gradient(to top, ${offer.bgColor}, transparent)`,
+                background: `linear-gradient(to bottom, ${
+                  index === 0 ? "#d8dbe5" : "#424242"
+                }, transparent)`,
               }}
               className="h-full absolute top-0 p-5 w-full"
             >
-              <p className="text-white">{offer.category}</p>
-              <h1 className="font-bold text-2xl text-white">{offer.discount}</h1>
+              <p className="text-white">category</p>
+              <h1 className="font-bold text-2xl text-white">{offer.offer}</h1>
             </div>
           </div>
         ))}

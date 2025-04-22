@@ -1,9 +1,10 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Headline from "@/_components/shared/Headline";
-import OffersMainCard from "../../_components/Homepage/OffersMainCard";
-import OffersSecondaryCard from "../../_components/Homepage/OffersSecondaryCard";
-import ViewLessAll from "../../_components/shared/ViewLessAll";
+import OffersMainCard from "../OffersMainCard";
+import OffersSecondaryCard from "../OffersSecondaryCard";
+import ViewLessAll from "../../shared/ViewLessAll";
+import axiosInstance from "@/utils/axiosInstance";
 
 // Function to split array into chunks of 3
 const chunkArray = (arr, chunkSize) => {
@@ -18,7 +19,6 @@ export default function OffersComponent({ offers }) {
   const [showOffers, setShowOffers] = useState(
     chunkArray(offers, 3).slice(0, 1)
   );
-
   const [isViewAll, setIsViewAll] = useState(false);
 
   const HandleAllOffer = () => {
@@ -30,12 +30,19 @@ export default function OffersComponent({ offers }) {
     setIsViewAll(!isViewAll);
   };
 
+  
+
   return (
     <div className="">
       <Headline
         label={"Get best deal on "}
         higlightedLabel={"Flash Sale"}
-        rightComponent={<ViewLessAll HandleAllFunction={HandleAllOffer} isViewAll={isViewAll}/>}
+        rightComponent={
+          <ViewLessAll
+            HandleAllFunction={HandleAllOffer}
+            isViewAll={isViewAll}
+          />
+        }
       />
 
       {/* Loop through each group of 3 offers */}
@@ -47,16 +54,24 @@ export default function OffersComponent({ offers }) {
           {index % 2 === 0 ? (
             <>
               {/* First Large Offer */}
-              <OffersMainCard mainOffer={group[0]} />
+              <OffersMainCard
+                mainOffer={group[0]}
+              />
               {/* Two Smaller Offers */}
-              <OffersSecondaryCard secondaryOffers={group.slice(1)} />
+              <OffersSecondaryCard
+                secondaryOffers={group.slice(1)}
+              />
             </>
           ) : (
             <>
               {/* First Large Offer */}
-              <OffersSecondaryCard secondaryOffers={group.slice(1)} />
+              <OffersSecondaryCard
+                secondaryOffers={group.slice(1)}
+              />
               {/* Two Smaller Offers */}
-              <OffersMainCard mainOffer={group[0]} />
+              <OffersMainCard
+                mainOffer={group[0]}
+              />
             </>
           )}
         </div>

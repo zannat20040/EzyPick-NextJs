@@ -3,16 +3,16 @@ import { useEffect, useState } from "react";
 import { Carousel } from "@material-tailwind/react";
 import Image from "next/image";
 import axios from "axios";
+import axiosInstance from "@/utils/axiosInstance";
 
 export const BannerCarousel = () => {
   const [offerProducts, setOfferProducts] = useState([]);
-  console.log(offerProducts);
 
   useEffect(() => {
     const fetchOfferProducts = async () => {
       try {
-        const response = await axios.get(
-          "http://localhost:8055/items/products"
+        const response = await axiosInstance.get(
+          "/items/products"
         );
         const filtered = response.data.data.filter(
           (product) => product.offer && product.image

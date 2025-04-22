@@ -1,12 +1,17 @@
-import OffersComponent from "@/_ClientSideComponents/Home/OffersComponent";
+import OffersComponent from "@/_components/Homepage/Offer/OffersComponent";
+import axiosInstance from "@/utils/axiosInstance";
 import axios from "axios";
 
 const fetchOffers = async () => {
   try {
-    const { data } = await axios.get(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/json/Offers.json`
+    const res = await axiosInstance.get("/items/products");
+
+    // Filter products that contain a valid "offer"
+    const offers = res.data?.data?.filter(
+      (product) => product.offer && product.image
     );
-    return data || [];
+
+    return offers || [];
   } catch (error) {
     console.error("Error fetching offers:", error);
     return [];
