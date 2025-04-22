@@ -67,11 +67,14 @@ export default function ProductDetails({ id }) {
   };
 
   const HandleCart = async () => {
+    const storedUser = JSON.parse(localStorage.getItem("directus_user"));
+    const userId = storedUser?.id;
+
     const cartData = {
-      user_created: product.user_created,
-      product_id: postedByUser.id,
+      user_created: userId,
+      product_id: product.id,
       product_name: product.name,
-      image_url: `${process.env.NEXT_PUBLIC_BASE_URL}/asset/${product.image}`,
+      image_url: `${process.env.NEXT_PUBLIC_API_URL}/assets/${product.image}`,
       price_per_unit: product.price,
       total_price: product.price * quantity,
       category: product.category,
@@ -79,13 +82,34 @@ export default function ProductDetails({ id }) {
     };
 
     try {
-      const res = await axiosInstance.post("/items/cart", cartData);
-      toast.success("Item added to cart successfully!");
+      // 🔍 Check if the item already exists in cart
+      const checkRes = await axiosInstance.get(
+        `/items/cart?filter[user_created][_eq]=${userId}&filter[product_id][_eq]=${cartData.product_id}`
+      );
+
+      const existingItem = checkRes.data.data[0];
+
+      if (existingItem) {
+        // 🔁 Update existing item
+        const newQuantity = existingItem.quantity + quantity;
+        const newTotal = newQuantity * product.price;
+
+        await axiosInstance.patch(`/items/cart/${existingItem.id}`, {
+          quantity: newQuantity,
+          total_price: newTotal,
+        });
+
+        toast.success("Cart updated successfully!");
+      } else {
+        // ➕ Add new item
+        await axiosInstance.post("/items/cart", cartData);
+        toast.success("Item added to cart successfully!");
+      }
     } catch (err) {
-      toast.success(
-        err.res.data.data.errors[0] ||
+      toast.error(
+        err.response?.data?.errors?.[0]?.message ||
           err.message ||
-          "Failed to add item to cart"
+          "Failed to add/update cart"
       );
     }
   };

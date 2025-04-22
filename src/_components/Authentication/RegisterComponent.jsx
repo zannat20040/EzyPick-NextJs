@@ -21,7 +21,7 @@ export default function RegisterComponent() {
   const { loading, signUp, setLoading } = useAuth();
   const [profileImage, setProfileImage] = useState(null);
   const [logoImage, setLogoImage] = useState(null);
-  // const [files, setFiles] = useState([]);
+  const [files, setFiles] = useState([]);
   const router = useRouter();
 
   useEffect(() => {
@@ -36,68 +36,65 @@ export default function RegisterComponent() {
     const lastName = form.lastname.value;
     const email = form.email.value;
     const pwd = form.password?.value;
+    let currentUser;
+    setLoading(true);
 
     try {
+      const userCredential = await signUp(email, pwd);
+      currentUser = userCredential?.user;
+
+      if (!currentUser) {
+        toast.error("Firebase registration failed.");
+        return;
+      }
+
+      const firebase_uid = currentUser.uid;
+      let userData;
+
       if (checkValue === "buyer") {
-        const userData = {
-          first_name: firstName,
-          last_name: lastName,
+        userData = {
+          firebase_uid,
+          name: `${firstName} ${lastName}`,
           email,
-          password: pwd,
+          role: "buyer",
         };
-
-        const userCredential = await signUp(email, pwd);
-        const user = userCredential?.user;
-
-        if (user) {
-          try {
-            await axiosInstance.post("/items/users", userData);
-            toast.success("You have successfully registered!");
-            form.reset();
-            router.push("/order");
-          } catch (error) {
-            await user.delete?.();
-            toast.error(
-              error?.response?.data?.error ||
-                error.message ||
-                "Unexpected error occurred. Please try again."
-            );
-          }
-        } else {
-          toast.error("Unexpected error occurred. Please try again.");
-        }
       } else {
-        const sellerData = {
-          seller_name: `${firstName} ${lastName}`,
-          seller_email: email,
-          seller_number: form.seller_number?.value,
-          seller_address: form.seller_address?.value,
+        userData = {
+          name: `${firstName} ${lastName}`,
+          email: email,
+          phone: form.seller_number?.value,
+          address: form.seller_address?.value,
+          role: "seller",
+          profile_img: profileImage,
+          company_logo: logoImage,
           company_name: form.company_name?.value,
           company_email: form.company_email?.value,
           company_phone: form.company_phone?.value,
           company_address: form.company_address?.value,
-          profile_picture: profileImage,
-          company_logo: logoImage,
-          // company_documents: files,
+          documents: files,
+          verification_status: "pending",
         };
-
-        const response = await axiosInstance.post("/items/seller", sellerData);
-        if (response && response.data) {
-          toast.success(
-            "You have successfully requested for seller account! We will get back to you soon!"
-          );
-          form.reset();
-          router.push("/");
-        }
       }
-    } catch (error) {
-      console.error(
-        "Signup Error:",
-        error.response?.data.errors[0] || error.message
+
+      // Save user data to backend
+      await axiosInstance.post("/api/users/register", userData);
+
+      toast.success(
+        checkValue === "buyer"
+          ? "You have successfully registered as a buyer!"
+          : "Seller request submitted! We'll contact you soon."
       );
 
+      form.reset();
+      router.push(checkValue === "buyer" ? "/order" : "/");
+    } catch (error) {
+      console.log(error)
+      await currentUser?.delete?.();
       toast.error(
-        error.message || "Unexpected error occurred. Please try again."
+        error?.response?.data?.errors?.[0]?.message ||
+          error?.response?.data?.message ||
+          error.message ||
+          "Unexpected error occurred. Please try again."
       );
     } finally {
       setLoading(false);
@@ -167,52 +164,50 @@ export default function RegisterComponent() {
           className="w-full px-4 py-3 rounded border border-soft-gray focus:outline-none text-sm"
         />
 
-        {checkValue === "buyer" && (
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-2 sm:gap-x-2 ">
-            {[
-              {
-                show: showPass,
-                setShow: setShowPass,
-                value: password,
-                setValue: setPassword,
-                name: "password",
-                placeholder: "Password",
-              },
-              {
-                show: showC_Pass,
-                setShow: setShowC_Pass,
-                value: c_password,
-                setValue: setC_Password,
-                name: "c_password",
-                placeholder: "Confirm password",
-              },
-            ].map((item, i) => (
-              <div key={i} className="text-sm relative">
-                <input
-                  required
-                  onChange={(e) => item.setValue(e.target.value)}
-                  type={item.show ? "text" : "password"}
-                  name={item.name}
-                  placeholder={item.placeholder}
-                  className={`${
-                    isPassSame ? "border-soft-gray" : "border-red-400"
-                  } w-full px-4 py-3 rounded border focus:outline-none`}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-2 sm:gap-x-2 ">
+          {[
+            {
+              show: showPass,
+              setShow: setShowPass,
+              value: password,
+              setValue: setPassword,
+              name: "password",
+              placeholder: "Password",
+            },
+            {
+              show: showC_Pass,
+              setShow: setShowC_Pass,
+              value: c_password,
+              setValue: setC_Password,
+              name: "c_password",
+              placeholder: "Confirm password",
+            },
+          ].map((item, i) => (
+            <div key={i} className="text-sm relative">
+              <input
+                required
+                onChange={(e) => item.setValue(e.target.value)}
+                type={item.show ? "text" : "password"}
+                name={item.name}
+                placeholder={item.placeholder}
+                className={`${
+                  isPassSame ? "border-soft-gray" : "border-red-400"
+                } w-full px-4 py-3 rounded border focus:outline-none`}
+              />
+              {item.show ? (
+                <GoEyeClosed
+                  className="cursor-pointer absolute top-0 bottom-0 my-auto right-3"
+                  onClick={() => item.setShow(!item.show)}
                 />
-                {item.show ? (
-                  <GoEyeClosed
-                    className="cursor-pointer absolute top-0 bottom-0 my-auto right-3"
-                    onClick={() => item.setShow(!item.show)}
-                  />
-                ) : (
-                  <GoEye
-                    className="cursor-pointer absolute top-0 bottom-0 my-auto right-3"
-                    onClick={() => item.setShow(!item.show)}
-                  />
-                )}
-              </div>
-            ))}
-          </div>
-        )}
+              ) : (
+                <GoEye
+                  className="cursor-pointer absolute top-0 bottom-0 my-auto right-3"
+                  onClick={() => item.setShow(!item.show)}
+                />
+              )}
+            </div>
+          ))}
+        </div>
 
         {checkValue === "seller" && (
           <div className="">
@@ -272,12 +267,12 @@ export default function RegisterComponent() {
               onUploadSuccess={(id) => setLogoImage(id)}
             />
 
-            {/* <ImageUploader
-            placeholder="Upload Company Documents"
-            additional_note="Multiple files allowed"
-            multiple={true}
-            onUploadSuccess={(ids) => setFiles(ids)}
-          /> */}
+            <ImageUploader
+              placeholder="Upload verification Documents"
+              additional_note="such as, NID card, company license, etc. Only PNG, JPG or JPEG allowed. Multiple files allowed"
+              multiple={true}
+              onUploadSuccess={(ids) => setFiles(ids)}
+            />
           </div>
         )}
 

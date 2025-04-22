@@ -3,6 +3,7 @@ import { useRef, useState } from "react";
 import axiosInstance from "@/utils/axiosInstance";
 import { FiUploadCloud } from "react-icons/fi";
 import { RxCrossCircled } from "react-icons/rx";
+import axios from "axios";
 
 export default function ImageUploader({
   placeholder,
@@ -42,14 +43,19 @@ export default function ImageUploader({
       const uploadPromises = Array.from(selectedFiles).map(async (file) => {
         const formData = new FormData();
         formData.append("file", file);
-        formData.append("type", file.type);
-        formData.append("filename_download", file.name);
-        formData.append("storage", "local");
+        formData.append("upload_preset", process.env.NEXT_PUBLIC_UPLOAD_PRESET); // your Cloudinary preset name
+        formData.append("cloud_name", process.env.NEXT_PUBLIC_CLOUD_NAME); // your Cloudinary cloud name
 
-        const res = await axiosInstance.post("/files", formData);
+        const res = await axios.post(
+          `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUD_NAME}/image/upload`,
+          formData
+        );
+
+        console.log(res)
+
         return {
-          id: res.data.data.id,
-          url: `http://localhost:8055/assets/${res.data.data.id}`,
+          id: res.data.asset_id,
+          url: res.data.secure_url,
           name: file.name,
           size: file.size,
           preview: URL.createObjectURL(file),
@@ -65,9 +71,9 @@ export default function ImageUploader({
 
       if (onUploadSuccess) {
         if (multiple) {
-          onUploadSuccess(uploadedFiles.map((file) => file.id));
+          onUploadSuccess(uploadedFiles.map((file) => file.url));
         } else {
-          onUploadSuccess(uploadedFiles[0].id);
+          onUploadSuccess(uploadedFiles[0].url);
         }
       }
     } catch (err) {
