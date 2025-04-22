@@ -1,5 +1,6 @@
 import React from "react";
 import AllProductList from "./AllProductList";
+import axiosInstance from "@/utils/axiosInstance";
 
 async function getProducts() {
   try {

@@ -8,9 +8,10 @@ import TransformSpecifications from "../ProductDetails/TransformSpecifications";
 import { ProductDetailsTab } from "../ProductDetails/ProductDetailsTab";
 import RecommendationList from "../../_components/Homepage/Recommend/RecommendationList";
 import axios from "axios";
+import axiosInstance from "@/utils/axiosInstance";
 
 export default function ProductDetails({ id }) {
-  const { product, loading, error, setLoading, setError } = useFetchProduct(id);
+  const { product, setLoading, setError } = useFetchProduct(id);
   const [productImg, setProductImg] = useState(product?.image);
   const [relatedProducts, setRelatedProducts] = useState([]);
   const [quantity, setQuantity] = useState(1);
@@ -46,6 +47,24 @@ export default function ProductDetails({ id }) {
     }
   }, [product]);
 
+  const [postedByUser, setPostedByUser] = useState(null);
+
+  useEffect(() => {
+    const fetchPostedByUser = async () => {
+      if (!product?.user_created) return;
+      try {
+        const res = await axiosInstance.get(`/users/${product.user_created}`);
+        setPostedByUser(res.data.data); // full user object
+      } catch (error) {
+        console.error("Error fetching user:", error);
+      }
+    };
+
+    fetchPostedByUser();
+  }, [product?.user_created]);
+
+  console.log(product)
+
   return (
     <div>
       <div className="px-5 lg:px-8 container mx-auto py-10">
@@ -56,13 +75,14 @@ export default function ProductDetails({ id }) {
               <Image
                 width={100}
                 height={100}
-                src={productImg || product?.image}
+                src={` ${process.env.NEXT_PUBLIC_API_URL}/assets/${product?.image}`}
+                // src={productImg || product?.image}
                 alt={product?.name}
                 className="rounded w-full h-full "
               />
             </figure>
             <div className="flex gap-2 items-center mt-2">
-              {product?.imageGallery?.map((img, index) => (
+              {product?.image_gallery?.map((img, index) => (
                 <div
                   className="h-16 w-16 rounded   p-2 bg-white border border-gray-200 cursor-pointer"
                   onClick={() => setProductImg(img)}
@@ -70,7 +90,7 @@ export default function ProductDetails({ id }) {
                   <Image
                     width={100}
                     height={100}
-                    src={img}
+                    src={`${process.env.NEXT_PUBLIC_API_URL}/assets/${img}`}
                     alt={`imgGallery${index + 1}`}
                     className="rounded w-full h-full text-xs"
                   />
@@ -81,7 +101,10 @@ export default function ProductDetails({ id }) {
 
           {/* right  */}
           <div className=" flex flex-col gap-0 rounded p-5 ">
-            <span className="text-gray-500 text-sm">{product?.postBy}</span>
+            <span className="text-gray-500 text-sm">
+              {`${postedByUser?.first_name} ${postedByUser?.last_name}` ||
+                "Unknown User"}
+            </span>
             <h2 className="card-title text-2xl mb-2">{product?.name}</h2>
 
             <div className="flex items-center gap-3 mb-2">
@@ -93,7 +116,7 @@ export default function ProductDetails({ id }) {
             </div>
 
             <TransformSpecifications
-              specs={product?.specifications}
+              specs={product?.specification}
               price={product?.price}
               discount={product?.discount}
             />
@@ -133,7 +156,10 @@ export default function ProductDetails({ id }) {
         </div>
 
         {/* tab */}
-        <ProductDetailsTab details={product?.description} productId={product?.id}/>
+        <ProductDetailsTab
+          details={product?.description}
+          productId={product?.id}
+        />
       </div>
       {/* related work*/}
       <RecommendationList recommendations={relatedProducts} />

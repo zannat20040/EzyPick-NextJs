@@ -1,6 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import axiosInstance from "@/utils/axiosInstance";
 
 const useFetchProduct = (id) => {
   const [product, setProduct] = useState(null);
@@ -11,12 +12,10 @@ const useFetchProduct = (id) => {
     const fetchProduct = async () => {
       try {
         setLoading(true);
-        const response = await axios.get(
-          `${process.env.NEXT_PUBLIC_BASE_URL}/json/Recommendation.json`
-        );
-        const data = response.data;
-        const foundProduct = data.find((item) => item.id === id);
-        setProduct(foundProduct);
+        const response = await axiosInstance.get(`/items/products/${id}`);
+        const data = response.data.data;
+        console.log("data-----------", data)
+        setProduct(data);
       } catch (err) {
         setError(err.message || "Failed to fetch product");
       } finally {

@@ -4,6 +4,7 @@ export default function TransformSpecifications({ specs, price, discount }) {
   const textSpecs = [];
   const arraySpecs = [];
 
+  console.log('keu', specs)
   for (let key in specs) {
     if (Array.isArray(specs[key])) {
       arraySpecs.push(

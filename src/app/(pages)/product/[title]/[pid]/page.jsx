@@ -5,7 +5,7 @@ import axios from "axios";
 import React from "react";
 
 export default function page({ params }) {
-  const { title, pid } = params;
+  const { pid } = params;
   const id = pid.replace("pid-", "");
 
 
