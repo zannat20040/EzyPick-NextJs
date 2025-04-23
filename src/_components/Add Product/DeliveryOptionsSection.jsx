@@ -19,11 +19,9 @@ export default function DeliveryOptionsSection({
     const fetchOptions = async () => {
       try {
         const res = await axiosInstance.get("/api/deliveryOptions");
-        console.log("-----d15-----", res.data);
         const titles = res.data.options.map((item) => item.title);
         setOptions(titles);
       } catch (err) {
-        console.error("Failed to fetch delivery options:", err);
         setError("Failed to load delivery options");
       }
     };
@@ -55,7 +53,6 @@ export default function DeliveryOptionsSection({
       setOptions((prev) => [...prev, trimmed]);
       setNewOption("");
     } catch (err) {
-      console.error("Failed to add option:", err);
       setError("Failed to add delivery option");
     }
   };

@@ -120,6 +120,7 @@ export default function CategorySelector({ onSelect }) {
           {!categoryList.some((c) => c.category === categoryQuery) &&
             categoryQuery && (
               <button
+                type="button"
                 className="text-sm text-pale-red mt-1"
                 onClick={handleAddCategory}
               >
@@ -132,7 +133,7 @@ export default function CategorySelector({ onSelect }) {
       {selectedCategory && (
         <div>
           <label className="text-sm font-medium">Subcategory</label>
-          
+
           <input
             type="text"
             value={subcategoryQuery}
@@ -140,15 +141,15 @@ export default function CategorySelector({ onSelect }) {
             placeholder="Search or type to add"
             className="w-full px-2 mt-2 py-1 rounded border border-soft-gray focus:outline-none text-sm"
           />
-           {subcategoryError && (
-          <p className="text-red-600 p-1 flex items-center gap-2 bg-red-50 mt-2 text-xs  px-3 rounded font-semibold">
-            <RxCrossCircled
-              className="text-red-600 text-base cursor-pointer"
-              onClick={() => setSubcategoryError("")}
-            />
-            {subcategoryError}
-          </p>
-        )}
+          {subcategoryError && (
+            <p className="text-red-600 p-1 flex items-center gap-2 bg-red-50 mt-2 text-xs  px-3 rounded font-semibold">
+              <RxCrossCircled
+                className="text-red-600 text-base cursor-pointer"
+                onClick={() => setSubcategoryError("")}
+              />
+              {subcategoryError}
+            </p>
+          )}
           <div className="mt-1  max-h-[150px] overflow-y-auto">
             {subcategoryList
               .filter((s) =>
@@ -166,6 +167,7 @@ export default function CategorySelector({ onSelect }) {
             {!subcategoryList.includes(subcategoryQuery) &&
               subcategoryQuery && (
                 <button
+                  type="button"
                   className="text-sm text-pale-red mt-1"
                   onClick={handleAddSubcategory}
                 >

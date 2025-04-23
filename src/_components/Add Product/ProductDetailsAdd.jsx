@@ -20,6 +20,7 @@ export default function ProductDetailsAdd() {
       />
 
       <input
+        min="0"
         name="price"
         type="number"
         placeholder="Enter product price (৳)"
@@ -28,6 +29,8 @@ export default function ProductDetailsAdd() {
       />
 
       <input
+        min="0"
+        max="100"
         name="discount"
         type="number"
         placeholder="Enter discount percentage (e.g. 10 for 10%, Optional)"

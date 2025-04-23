@@ -75,9 +75,9 @@ const DynamicSpecifications = ({ initialData = {}, onSave }) => {
         <Button
           type="button"
           onClick={handleAddField}
-          className=" shadow-none hover:shadow-none bg-white px-0 flex gap-1 items-center py-1 mt-1 w-full   font-medium rounded text-pale-red"
+          className=" shadow-none text-pale-red hover:shadow-none bg-white px-0 flex gap-1 items-center py-1 mt-1 w-full   font-medium rounded "
         >
-          <CiSquarePlus className="text-pale-red text-lg" /> Add more specification
+          + Add more specification
         </Button>
       </div>
 
@@ -92,8 +92,8 @@ const DynamicSpecifications = ({ initialData = {}, onSave }) => {
                 <TagsInput
                   tags={value}
                   field={field}
-                  removeTag={() => removeField(field)}
                   onChange={(tags) => handleTagChange(field, tags)}
+                  onRemoveField={() => removeField(field)} // ✅ Explicitly pass field removal
                 />
               </>
             ) : (
@@ -130,7 +130,7 @@ const DynamicSpecifications = ({ initialData = {}, onSave }) => {
 };
 
 // Helper component for tags input
-const TagsInput = ({ tags, onChange, field, removeField }) => {
+const TagsInput = ({ tags, onChange, field, onRemoveField }) => {
   const [inputValue, setInputValue] = useState("");
 
   const handleKeyDown = (e) => {
@@ -164,7 +164,10 @@ const TagsInput = ({ tags, onChange, field, removeField }) => {
             />
           </div>
         </div>
-        <button className="btn-sm cursor-pointer " onClick={removeField}>
+        <button
+          type="button"
+          className="btn-sm cursor-pointer "
+          onClick={onRemoveField}        >
           <RxCross2 className="text-pale-red" />
         </button>
       </div>
