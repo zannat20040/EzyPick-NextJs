@@ -39,10 +39,10 @@ export default function TransformSpecifications({ specs, price, discount }) {
       {/* price section start*/}
       <div className="border-dashed border-soft-gray border-b pb-3 ">
         <p className=" text-2xl  text-pale-red">
-          ${price ? (price - (price * discount) / 100).toFixed(2) : 0}
+          ৳{price ? (price - (price * discount) / 100).toFixed(2) : 0}
         </p>
         <div>
-          <span className="line-through">${price || 0}</span>{" "}
+          <span className="line-through"> ৳{price || 0}</span>{" "}
           <span>-{discount || 0}%off</span>
         </div>
       </div>

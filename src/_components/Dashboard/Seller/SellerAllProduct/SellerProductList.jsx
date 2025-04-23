@@ -1,5 +1,8 @@
 import React from "react";
-import { MdOutlineDeleteOutline, MdOutlineModeEditOutline } from "react-icons/md";
+import {
+  MdOutlineDeleteOutline,
+  MdOutlineModeEditOutline,
+} from "react-icons/md";
 
 export default function SellerProductList({ allProducts }) {
   return (
@@ -25,13 +28,25 @@ export default function SellerProductList({ allProducts }) {
                 <tr key={index} className="hover:bg-gray-100">
                   <th>{index + 1}</th>
                   <td>{product.name}</td>
-                  <td>{product.price}</td>
+                  <td>
+                    ৳
+                    {product.price
+                      ? (
+                          product.price -
+                          (product.price * discount) / 100
+                        ).toFixed(2)
+                      : 0}
+                  </td>
                   <td>{product.category.title}</td>
                   <td>{product.discount}</td>
                   <td>{product.stock}</td>
                   <td className="flex gap-3">
-                    <button className=""><MdOutlineModeEditOutline className='text-pale-red hover:text-red-200 text-lg'/></button>
-                    <button className=""><MdOutlineDeleteOutline className='text-pale-red hover:text-red-200 text-lg'/></button>
+                    <button className="">
+                      <MdOutlineModeEditOutline className="text-pale-red hover:text-red-200 text-lg" />
+                    </button>
+                    <button className="">
+                      <MdOutlineDeleteOutline className="text-pale-red hover:text-red-200 text-lg" />
+                    </button>
                   </td>
                 </tr>
               ))}
