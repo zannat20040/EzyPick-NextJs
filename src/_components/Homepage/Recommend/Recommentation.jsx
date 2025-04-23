@@ -1,12 +1,11 @@
 import RecommendationList from "@/_components/Homepage/Recommend/RecommendationList";
 import axiosInstance from "@/utils/axiosInstance";
-import axios from "axios";
 import React from "react";
 
 async function getRecommentation() {
   try {
-    const response = await axiosInstance.get("/items/products");
-    return response.data.data;
+    const response = await axiosInstance.get("/api/product");
+    return response.data;
   } catch (error) {
     console.error("Error fetching categories:", error);
     return [];

@@ -17,7 +17,7 @@ export default function ProductCard({ product }) {
           width={100}
           height={100}
           alt={product.name}
-          src={`${process.env.NEXT_PUBLIC_API_URL}/assets/${product.image}`}
+          src={product.thumbnail}
           className="h-full w-full rounded text-xs group-hover:scale-90 scale-100 duration-300 transition-all ease-in-out"
         />
       </figure>
