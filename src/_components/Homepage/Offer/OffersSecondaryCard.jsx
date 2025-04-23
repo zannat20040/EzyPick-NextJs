@@ -1,9 +1,7 @@
 import Image from "next/image";
 import React from "react";
 
-export default function OffersSecondaryCard({
-  secondaryOffers,
-}) {
+export default function OffersSecondaryCard({ secondaryOffers }) {
   return (
     <div className="grid grid-cols-1 gap-5 w-full">
       {secondaryOffers.length > 0 &&
@@ -13,7 +11,7 @@ export default function OffersSecondaryCard({
             key={offer.title || index}
           >
             <Image
-              src={`${process.env.NEXT_PUBLIC_API_URL}/assets/${offer.image}`} // assumes image is stored as URL path
+              src={offer.thumbnail}
               alt={offer.name || "secondary offer"}
               width={1024}
               height={650}
@@ -29,7 +27,7 @@ export default function OffersSecondaryCard({
               }}
               className="h-full absolute top-0 p-5 w-full"
             >
-              <p className="text-white">category</p>
+              <p className="text-white capitalize">{offer?.category?.title}</p>
               <h1 className="font-bold text-2xl text-white">{offer.offer}</h1>
             </div>
           </div>

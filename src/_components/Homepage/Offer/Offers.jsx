@@ -4,13 +4,8 @@ import axios from "axios";
 
 const fetchOffers = async () => {
   try {
-    const res = await axiosInstance.get("/items/products");
-
-    // Filter products that contain a valid "offer"
-    const offers = res.data?.data?.filter(
-      (product) => product.offer && product.image
-    );
-
+    const res = await axiosInstance.get("/api/product/offers");
+    const offers = res.data;
     return offers || [];
   } catch (error) {
     console.error("Error fetching offers:", error);

@@ -2,7 +2,6 @@
 import { useEffect, useState } from "react";
 import { Carousel } from "@material-tailwind/react";
 import Image from "next/image";
-import axios from "axios";
 import axiosInstance from "@/utils/axiosInstance";
 
 export const BannerCarousel = () => {
@@ -12,12 +11,10 @@ export const BannerCarousel = () => {
     const fetchOfferProducts = async () => {
       try {
         const response = await axiosInstance.get(
-          "/items/products"
+          "/api/product/offers"
         );
-        const filtered = response.data.data.filter(
-          (product) => product.offer && product.image
-        );
-        setOfferProducts(filtered);
+        
+        setOfferProducts(response.data);
       } catch (error) {
         console.error("Error fetching products:", error);
       }
@@ -30,8 +27,8 @@ export const BannerCarousel = () => {
     <div className="container px-5 lg:px-8 mx-auto">
       <Carousel
         loop={true}
-        prevArrow={0}
-        nextArrow={0}
+        prevArrow={null}
+        nextArrow={null}
         autoplay={true}
         autoplayDelay={3000}
         className="rounded-xl"
@@ -52,8 +49,8 @@ export const BannerCarousel = () => {
         {offerProducts.map((product, index) => (
           <Image
             key={`product-${index}`}
-            src={`${process.env.NEXT_PUBLIC_API_URL}/assets/${product.image}`} // assumes image is stored as URL path
-            alt={product.name || `Product ${index + 1}`}
+            src={product?.thumbnail} // assumes image is stored as URL path
+            alt={product?.name || `Product ${index + 1}`}
             width={100}
             height={90}
             unoptimized={true}

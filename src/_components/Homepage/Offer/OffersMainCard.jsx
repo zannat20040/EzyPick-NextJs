@@ -6,7 +6,7 @@ export default function OffersMainCard({ mainOffer }) {
       {mainOffer && (
         <div className="h-full relative flex ">
           <Image
-            src={`${process.env.NEXT_PUBLIC_API_URL}/assets/${mainOffer?.image}`} // assumes image is stored as URL path
+            src={mainOffer?.thumbnail} // assumes image is stored as URL path
             alt={mainOffer?.name || "main offer"}
             width={1024}
             height={650}
@@ -20,7 +20,7 @@ export default function OffersMainCard({ mainOffer }) {
             }}
             className={`h-full absolute top-0 p-5 w-full `}
           >
-            <p className="text-white">category</p>
+            <p className="text-white capitalize">{mainOffer.category.title}</p>
             <h1 className="font-bold text-2xl text-white">
               {mainOffer?.offer}
             </h1>
