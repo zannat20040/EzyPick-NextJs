@@ -30,18 +30,18 @@ export default function OffersComponent({ offers }) {
     setIsViewAll(!isViewAll);
   };
 
-  
-
   return (
     <div className="">
       <Headline
         label={"Get best deal on "}
         higlightedLabel={"Flash Sale"}
         rightComponent={
-          <ViewLessAll
-            HandleAllFunction={HandleAllOffer}
-            isViewAll={isViewAll}
-          />
+          showOffers.length > 3 ? (
+            <ViewLessAll
+              HandleAllFunction={HandleAllOffer}
+              isViewAll={isViewAll}
+            />
+          ) : null
         }
       />
 
@@ -54,24 +54,16 @@ export default function OffersComponent({ offers }) {
           {index % 2 === 0 ? (
             <>
               {/* First Large Offer */}
-              <OffersMainCard
-                mainOffer={group[0]}
-              />
+              <OffersMainCard mainOffer={group[0]} />
               {/* Two Smaller Offers */}
-              <OffersSecondaryCard
-                secondaryOffers={group.slice(1)}
-              />
+              <OffersSecondaryCard secondaryOffers={group.slice(1)} />
             </>
           ) : (
             <>
               {/* First Large Offer */}
-              <OffersSecondaryCard
-                secondaryOffers={group.slice(1)}
-              />
+              <OffersSecondaryCard secondaryOffers={group.slice(1)} />
               {/* Two Smaller Offers */}
-              <OffersMainCard
-                mainOffer={group[0]}
-              />
+              <OffersMainCard mainOffer={group[0]} />
             </>
           )}
         </div>

@@ -13,7 +13,19 @@ const nextConfig = {
       },
       {
         protocol: "https",
+        hostname: "www.pngplay.com",
+      },
+      {
+        protocol: "https",
         hostname: "www.pngmart.com",
+      },
+      {
+        protocol: "https",
+        hostname: "microless.com",
+      },
+      {
+        protocol: "https",
+        hostname: "admin.regalfurniturebd.com",
       },
       {
         protocol: "https",

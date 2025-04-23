@@ -20,7 +20,7 @@ export default function CategorySelector({ onSelect }) {
     const fetchCategories = async () => {
       try {
         const res = await axiosInstance.get("/api/categories");
-        setCategoryList(res.data.data); // full category objects
+        setCategoryList(res.data); // full category objects
       } catch (err) {
         setCategoryError("Failed to load categories");
       }

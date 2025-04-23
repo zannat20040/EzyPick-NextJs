@@ -1,9 +1,10 @@
-import axios from 'axios';
-import CategoryList from '@/_components/Homepage/Category/CategoryList';
+import axios from "axios";
+import CategoryList from "@/_components/Homepage/Category/CategoryList";
+import axiosInstance from "@/utils/axiosInstance";
 
 async function getCategories() {
   try {
-    const response = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/json/Categories.json`);
+    const response = await axiosInstance.get("/api/categories");
     return response.data;
   } catch (error) {
     console.error("Error fetching categories:", error);
@@ -18,7 +19,5 @@ export default async function Categories() {
     return <div className="text-center py-10">No categories available.</div>;
   }
 
-  return (
-      <CategoryList categories={categories} />
-  );
+  return <CategoryList categories={categories} />;
 }
