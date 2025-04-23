@@ -4,8 +4,8 @@ import axiosInstance from "@/utils/axiosInstance";
 
 async function getProducts() {
   try {
-    const response = await axiosInstance.get("/items/products");
-    return response.data.data;
+    const response = await axiosInstance.get("/api/product");
+    return response.data;
   } catch (error) {
     console.error("Error fetching categories:", error);
     return [];

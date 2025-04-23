@@ -11,49 +11,11 @@ import axios from "axios";
 import axiosInstance from "@/utils/axiosInstance";
 import toast from "react-hot-toast";
 
-export default function ProductDetails({ id }) {
-  const { product, setLoading, setError } = useFetchProduct(id);
-  const [productImg, setProductImg] = useState(product?.image);
+export default function ProductDetails({ product, id }) {
+  console.log(product, "------------");
+  const [productImg, setProductImg] = useState(product?.thumbnail);
   const [relatedProducts, setRelatedProducts] = useState([]);
   const [quantity, setQuantity] = useState(1);
-  const [postedByUser, setPostedByUser] = useState(null);
-
-  useEffect(() => {
-    const fetchRelatedProduct = async () => {
-      try {
-        setLoading(true);
-        const response = await axios.get(
-          `${process.env.NEXT_PUBLIC_BASE_URL}/json/Recommendation.json`
-        );
-        const data = response.data;
-        const foundProduct = data.filter(
-          (item) => product.category == item.category
-        );
-        setRelatedProducts(foundProduct);
-      } catch (err) {
-        setError(err.message || "Failed to fetch product");
-      } finally {
-        setLoading(false);
-      }
-    };
-    if (product) {
-      fetchRelatedProduct();
-    }
-  }, [product]);
-
-  useEffect(() => {
-    const fetchPostedByUser = async () => {
-      if (!product?.user_created) return;
-      try {
-        const res = await axiosInstance.get(`/users/${product.user_created}`);
-        setPostedByUser(res.data.data); // full user object
-      } catch (error) {
-        console.error("Error fetching user:", error);
-      }
-    };
-
-    fetchPostedByUser();
-  }, [product?.user_created]);
 
   const HandleAdd = () => {
     if (quantity < product.stock) {
@@ -124,14 +86,13 @@ export default function ProductDetails({ id }) {
               <Image
                 width={100}
                 height={100}
-                src={` ${process.env.NEXT_PUBLIC_API_URL}/assets/${product?.image}`}
-                // src={productImg || product?.image}
+                src={productImg || product?.thumbnail}
                 alt={product?.name}
                 className="rounded w-full h-full "
               />
             </figure>
             <div className="flex gap-2 items-center mt-2">
-              {product?.image_gallery?.map((img, index) => (
+              {product?.gallery?.map((img, index) => (
                 <div
                   className="h-16 w-16 rounded   p-2 bg-white border border-gray-200 cursor-pointer"
                   onClick={() => setProductImg(img)}
@@ -139,7 +100,7 @@ export default function ProductDetails({ id }) {
                   <Image
                     width={100}
                     height={100}
-                    src={`${process.env.NEXT_PUBLIC_API_URL}/assets/${img}`}
+                    src={img}
                     alt={`imgGallery${index + 1}`}
                     className="rounded w-full h-full text-xs"
                   />
@@ -151,9 +112,10 @@ export default function ProductDetails({ id }) {
           {/* right  */}
           <div className=" flex flex-col gap-0 rounded p-5 ">
             <span className="text-gray-500 text-sm">
-              {postedByUser
+              {/* {postedByUser
                 ? `${postedByUser?.first_name} ${postedByUser?.last_name}`
-                : "Unknown User"}
+                : "Unknown User"} */}
+                company name
             </span>
             <h2 className="card-title text-2xl mb-2">{product?.name}</h2>
 
@@ -166,7 +128,7 @@ export default function ProductDetails({ id }) {
             </div>
 
             <TransformSpecifications
-              specs={product?.specification}
+              specs={product?.specifications}
               price={product?.price}
               discount={product?.discount}
             />
@@ -208,7 +170,7 @@ export default function ProductDetails({ id }) {
         {/* tab */}
         <ProductDetailsTab
           details={product?.description}
-          productId={product?.id}
+          productId={product?._id}
         />
       </div>
       {/* related work*/}

@@ -1,8 +1,8 @@
 "use client";
 import { Breadcrumbs } from "@material-tailwind/react";
 
-export function BreadCrumbsComp() {
-  const crumbList = ["Components", "Breadcrumbs"];
+export function BreadCrumbsComp({ category, subcategory }) {
+  const crumbList = [category, subcategory];
   return (
     <div className="container px-5 lg:px-8 mx-auto mt-5">
       <Breadcrumbs>
@@ -17,13 +17,14 @@ export function BreadCrumbsComp() {
           </svg>
         </a>
         {crumbList.map((crumb, index) => (
-          <a key={crumb}
+          <a
+            key={crumb}
             href="#"
             className={` hover:text-pale-red ${
               index === crumbList.length - 1 ? "opacity-100" : "opacity-60"
             }`}
           >
-            <span>{crumb}</span>
+            <span className='capitalize'>{crumb}</span>
           </a>
         ))}
       </Breadcrumbs>
