@@ -3,6 +3,7 @@ import {
   MdOutlineDeleteOutline,
   MdOutlineModeEditOutline,
 } from "react-icons/md";
+import ProductActions from "./ProductActions";
 
 export default function SellerProductList({ allProducts }) {
   return (
@@ -33,21 +34,14 @@ export default function SellerProductList({ allProducts }) {
                     {product.price
                       ? (
                           product.price -
-                          (product.price * discount) / 100
+                          (product.price * product.discount) / 100
                         ).toFixed(2)
                       : 0}
                   </td>
                   <td>{product.category.title}</td>
                   <td>{product.discount}</td>
                   <td>{product.stock}</td>
-                  <td className="flex gap-3">
-                    <button className="">
-                      <MdOutlineModeEditOutline className="text-pale-red hover:text-red-200 text-lg" />
-                    </button>
-                    <button className="">
-                      <MdOutlineDeleteOutline className="text-pale-red hover:text-red-200 text-lg" />
-                    </button>
-                  </td>
+                  <ProductActions product={product} />
                 </tr>
               ))}
           </tbody>

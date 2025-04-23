@@ -40,6 +40,7 @@ export default function ProductDetailsAdd() {
       <input
         name="stock"
         type="number"
+        min="0"
         placeholder="Enter available stock quantity"
         required
         className="w-full px-4 py-3 rounded border border-soft-gray focus:outline-none text-sm"
