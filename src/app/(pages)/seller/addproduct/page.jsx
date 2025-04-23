@@ -3,11 +3,14 @@ import CategorySelector from "@/_components/Add Product/CatergorySelector";
 import DeliveryOptionsSection from "@/_components/Add Product/DeliveryOptionsSection";
 import DynamicSpecifications from "@/_components/Add Product/DynamicSpecifications";
 import ProductDetailsAdd from "@/_components/Add Product/ProductDetailsAdd";
+import { BreadCrumbsComp } from "@/_components/shared/BreadCrumbsComp";
 import ImageUploader from "@/_components/shared/ImageUploader";
 import { useAuth } from "@/Context/AuthContext";
 import axiosInstance from "@/utils/axiosInstance";
+import getUserByEmail from "@/utils/getUserByEmail";
 import { Button } from "@material-tailwind/react";
 import React, { useState } from "react";
+import { useEffect } from "react";
 import toast from "react-hot-toast";
 
 export default function page() {
@@ -19,6 +22,17 @@ export default function page() {
   const [isUpload, setIsUpload] = useState(false);
   const [specs, setSpecs] = useState({});
   const { user } = useAuth();
+  const [userData, setUserData] = useState(null);
+  useEffect(() => {
+    const fetchUserData = async () => {
+      if (user?.email) {
+        const data = await getUserByEmail(user.email);
+        setUserData(data);
+      }
+    };
+
+    fetchUserData();
+  }, [user?.email]);
 
   const handleSave = (newSpecs) => {
     setSpecs(newSpecs);
@@ -85,53 +99,55 @@ export default function page() {
       setIsUpload(false);
     }
 
-    console.log("Final product data to submit:", productData);
   };
 
   return (
-    <div className="container mx-auto px-5 lg:px-8 py-5  ">
-      <form
-        className="grid grid-cols-4 gap-5 justify-between "
-        onSubmit={handleAddProduct}
-      >
-        <div>
-          <ImageUploader
-            placeholder="Upload the product thumbnail"
-            onUploadSuccess={(id) => setProductImage(id)}
-            additional_note="Only PNG, JPG or JPEG allowed"
-            multiple={false}
-          />
-          <ImageUploader
-            placeholder="Upload the products all image"
-            onUploadSuccess={(images) => setMultipleProductImage(images)}
-            additional_note="Only PNG, JPG or JPEG allowed. Multiple images allowed"
-            multiple={true}
-          />
-          <DynamicSpecifications onSave={handleSave} />
-        </div>
-        <div className="col-span-2 pt-3">
-          <ProductDetailsAdd />
-          <Button
-            disabled={isUpload}
-            type="submit"
-            className="bg-pale-red mt-5 w-full text-white uppercase font-medium rounded"
-          >
-            Add this product
-          </Button>
-        </div>
-        <div className="">
-          <DeliveryOptionsSection
-            selectedOptions={deliveryOptions}
-            onChange={setDeliveryOptions}
-          />
-          <CategorySelector
-            onSelect={({ category, subcategory }) => {
-              setSelectedCategory(category);
-              setSelectedSubcategory(subcategory);
-            }}
-          />
-        </div>
-      </form>
+    <div>
+      <BreadCrumbsComp category={`${userData?.name}`} subcategory={"Add new product"} />
+      <div className="container mx-auto px-5 lg:px-8 py-5  ">
+        <form
+          className="grid grid-cols-4 gap-5 justify-between "
+          onSubmit={handleAddProduct}
+        >
+          <div>
+            <ImageUploader
+              placeholder="Upload the product thumbnail"
+              onUploadSuccess={(id) => setProductImage(id)}
+              additional_note="Only PNG, JPG or JPEG allowed"
+              multiple={false}
+            />
+            <ImageUploader
+              placeholder="Upload the products all image"
+              onUploadSuccess={(images) => setMultipleProductImage(images)}
+              additional_note="Only PNG, JPG or JPEG allowed. Multiple images allowed"
+              multiple={true}
+            />
+            <DynamicSpecifications onSave={handleSave} />
+          </div>
+          <div className="col-span-2 pt-3">
+            <ProductDetailsAdd />
+            <Button
+              disabled={isUpload}
+              type="submit"
+              className="bg-pale-red mt-5 w-full text-white uppercase font-medium rounded"
+            >
+              Add this product
+            </Button>
+          </div>
+          <div className="">
+            <DeliveryOptionsSection
+              selectedOptions={deliveryOptions}
+              onChange={setDeliveryOptions}
+            />
+            <CategorySelector
+              onSelect={({ category, subcategory }) => {
+                setSelectedCategory(category);
+                setSelectedSubcategory(subcategory);
+              }}
+            />
+          </div>
+        </form>
+      </div>
     </div>
   );
 }

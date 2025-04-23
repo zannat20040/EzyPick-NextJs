@@ -14,7 +14,6 @@ const useFetchProduct = (id) => {
         setLoading(true);
         const response = await axiosInstance.get(`/items/products/${id}`);
         const data = response.data.data;
-        console.log("data-----------", data)
         setProduct(data);
       } catch (err) {
         setError(err.message || "Failed to fetch product");

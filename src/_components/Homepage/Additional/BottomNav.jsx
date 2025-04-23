@@ -44,6 +44,7 @@ export default function BottomNav() {
   const protectedBuyerNavItems = [{ label: "My Order", path: "/order" }];
   const protectedSellerNavItems = [
     { label: "Add Product", path: "/seller/addproduct" },
+    { label: "My Products", path: `/seller/myproducts/${user?.email}` },
   ];
 
   return (

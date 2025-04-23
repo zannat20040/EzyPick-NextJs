@@ -51,7 +51,6 @@ export default function ImageUploader({
           formData
         );
 
-        console.log(res)
 
         return {
           id: res.data.asset_id,

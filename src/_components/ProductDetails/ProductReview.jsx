@@ -24,12 +24,10 @@ const ProductReview = ({ productId }) => {
 
         if (filterProduct.length > 0) {
           const filterProductReview = filterProduct[0];
-          console.log(filterProductReview);
           setDislikes(filterProductReview.dislikes);
           setLikes(filterProductReview.likes);
           setReviews(filterProductReview);
         } else {
-          console.log("No reviews found for this productId");
           setReviews({}); // Set an empty object or handle it in a way that fits your needs
         }
       } catch (error) {

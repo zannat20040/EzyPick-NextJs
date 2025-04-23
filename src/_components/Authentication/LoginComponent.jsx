@@ -26,7 +26,6 @@ export default function LoginComponent() {
       // Firebase login
       const userCredential = await signIn(email, password);
       const firebaseUser = userCredential?.user;
-      console.log('--------',userCredential)
 
       if (!firebaseUser) {
         toast.error("Login failed.");

@@ -12,7 +12,6 @@ import axiosInstance from "@/utils/axiosInstance";
 import toast from "react-hot-toast";
 
 export default function ProductDetails({ product, id }) {
-  console.log(product, "------------");
   const [productImg, setProductImg] = useState(product?.thumbnail);
   const [relatedProducts, setRelatedProducts] = useState([]);
   const [quantity, setQuantity] = useState(1);
