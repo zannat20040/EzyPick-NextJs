@@ -4,6 +4,7 @@ import {
   MdOutlineDeleteOutline,
   MdOutlineModeEditOutline,
 } from "react-icons/md";
+import HandleDeleteProduct from "./HandleDeleteProduct";
 
 export default function SellerProductList({ allProducts }) {
   return (
@@ -47,11 +48,7 @@ export default function SellerProductList({ allProducts }) {
                         <MdOutlineModeEditOutline className="text-pale-red hover:text-red-200 text-lg" />
                       </button>
                     </Link>
-                    <Link href={`/seller/product/${product._id}`}>
-                      <button className="">
-                        <MdOutlineDeleteOutline className="text-pale-red hover:text-red-200 text-lg" />
-                      </button>
-                    </Link>
+                    <HandleDeleteProduct product={product} />
                   </td>
                 </tr>
               ))}

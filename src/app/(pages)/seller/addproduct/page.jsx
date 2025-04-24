@@ -23,6 +23,7 @@ export default function page() {
   const [specs, setSpecs] = useState({});
   const { user } = useAuth();
   const [userData, setUserData] = useState(null);
+
   useEffect(() => {
     const fetchUserData = async () => {
       if (user?.email) {
@@ -79,6 +80,7 @@ export default function page() {
       },
       specifications: specs,
       postedBy: user?.email,
+      sellerName: userData?.name
     };
 
     try {
