@@ -1,14 +1,15 @@
 "use client";
-import CategorySelector from "@/_components/Add Product/CatergorySelector";
-import DeliveryOptionsSection from "@/_components/Add Product/DeliveryOptionsSection";
-import DynamicSpecifications from "@/_components/Add Product/DynamicSpecifications";
-import ProductDetailsAdd from "@/_components/Add Product/ProductDetailsAdd";
+import CategorySelector from "@/_components/Dashboard/Seller/Add Product/CatergorySelector";
+import DeliveryOptionsSection from "@/_components/Dashboard/Seller/Add Product/DeliveryOptionsSection";
+import DynamicSpecifications from "@/_components/Dashboard/Seller/Add Product/DynamicSpecifications";
+import ProductDetailsAdd from "@/_components/Dashboard/Seller/Add Product/ProductDetailsAdd";
 import { BreadCrumbsComp } from "@/_components/shared/BreadCrumbsComp";
 import ImageUploader from "@/_components/shared/ImageUploader";
 import { useAuth } from "@/Context/AuthContext";
 import axiosInstance from "@/utils/axiosInstance";
 import getUserByEmail from "@/utils/getUserByEmail";
 import { Button } from "@material-tailwind/react";
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { useEffect } from "react";
 import toast from "react-hot-toast";
@@ -23,6 +24,7 @@ export default function page() {
   const [specs, setSpecs] = useState({});
   const { user } = useAuth();
   const [userData, setUserData] = useState(null);
+  const router = useRouter();
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -80,7 +82,7 @@ export default function page() {
       },
       specifications: specs,
       postedBy: user?.email,
-      sellerName: userData?.name
+      sellerName: userData?.name,
     };
 
     try {
@@ -94,18 +96,21 @@ export default function page() {
       setSelectedCategory(null);
       setSelectedSubcategory(null);
       setSpecs({});
+      router.push(`/seller/myproducts/${user?.email}`);
     } catch (err) {
       toast.error("Failed to add product");
       console.error(err.response?.data || err);
     } finally {
       setIsUpload(false);
     }
-
   };
 
   return (
     <div>
-      <BreadCrumbsComp category={`${userData?.name}`} subcategory={"Add new product"} />
+      <BreadCrumbsComp
+        category={`${userData?.name}`}
+        subcategory={"Add new product"}
+      />
       <div className="container mx-auto px-5 lg:px-8 py-5  ">
         <form
           className="grid grid-cols-4 gap-5 justify-between "

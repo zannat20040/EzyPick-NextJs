@@ -26,7 +26,7 @@ export default async function Page({ params }) {
   return (
     <>
       <BreadCrumbsComp
-        category={products[0]?.postedBy}
+        category={products[0]?.sellerName}
         subcategory={"my all products"}
       />
       <SellerProductList allProducts={products} />;

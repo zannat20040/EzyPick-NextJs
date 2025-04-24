@@ -1,13 +1,11 @@
 "use client";
-import useFetchProduct from "@/hooks/useFetchProduct";
 import Image from "next/image";
 import { FaMinus, FaPlus } from "react-icons/fa6";
-import { useEffect, useState } from "react";
+import {  useState } from "react";
 import CustomRating from "@/_components/shared/ustomRating";
 import TransformSpecifications from "../ProductDetails/TransformSpecifications";
 import { ProductDetailsTab } from "../ProductDetails/ProductDetailsTab";
 import RecommendationList from "../Homepage/Recommend/RecommendationList";
-import axios from "axios";
 import axiosInstance from "@/utils/axiosInstance";
 import toast from "react-hot-toast";
 
@@ -110,11 +108,8 @@ export default function ProductDetails({ product, id }) {
 
           {/* right  */}
           <div className=" flex flex-col gap-0 rounded p-5 ">
-            <span className="text-gray-500 text-sm">
-              {/* {postedByUser
-                ? `${postedByUser?.first_name} ${postedByUser?.last_name}`
-                : "Unknown User"} */}
-                company name
+            <span className="text-gray-500 text-sm capitalize">
+              {product?.sellerName || "Unknown user"}
             </span>
             <h2 className="card-title text-2xl mb-2">{product?.name}</h2>
 

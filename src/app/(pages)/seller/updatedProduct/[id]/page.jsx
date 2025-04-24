@@ -1,8 +1,7 @@
 import React from "react";
-import ProductDetailsAdd from "@/_components/Add Product/ProductDetailsAdd"; // optional: reuse form
 import axiosInstance from "@/utils/axiosInstance";
 import { BreadCrumbsComp } from "@/_components/shared/BreadCrumbsComp";
-import UpdatedProductForm from "@/_components/Update Product/UpdatedProductForm";
+import UpdatedProductForm from "@/_components/Dashboard/Seller/Update Product/UpdatedProductForm";
 
 // ✅ Fetch product by ID
 async function getProductById(id) {
@@ -29,7 +28,7 @@ export default async function EditProductPage({ params }) {
   return (
     <>
       <BreadCrumbsComp
-        category={`${product.postedBy}`}
+        category={`${product.sellerName}`}
         subcategory={"update product"}
       />
       <UpdatedProductForm product={product}/>

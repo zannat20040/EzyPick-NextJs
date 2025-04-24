@@ -1,15 +1,17 @@
 "use client";
 import React, { useState } from "react";
-import ImageUploader from "../shared/ImageUploader";
-import DynamicSpecifications from "../Add Product/DynamicSpecifications";
-import ProductDetailsAdd from "../Add Product/ProductDetailsAdd";
-import DeliveryOptionsSection from "../Add Product/DeliveryOptionsSection";
-import CategorySelector from "../Add Product/CatergorySelector";
 import { Button } from "@material-tailwind/react";
 import toast from "react-hot-toast";
 import axiosInstance from "@/utils/axiosInstance"; // Don't forget to import
 import { useAuth } from "@/Context/AuthContext";
 import { useRouter } from "next/navigation";
+import { useEffect } from "react";
+import getUserByEmail from "@/utils/getUserByEmail";
+import ImageUploader from "@/_components/shared/ImageUploader";
+import DynamicSpecifications from "../Add Product/DynamicSpecifications";
+import ProductDetailsAdd from "../Add Product/ProductDetailsAdd";
+import DeliveryOptionsSection from "../Add Product/DeliveryOptionsSection";
+import CategorySelector from "../Add Product/CatergorySelector";
 
 export default function UpdatedProductForm({ product }) {
   const { user } = useAuth();
@@ -29,6 +31,19 @@ export default function UpdatedProductForm({ product }) {
   );
   const [specs, setSpecs] = useState(product?.specifications || {});
   const [isUpload, setIsUpload] = useState(false);
+  const [userData, setUserData] = useState(null);
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      if (user?.email) {
+        const data = await getUserByEmail(user.email);
+        setUserData(data);
+      }
+    };
+
+    fetchUserData();
+  }, [user?.email]);
+
 
   const handleSave = (updatedSpecs) => {
     setSpecs(updatedSpecs);
@@ -55,7 +70,7 @@ export default function UpdatedProductForm({ product }) {
       },
       specifications: specs,
       postedBy: user?.email,
-      sellerName: "employee name",
+      sellerName: userData?.name
     };
 
     try {
