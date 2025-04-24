@@ -24,6 +24,7 @@ export default function AddToWishlist({ productId }) {
         toast.success("Added to wishlist!");
       }
     } catch (err) {
+      console.log(err);
       toast.error(
         err.response?.data.message || err.message || "Failed to add to wishlist"
       );

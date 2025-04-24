@@ -1,18 +1,21 @@
 "use client";
 import Image from "next/image";
 import { FaMinus, FaPlus } from "react-icons/fa6";
-import {  useState } from "react";
+import { useState } from "react";
 import CustomRating from "@/_components/shared/ustomRating";
 import TransformSpecifications from "../ProductDetails/TransformSpecifications";
 import { ProductDetailsTab } from "../ProductDetails/ProductDetailsTab";
 import RecommendationList from "../Homepage/Recommend/RecommendationList";
 import axiosInstance from "@/utils/axiosInstance";
 import toast from "react-hot-toast";
+import AddToWishlist from "../Dashboard/Buyer/WishtList/AddToWishlist";
+import { useAuth } from "@/Context/AuthContext";
 
 export default function ProductDetails({ product, id }) {
   const [productImg, setProductImg] = useState(product?.thumbnail);
   const [relatedProducts, setRelatedProducts] = useState([]);
   const [quantity, setQuantity] = useState(1);
+  const { user } = useAuth();
 
   const HandleAdd = () => {
     if (quantity < product.stock) {
@@ -78,7 +81,10 @@ export default function ProductDetails({ product, id }) {
       <div className="px-5 lg:px-8 container mx-auto py-10">
         <div className="card rounded grid grid-cols-1 md:grid-cols-2 gap-5 justify-between items-center bg-base-100 ">
           {/* left */}
-          <div>
+          <div className="relative">
+            <div className="absolute top-2 left-2 ">
+              <AddToWishlist productId={product?._id} />
+            </div>
             <figure className="rounded bg-white p-5 border border-gray-200 ">
               <Image
                 width={100}
