@@ -39,7 +39,7 @@ export default async function Page({ params }) {
   return (
     <>
       <BreadCrumbsComp category={name} subcategory="See Wishlist" />
-      <WishlistList wishlist={wishlist} />
+      <WishlistList wishlist={wishlist} email={email} />
     </>
   );
 }

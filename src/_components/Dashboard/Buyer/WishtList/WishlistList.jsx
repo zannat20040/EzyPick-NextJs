@@ -2,8 +2,9 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import { RiDeleteBin7Line } from "react-icons/ri";
+import RemoveWishlistProduct from "./RemoveWishlistProduct";
 
-export default function WishlistList({ wishlist }) {
+export default function WishlistList({ wishlist, email }) {
   return (
     <ul className="list bg-base-100  container px-5 lg:px-8 mx-auto ">
       {wishlist?.map((product) => (
@@ -50,9 +51,7 @@ export default function WishlistList({ wishlist }) {
               </svg>
             </button>
           </Link>
-          <button className="btn btn-square btn-ghost">
-            <RiDeleteBin7Line className="text-lg" />
-          </button>
+          <RemoveWishlistProduct productId={product?.productId._id} email={email} />
         </li>
       ))}
     </ul>
