@@ -18,14 +18,52 @@ export default function ProductDetails({ product, id }) {
   const [quantity, setQuantity] = useState(1);
   const { user } = useAuth();
 
-  const HandleAdd = () => {
-    if (quantity < product.stock) {
-      setQuantity(quantity + 1);
+  const HandleAdd = async () => {
+    if (!user?.email || !product?._id) {
+      return toast.error("Please log in and select a product");
+    }
+  
+    try {
+      const res = await axiosInstance.post("/api/user-cart/cart/increase", {
+        email: user.email,
+        productId: product._id,
+        action: "increase", // ✅ Required field
+      });
+  
+      if (res.status === 200) {
+        setQuantity((prev) => prev + 1);
+        toast.success("Quantity increased");
+      } else {
+        toast.error(res.data?.message || "Failed to increase quantity");
+      }
+    } catch (err) {
+      console.error(err);
+      toast.error(err.response?.data?.message || "Server error");
     }
   };
-  const HandleRemove = () => {
-    if (quantity > 1) {
-      setQuantity(quantity - 1);
+  
+
+  const HandleRemove = async () => {
+    if (quantity <= 1) {
+      toast.error("Minimum quantity is 1");
+      return;
+    }
+
+    try {
+      // 👇 Update in UI
+      setQuantity((prev) => prev - 1);
+
+      // 👇 Update in backend
+      await axiosInstance.post("/api/user-cart/cart/increase", {
+        email: user.email,
+        productId: product._id,
+        action: "decrease",
+      });
+
+      toast.success("Quantity decreased");
+    } catch (err) {
+      console.error(err);
+      toast.error("Failed to update quantity");
     }
   };
 
