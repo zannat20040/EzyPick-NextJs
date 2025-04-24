@@ -11,12 +11,41 @@ export default function ImageUploader({
   additional_note,
   multiple = false,
   acceptedTypes = "image/*",
+  initialImage = null,          // ✅ NEW for single image
+  initialImages = [],
+
 }) {
-  const [filesInfo, setFilesInfo] = useState(null);
+  const [filesInfo, setFilesInfo] = useState(() => {
+    if (multiple && initialImages.length > 0) {
+      return {
+        count: initialImages.length,
+        files: initialImages.map((url) => ({
+          url,
+          preview: url,
+          name: url.split("/").pop(),
+          size: 0,
+        })),
+      };
+    } else if (!multiple && initialImage) {
+      return {
+        count: 1,
+        files: [
+          {
+            url: initialImage,
+            preview: initialImage,
+            name: initialImage.split("/").pop(),
+            size: 0,
+          },
+        ],
+      };
+    }
+    return null;
+  });
   const [uploading, setUploading] = useState(false);
   const [error, setError] = useState(null);
   const fileInputRef = useRef();
 
+  
   const inputId = `file_input_${placeholder
     .toLowerCase()
     .replace(/[^a-z0-9]/gi, "_")}`;

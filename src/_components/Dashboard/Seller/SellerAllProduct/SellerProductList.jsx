@@ -1,9 +1,9 @@
+import Link from "next/link";
 import React from "react";
 import {
   MdOutlineDeleteOutline,
   MdOutlineModeEditOutline,
 } from "react-icons/md";
-import ProductActions from "./ProductActions";
 
 export default function SellerProductList({ allProducts }) {
   return (
@@ -39,9 +39,20 @@ export default function SellerProductList({ allProducts }) {
                       : 0}
                   </td>
                   <td>{product.category.title}</td>
-                  <td>{product.discount}</td>
+                  <td>{product.discount}%</td>
                   <td>{product.stock}</td>
-                  <ProductActions product={product} />
+                  <td className="flex gap-3">
+                    <Link href={`/seller/updatedProduct/${product._id}`}>
+                      <button className="">
+                        <MdOutlineModeEditOutline className="text-pale-red hover:text-red-200 text-lg" />
+                      </button>
+                    </Link>
+                    <Link href={`/seller/product/${product._id}`}>
+                      <button className="">
+                        <MdOutlineDeleteOutline className="text-pale-red hover:text-red-200 text-lg" />
+                      </button>
+                    </Link>
+                  </td>
                 </tr>
               ))}
           </tbody>

@@ -5,13 +5,24 @@ import axiosInstance from "@/utils/axiosInstance";
 import toast from "react-hot-toast";
 import { RxCrossCircled } from "react-icons/rx";
 
-export default function CategorySelector({ onSelect }) {
-  const [categoryQuery, setCategoryQuery] = useState("");
+export default function CategorySelector({
+  onSelect,
+  initialCategory,
+  initialSubcategory,
+}) {
+  const [categoryQuery, setCategoryQuery] = useState(initialCategory || "");
+  const [selectedCategory, setSelectedCategory] = useState(
+    initialCategory || null
+  );
+  const [subcategoryQuery, setSubcategoryQuery] = useState(
+    initialSubcategory || ""
+  );
+  const [selectedSubcategory, setSelectedSubcategory] = useState(
+    initialSubcategory || null
+  );
+
   const [categoryList, setCategoryList] = useState([]);
-  const [selectedCategory, setSelectedCategory] = useState(null);
-  const [subcategoryQuery, setSubcategoryQuery] = useState("");
   const [subcategoryList, setSubcategoryList] = useState([]);
-  const [selectedSubcategory, setSelectedSubcategory] = useState(null);
   const [categoryError, setCategoryError] = useState(false);
   const [subcategoryError, setSubcategoryError] = useState(false);
 
@@ -20,18 +31,26 @@ export default function CategorySelector({ onSelect }) {
     const fetchCategories = async () => {
       try {
         const res = await axiosInstance.get("/api/categories");
-        setCategoryList(res.data); // full category objects
+        setCategoryList(res.data);
+        if (initialCategory) {
+          const matched =
+            res.data && res.data?.find((c) => c.category === initialCategory);
+          setSubcategoryList(matched?.subcategory || []);
+        }
       } catch (err) {
+        console.log(err)
         setCategoryError("Failed to load categories");
       }
     };
     fetchCategories();
-  }, []);
+  }, [initialCategory]);
 
   // 🔁 When category is selected, update subcategories
   useEffect(() => {
     if (selectedCategory) {
-      const matched = categoryList.find((c) => c.category === selectedCategory);
+      const matched =
+        categoryList &&
+        categoryList?.find((c) => c.category === selectedCategory);
       setSubcategoryList(matched?.subcategory || []);
     } else {
       setSubcategoryList([]);
@@ -52,8 +71,10 @@ export default function CategorySelector({ onSelect }) {
 
       // Refresh category list
       const res = await axiosInstance.get("/api/categories");
-      setCategoryList(res.data.data);
+      setCategoryList(res.data);
     } catch (err) {
+      console.log(err)
+
       setCategoryError("Failed to add category");
     }
   };
@@ -74,11 +95,13 @@ export default function CategorySelector({ onSelect }) {
 
       // Refresh category list
       const res = await axiosInstance.get("/api/categories");
-      setCategoryList(res.data.data);
+      setCategoryList(res.data);
 
       if (onSelect)
         onSelect({ category: selectedCategory, subcategory: subcategoryQuery });
     } catch (err) {
+      console.log(err)
+
       setSubcategoryError("Failed to add subcategory");
     }
   };
@@ -104,20 +127,21 @@ export default function CategorySelector({ onSelect }) {
           </p>
         )}
         <div className="mt-1  max-h-[150px] overflow-y-auto">
-          {categoryList
-            .filter((c) =>
-              c.category.toLowerCase().includes(categoryQuery.toLowerCase())
-            )
-            .map((c, i) => (
-              <div
-                key={i}
-                className="px-2 py-1 text-sm cursor-pointer rounded hover:bg-gray-200"
-                onClick={() => handleCategorySelect(c.category)}
-              >
-                {c.category}
-              </div>
-            ))}
-          {!categoryList.some((c) => c.category === categoryQuery) &&
+          {categoryList &&
+            categoryList
+              .filter((c) =>
+                c.category.toLowerCase().includes(categoryQuery.toLowerCase())
+              )
+              .map((c, i) => (
+                <div
+                  key={i}
+                  className="px-2 py-1 text-sm cursor-pointer rounded hover:bg-gray-200"
+                  onClick={() => handleCategorySelect(c.category)}
+                >
+                  {c.category}
+                </div>
+              ))}
+          {!categoryList?.some((c) => c.category === categoryQuery) &&
             categoryQuery && (
               <button
                 type="button"
@@ -151,19 +175,20 @@ export default function CategorySelector({ onSelect }) {
             </p>
           )}
           <div className="mt-1  max-h-[150px] overflow-y-auto">
-            {subcategoryList
-              .filter((s) =>
-                s.toLowerCase().includes(subcategoryQuery.toLowerCase())
-              )
-              .map((s, i) => (
-                <div
-                  key={i}
-                  className="px-2 py-1 text-sm cursor-pointer rounded hover:bg-gray-200"
-                  onClick={() => handleSubcategorySelect(s)}
-                >
-                  {s}
-                </div>
-              ))}
+            {subcategoryList &&
+              subcategoryList
+                .filter((s) =>
+                  s.toLowerCase().includes(subcategoryQuery.toLowerCase())
+                )
+                .map((s, i) => (
+                  <div
+                    key={i}
+                    className="px-2 py-1 text-sm cursor-pointer rounded hover:bg-gray-200"
+                    onClick={() => handleSubcategorySelect(s)}
+                  >
+                    {s}
+                  </div>
+                ))}
             {!subcategoryList.includes(subcategoryQuery) &&
               subcategoryQuery && (
                 <button
