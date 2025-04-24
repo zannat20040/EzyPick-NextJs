@@ -10,6 +10,7 @@ import axiosInstance from "@/utils/axiosInstance";
 import toast from "react-hot-toast";
 import AddToWishlist from "../Dashboard/Buyer/WishtList/AddToWishlist";
 import { useAuth } from "@/Context/AuthContext";
+import getUserByEmail from "@/utils/getUserByEmail";
 
 export default function ProductDetails({ product, id }) {
   const [productImg, setProductImg] = useState(product?.thumbnail);
@@ -28,50 +29,31 @@ export default function ProductDetails({ product, id }) {
     }
   };
 
-  const HandleCart = async () => {
-    const storedUser = JSON.parse(localStorage.getItem("directus_user"));
-    const userId = storedUser?.id;
-
-    const cartData = {
-      user_created: userId,
-      product_id: product.id,
-      product_name: product.name,
-      image_url: `${process.env.NEXT_PUBLIC_API_URL}/assets/${product.image}`,
-      price_per_unit: product.price,
-      total_price: product.price * quantity,
-      category: product.category,
-      quantity: quantity,
-    };
+  const HandleAddToCart = async ({ productId }) => {
+    if (!user?.email) {
+      return toast.error("Please log in to add to cart.");
+    }
 
     try {
-      // 🔍 Check if the item already exists in cart
-      const checkRes = await axiosInstance.get(
-        `/items/cart?filter[user_created][_eq]=${userId}&filter[product_id][_eq]=${cartData.product_id}`
-      );
+      const userData = await getUserByEmail(user.email);
+      if (!userData) {
+        return toast.error("Failed to get user data.");
+      }
 
-      const existingItem = checkRes.data.data[0];
+      const res = await axiosInstance.post("/api/user-cart/cart/add", {
+        email: user.email,
+        username: userData.name,
+        productId,
+        quantity,
+      });
 
-      if (existingItem) {
-        // 🔁 Update existing item
-        const newQuantity = existingItem.quantity + quantity;
-        const newTotal = newQuantity * product.price;
-
-        await axiosInstance.patch(`/items/cart/${existingItem.id}`, {
-          quantity: newQuantity,
-          total_price: newTotal,
-        });
-
-        toast.success("Cart updated successfully!");
-      } else {
-        // ➕ Add new item
-        await axiosInstance.post("/items/cart", cartData);
-        toast.success("Item added to cart successfully!");
+      if (res.data) {
+        toast.success("Added to cart!");
       }
     } catch (err) {
+      console.error(err);
       toast.error(
-        err.response?.data?.errors?.[0]?.message ||
-          err.message ||
-          "Failed to add/update cart"
+        err.response?.data?.message || err.message || "Failed to add to cart"
       );
     }
   };
@@ -158,7 +140,7 @@ export default function ProductDetails({ product, id }) {
                 </button>
               </div>
               <button
-                onClick={() => HandleCart()}
+                onClick={() => HandleAddToCart({ productId: product?._id })}
                 className="py-2 rounded bg-pale-red text-sm text-white duration-300  text-neutral-50 font-semibold  px-10 hover:bg-black"
               >
                 Add to cart
