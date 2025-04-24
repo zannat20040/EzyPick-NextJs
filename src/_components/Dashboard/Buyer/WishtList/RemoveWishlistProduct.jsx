@@ -26,9 +26,11 @@ export default function RemoveWishlistProduct({ email, productId }) {
         productId,
       });
 
-      await swal("Product removed from wishlist successfully", {
-        icon: "success",
-      });
+      if (res.data) {
+        await swal("Product removed from wishlist successfully", {
+          icon: "success",
+        });
+      }
     } catch (err) {
       toast.error("Failed to remove from wishlist");
       console.error(err);

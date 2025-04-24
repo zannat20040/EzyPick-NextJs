@@ -6,13 +6,11 @@ import WishlistList from "@/_components/Dashboard/Buyer/WishtList/WishlistList";
 
 async function getWishlist(email) {
   try {
-    const [wishlistRes, userData] = await Promise.all([
-      axiosInstance.get(`/api/user-cart/user/${email}`),
-      getUserByEmail(email),
-    ]);
+    const wishlistRes = await axiosInstance.get(`/api/user-cart/user/${email}`);
+    const userData = await getUserByEmail(email);
 
     return {
-      wishlist: wishlistRes.data.wishlist || [],
+      wishlist: wishlistRes?.data?.wishlist || [],
       name: userData?.name || "User",
     };
   } catch (err) {

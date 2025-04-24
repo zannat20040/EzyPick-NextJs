@@ -109,7 +109,7 @@ export default function BottomNav() {
           </div>
           {user && (
             <>
-              <Link href="/carts">
+              <Link href={`/user/carts/${user?.email}`}>
                 <FaCartShopping
                   className={`hover:text-pale-red hidden lg:inline-block ${
                     pathname === "/authentication" ||
@@ -250,7 +250,7 @@ export default function BottomNav() {
           {user && (
             <>
               <li>
-                <Link href="/carts">
+                <Link href={`/user/carts/${user?.email}`}>
                   <FaCartShopping
                     className={`hover:text-pale-red hidden lg:inline-block ${
                       pathname === "/authentication" ||

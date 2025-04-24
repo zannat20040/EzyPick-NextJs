@@ -5,6 +5,7 @@ import { FaCartShopping } from "react-icons/fa6";
 import Image from "next/image";
 import Link from "next/link";
 import AddToWishlist from "../Dashboard/Buyer/WishtList/AddToWishlist";
+import AddToCartlist from "../Dashboard/Buyer/Cart/AddToCartlist";
 
 export default function ProductCard({ product }) {
   return (
@@ -24,8 +25,8 @@ export default function ProductCard({ product }) {
       </figure>
       <div className="flex flex-col gap-2 absolute top-3 right-3 opacity-0 group-hover:opacity-100 duration-700 transition-all ease-in-out">
         <IoShareSocial className="bg-pale-red text-white  p-2 w-8 h-8 text-lg rounded hover:bg-gray-300 hover:text-black duration-500 transition-all ease-in-out" />
-        <FaCartShopping className="bg-pale-red text-white  p-2 w-8 h-8 text-lg rounded hover:bg-gray-300 hover:text-black duration-500 transition-all ease-in-out" />
-        <AddToWishlist productId={product?._id}/>
+        <AddToCartlist productId={product?._id} />
+        <AddToWishlist productId={product?._id} />
       </div>
       <div className="card-body pb-4 items-start text-start flex flex-col flex-1">
         <h6 className="text-sm  ">
