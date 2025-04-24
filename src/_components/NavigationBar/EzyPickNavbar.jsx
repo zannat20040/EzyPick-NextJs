@@ -7,7 +7,7 @@ import {
 import { TfiEmail, TfiLocationPin } from "react-icons/tfi";
 import { MdOutlineFacebook } from "react-icons/md";
 import { IoIosCall } from "react-icons/io";
-import BottomNav from "@/_components/Homepage/Additional/BottomNav";
+import BottomNav from "@/_components/NavigationBar/BottomNav";
 import SearchBar from "../Homepage/Additional/SearchBar";
 
 export default function EzyPickNavbar() {

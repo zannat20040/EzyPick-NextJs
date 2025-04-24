@@ -1,8 +1,8 @@
 import { Geist, DM_Sans } from "next/font/google";
 import "./globals.css";
-import EzyPickNavbar from "@/_components/shared/EzyPickNavbar";
+import EzyPickNavbar from "@/_components/NavigationBar/EzyPickNavbar";
 import { Toaster } from "react-hot-toast";
-import ThemeProviderWrapper from "../_ClientSideComponents/ThemeProviderWrapper";
+import ThemeProviderWrapper from "../_components/shared/ThemeProviderWrapper";
 import { AuthProvider } from "@/Context/AuthContext";
 import Footer from "@/_components/shared/Footer";
 

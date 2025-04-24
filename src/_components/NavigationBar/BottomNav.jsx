@@ -9,6 +9,7 @@ import { usePathname } from "next/navigation";
 import React, { useState, useEffect } from "react";
 import { FaCartShopping, FaRegUser } from "react-icons/fa6";
 import { MdOutlineLogout } from "react-icons/md";
+import { TiHeartFullOutline } from "react-icons/ti";
 
 export default function BottomNav() {
   const pathname = usePathname();
@@ -35,12 +36,7 @@ export default function BottomNav() {
   }, []);
 
   // Define your navigation items with their paths
-  const navItems = [
-    { label: "Home", path: "/" },
-    // { label: "Add Product", path: "/add-product" },
-    // { label: "Shop", path: "/shop" },
-    // { label: "Blog", path: "/blog" },
-  ];
+  const navItems = [{ label: "Home", path: "/" }];
   const protectedBuyerNavItems = [{ label: "My Order", path: "/order" }];
   const protectedSellerNavItems = [
     { label: "Add Product", path: "/seller/addproduct" },
@@ -111,16 +107,27 @@ export default function BottomNav() {
           <div className="sm:block hidden">
             <SearchBar />
           </div>
-          <Link href="/carts">
-            <FaCartShopping
-              className={`hover:text-pale-red hidden lg:inline-block ${
-                pathname === "/authentication" ||
-                pathname === "/authentication/register"
-                  ? "text-pale-red"
-                  : ""
-              }`}
-            />
-          </Link>
+          {user && (
+            <>
+              <Link href="/carts">
+                <FaCartShopping
+                  className={`hover:text-pale-red hidden lg:inline-block ${
+                    pathname === "/authentication" ||
+                    pathname === "/authentication/register"
+                      ? "text-pale-red"
+                      : ""
+                  }`}
+                />
+              </Link>
+              <Link href={`/user/wishlists/${user?.email}`}>
+                <TiHeartFullOutline
+                  className={`hover:text-pale-red hidden lg:inline-block ${
+                    pathname === "/user/wishlists" ? "text-pale-red" : ""
+                  }`}
+                />
+              </Link>
+            </>
+          )}
 
           <Link href="/authentication">
             <FaRegUser
@@ -240,6 +247,31 @@ export default function BottomNav() {
               Login / Signup
             </Link>
           </li>
+          {user && (
+            <>
+              <li>
+                <Link href="/carts">
+                  <FaCartShopping
+                    className={`hover:text-pale-red hidden lg:inline-block ${
+                      pathname === "/authentication" ||
+                      pathname === "/authentication/register"
+                        ? "text-pale-red"
+                        : ""
+                    }`}
+                  />
+                </Link>
+              </li>
+              <li>
+                <Link href={`/user/wishlists/${user?.email}`}>
+                  <TiHeartFullOutline
+                    className={`hover:text-pale-red hidden lg:inline-block ${
+                      pathname === "/user/wishlists" ? "text-pale-red" : ""
+                    }`}
+                  />
+                </Link>
+              </li>
+            </>
+          )}
           {user && (
             <li>
               <MdOutlineLogout
