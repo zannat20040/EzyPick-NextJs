@@ -10,7 +10,7 @@ async function getCartlist(email) {
       const userData = await getUserByEmail(email);
   
       return {
-        wishlist: cartResponse.data.wishlist || [],
+        cartlist: cartResponse.data.cart || [],
         name: userData?.name || "User",
       };
     } catch (err) {
@@ -25,20 +25,20 @@ async function getCartlist(email) {
 
   export default async function Page({ params }) {
     const email = decodeURIComponent(params.email);
-    const { wishlist, name } = await getCartlist(email);
+    const { cartlist, name } = await getCartlist(email);
   
-    if (!wishlist.length) {
+    if (!cartlist.length) {
       return (
         <div className="text-center py-10 text-gray-600">
-          You have no items in your wishlist.
+          You have no items in your cart.
         </div>
       );
     }
   
     return (
       <>
-        <BreadCrumbsComp category={name} subcategory="See Wishlist" />
-        <Cartlist cartRes={wishlist} email={email} />
+        <BreadCrumbsComp category={name} subcategory="See cartlist" />
+        <Cartlist cartRes={cartlist} email={email} />
       </>
     );
   }

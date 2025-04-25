@@ -11,61 +11,61 @@ import toast from "react-hot-toast";
 import AddToWishlist from "../Dashboard/Buyer/WishtList/AddToWishlist";
 import { useAuth } from "@/Context/AuthContext";
 import getUserByEmail from "@/utils/getUserByEmail";
+import QuantityUpdate from "../Dashboard/Buyer/Cart/QuantityUpdate";
 
 export default function ProductDetails({ product, id }) {
   const [productImg, setProductImg] = useState(product?.thumbnail);
   const [relatedProducts, setRelatedProducts] = useState([]);
-  const [quantity, setQuantity] = useState(1);
+  const [quantity, setQuantity] = useState(product.quantity || 1);
   const { user } = useAuth();
 
-  const HandleAdd = async () => {
-    if (!user?.email || !product?._id) {
-      return toast.error("Please log in and select a product");
-    }
-  
-    try {
-      const res = await axiosInstance.post("/api/user-cart/cart/increase", {
-        email: user.email,
-        productId: product._id,
-        action: "increase", // ✅ Required field
-      });
-  
-      if (res.status === 200) {
-        setQuantity((prev) => prev + 1);
-        toast.success("Quantity increased");
-      } else {
-        toast.error(res.data?.message || "Failed to increase quantity");
-      }
-    } catch (err) {
-      console.error(err);
-      toast.error(err.response?.data?.message || "Server error");
-    }
-  };
-  
+  // const HandleAdd = async () => {
+  //   if (!user?.email || !product?._id) {
+  //     return toast.error("Please log in and select a product");
+  //   }
 
-  const HandleRemove = async () => {
-    if (quantity <= 1) {
-      toast.error("Minimum quantity is 1");
-      return;
-    }
+  //   try {
+  //     const res = await axiosInstance.post("/api/user-cart/cart/increase", {
+  //       email: user.email,
+  //       productId: product._id,
+  //       action: "increase", // ✅ Required field
+  //     });
 
-    try {
-      // 👇 Update in UI
-      setQuantity((prev) => prev - 1);
+  //     if (res.status === 200) {
+  //       setQuantity((prev) => prev + 1);
+  //       toast.success("Quantity increased");
+  //     } else {
+  //       toast.error(res.data?.message || "Failed to increase quantity");
+  //     }
+  //   } catch (err) {
+  //     console.error(err);
+  //     toast.error(err.response?.data?.message || "Server error");
+  //   }
+  // };
 
-      // 👇 Update in backend
-      await axiosInstance.post("/api/user-cart/cart/increase", {
-        email: user.email,
-        productId: product._id,
-        action: "decrease",
-      });
+  // const HandleRemove = async () => {
+  //   if (quantity <= 1) {
+  //     toast.error("Minimum quantity is 1");
+  //     return;
+  //   }
 
-      toast.success("Quantity decreased");
-    } catch (err) {
-      console.error(err);
-      toast.error("Failed to update quantity");
-    }
-  };
+  //   try {
+  //     // 👇 Update in UI
+  //     setQuantity((prev) => prev - 1);
+
+  //     // 👇 Update in backend
+  //     await axiosInstance.post("/api/user-cart/cart/increase", {
+  //       email: user.email,
+  //       productId: product._id,
+  //       action: "decrease",
+  //     });
+
+  //     toast.success("Quantity decreased");
+  //   } catch (err) {
+  //     console.error(err);
+  //     toast.error("Failed to update quantity");
+  //   }
+  // };
 
   const HandleAddToCart = async ({ productId }) => {
     if (!user?.email) {
@@ -160,7 +160,7 @@ export default function ProductDetails({ product, id }) {
 
             {/* button */}
             <div className=" flex gap-2 ">
-              <div className="flex  items-center bg-neutral-100 rounded-md ">
+              {/* <div className="flex  items-center bg-neutral-100 rounded-md ">
                 <button
                   onClick={HandleAdd}
                   className="btn outline-0 border-0 rounded-r-none  hover:text-white p-3 hover:bg-pale-red hover:text-neutral-50 duration-300 transition-all "
@@ -176,7 +176,12 @@ export default function ProductDetails({ product, id }) {
                 >
                   <FaMinus />
                 </button>
-              </div>
+              </div> */}
+              <QuantityUpdate
+                productId={product._id}
+                quantity={quantity}
+                setQuantity={setQuantity}
+              />
               <button
                 onClick={() => HandleAddToCart({ productId: product?._id })}
                 className="py-2 rounded bg-pale-red text-sm text-white duration-300  text-neutral-50 font-semibold  px-10 hover:bg-black"
