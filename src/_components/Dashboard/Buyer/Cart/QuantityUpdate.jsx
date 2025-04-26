@@ -8,8 +8,6 @@ import { FaMinus, FaPlus } from "react-icons/fa6";
 export default function QuantityUpdate({ productId,  quantity, setQuantity }) {
   const { user } = useAuth();
 
-  console.log(productId)
-
   const HandleAdd = async () => {
     if (!user?.email || !productId) {
       return toast.error("Please log in and select a product");

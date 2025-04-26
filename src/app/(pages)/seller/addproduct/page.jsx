@@ -88,7 +88,6 @@ export default function page() {
     try {
       const res = await axiosInstance.post("/api/product/add", productData);
       toast.success("Product added successfully!");
-      console.log(res.data);
       form.reset();
       setProductImage(null);
       setMultipleProductImage([]);

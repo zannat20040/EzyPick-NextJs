@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import CartItem from "./CartItem";
+import Checkout from "./Checkout";
 
 export default function Cartlist({ cartRes, email }) {
   const [step, setStep] = useState(1);
@@ -10,7 +11,7 @@ export default function Cartlist({ cartRes, email }) {
   };
 
   return (
-    <div className="mt-10 container mx-auto px-4 ">
+    <div className="mt-5 container mx-auto px-5 lg:px-8 ">
       <div className="grid sm:grid-cols-2 justify-between  lg:w-2/3 w-full">
         <div
           className={`flex gap-5 border-b py-4 pr-10 border-b-neutral-200 ${
@@ -40,7 +41,7 @@ export default function Cartlist({ cartRes, email }) {
         </div>
       </div>
       {step == 1 && (
-        <div className="bg-gray-250   p-8 my-20 space-y-6">
+        <div className="bg-gray-250   my-10 space-y-6">
           {/* top part  */}
           <div
             className={`flex border-b border-b-neutral-100  justify-between items-center`}
@@ -55,7 +56,7 @@ export default function Cartlist({ cartRes, email }) {
 
           {/*  Cart  map */}
           {cartRes?.map((item) => (
-            <CartItem  key={item._id} item={item}  />
+            <CartItem key={item._id} item={item} />
           ))}
 
           <div className="space-y-10">
@@ -68,11 +69,11 @@ export default function Cartlist({ cartRes, email }) {
           </div>
         </div>
       )}
-      {/* {step == 2 && (
-        <div className="bg-gray-250   p-8 my-20 space-y-6">
-          <Checkout />
+      {step == 2 && (
+        <div className="bg-gray-250 my-20 space-y-6">
+          <Checkout cartItems={cartRes} />
         </div>
-      )} */}
+      )}
     </div>
   );
 }
