@@ -1,8 +1,12 @@
 "use client";
+import { useAuth } from "@/Context/AuthContext";
+import axiosInstance from "@/utils/axiosInstance";
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
 
 export default function Checkout({ cartItems = [] }) {
+  const { user } = useAuth();
   const [form, setForm] = useState({
     name: "",
     phone: "",
@@ -13,6 +17,7 @@ export default function Checkout({ cartItems = [] }) {
       deliveryOption: "",
     })),
   });
+  const router = useRouter();
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -24,7 +29,7 @@ export default function Checkout({ cartItems = [] }) {
     setForm((prev) => ({ ...prev, items: updatedItems }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     // 🔥 Validate
@@ -37,15 +42,21 @@ export default function Checkout({ cartItems = [] }) {
       (item) => !item.requirement.trim() || !item.deliveryOption.trim()
     );
     if (incompleteItem) {
-      toast.error("Please complete special requirement and delivery option for all products!");
+      toast.error(
+        "Please complete special requirement and delivery option for all products!"
+      );
       return;
     }
 
     // 🛒 Merge user info with each product
     const finalOrder = {
-      ...form,
+      name: form.name,
+      phone: form.phone,
+      address: form.address,
       items: form.items.map((item) => ({
-        ...item,
+        productId: item.productId,
+        requirement: item.requirement,
+        deliveryOption: item.deliveryOption,
         buyerName: form.name,
         buyerPhone: form.phone,
         buyerAddress: form.address,
@@ -54,7 +65,27 @@ export default function Checkout({ cartItems = [] }) {
 
     console.log("✅ Final Order Submitted:", finalOrder);
 
-    // 🚀 You can now submit `finalOrder` to backend API
+    try {
+      const res = await axiosInstance.post("/api/orders", finalOrder);
+
+      toast.success("Order placed successfully!");
+      console.log("🚀 Response:", res.data);
+
+      for (const item of finalOrder.items) {
+        await axiosInstance.post("/api/user-cart/cart/remove", {
+          productId: item.productId,
+          email: user.email, // If your removeFromCart needs email too
+        });
+      }
+
+      router.push("/");
+    } catch (error) {
+      console.error("Error submitting order:", error);
+      const message =
+        error.response?.data?.message ||
+        "Something went wrong. Please try again.";
+      toast.error(message);
+    }
   };
 
   return (
@@ -75,7 +106,9 @@ export default function Checkout({ cartItems = [] }) {
           </div>
 
           <div>
-            <label className="block text-sm font-medium mb-2">Phone Number</label>
+            <label className="block text-sm font-medium mb-2">
+              Phone Number
+            </label>
             <input
               type="tel"
               name="phone"
