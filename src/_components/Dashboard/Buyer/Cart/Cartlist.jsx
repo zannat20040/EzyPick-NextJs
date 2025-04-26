@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import CartItem from "./CartItem";
 import Checkout from "./Checkout";
+import ConfirmOrder from "./ConfirmOrder";
 
 export default function Cartlist({ cartRes, email }) {
   const [step, setStep] = useState(1);
@@ -71,9 +72,10 @@ export default function Cartlist({ cartRes, email }) {
       )}
       {step == 2 && (
         <div className="bg-gray-250 my-20 space-y-6">
-          <Checkout cartItems={cartRes} />
+          <Checkout cartItems={cartRes} setStep={setStep} />
         </div>
       )}
+      
     </div>
   );
 }

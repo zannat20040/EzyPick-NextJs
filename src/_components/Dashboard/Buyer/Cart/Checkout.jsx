@@ -77,8 +77,7 @@ export default function Checkout({ cartItems = [] }) {
           email: user.email, // If your removeFromCart needs email too
         });
       }
-
-      router.push("/");
+      router.push("/user/confirmorder");
     } catch (error) {
       console.error("Error submitting order:", error);
       const message =
