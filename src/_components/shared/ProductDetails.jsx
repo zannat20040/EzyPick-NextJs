@@ -12,14 +12,15 @@ import AddToWishlist from "../Dashboard/Buyer/WishtList/AddToWishlist";
 import { useAuth } from "@/Context/AuthContext";
 import getUserByEmail from "@/utils/getUserByEmail";
 import QuantityUpdate from "../Dashboard/Buyer/Cart/QuantityUpdate";
+import { MdVerified } from "react-icons/md";
 
 export default function ProductDetails({ product, id }) {
   const [productImg, setProductImg] = useState(product?.thumbnail);
   const [relatedProducts, setRelatedProducts] = useState([]);
   const [quantity, setQuantity] = useState(product.quantity || 1);
   const { user } = useAuth();
+  const [isVerified, setIsVerified] = useState(false);
 
-  
   const HandleAddToCart = async ({ productId }) => {
     if (!user?.email) {
       return toast.error("Please log in to add to cart.");
@@ -27,6 +28,7 @@ export default function ProductDetails({ product, id }) {
 
     try {
       const userData = await getUserByEmail(user.email);
+
       if (!userData) {
         return toast.error("Failed to get user data.");
       }
@@ -48,6 +50,24 @@ export default function ProductDetails({ product, id }) {
       );
     }
   };
+
+  useEffect(() => {
+    async function fetchSellerData() {
+      if (product) {
+        try {
+          const data = await getUserByEmail(product.postedBy);
+          if (data) {
+            setIsVerified(data.verification_status === "approved");
+          }
+        } catch (error) {
+          console.error("Error fetching seller data:", error);
+        }
+      }
+    }
+  
+    fetchSellerData();
+  }, [product]);
+  
 
   return (
     <div>
@@ -87,15 +107,19 @@ export default function ProductDetails({ product, id }) {
 
           {/* right  */}
           <div className=" flex flex-col gap-0 rounded p-5 ">
+            <div className="flex items-center gap-2">
             <span className="text-gray-500 text-sm capitalize">
               {product?.sellerName || "Unknown user"}
             </span>
+            {isVerified && <MdVerified className="text-pale-red" />}
+            </div>
             <h2 className="card-title text-2xl mb-2">{product?.name}</h2>
 
             <div className="flex items-center gap-3 mb-2">
               <CustomRating rating={product.rating} />
               <span className="text-sm text-gray-500">
-                {product.rating} <span>(Based on {product.reviews} reviews)</span>
+                {product.rating}{" "}
+                <span>(Based on {product.reviews} reviews)</span>
               </span>
             </div>
 

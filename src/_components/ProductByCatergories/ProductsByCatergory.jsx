@@ -21,49 +21,52 @@ export default function ProductsByCategory({
       prev.includes(value) ? prev.filter((v) => v !== value) : [...prev, value]
     );
 
-    useEffect(() => {
-      async function fetchDeliveryOptions() {
-        try {
-          const res = await axiosInstance.get("/api/deliveryoptions");
-          if (res.data.options) {
-            // 🔥 Extract only title from each delivery option
-            const titles = res.data.options.map((option) => option.title);
-            setAllDeliveryOptions(titles); // ✅ only ["Cash on delivery", "Standard Delivery", ...]
-          }
-        } catch (error) {
-          console.error("Failed to fetch delivery options:", error);
+  useEffect(() => {
+    async function fetchDeliveryOptions() {
+      try {
+        const res = await axiosInstance.get("/api/deliveryoptions");
+        if (res.data.options) {
+          // 🔥 Extract only title from each delivery option
+          const titles = res.data.options.map((option) => option.title);
+          setAllDeliveryOptions(titles); // ✅ only ["Cash on delivery", "Standard Delivery", ...]
         }
+      } catch (error) {
+        console.error("Failed to fetch delivery options:", error);
       }
-    
-      fetchDeliveryOptions();
-    }, []);
-    
+    }
 
+    fetchDeliveryOptions();
+  }, []);
 
   const filteredProducts = useMemo(() => {
     return productsByCategory.filter((product) => {
       const productPrice = parseFloat(product.price) || 0;
-  
+
       const matchesSearch =
         (product.name?.toLowerCase() || "").includes(search.toLowerCase()) ||
-        (product.description?.toLowerCase() || "").includes(search.toLowerCase());
-  
+        (product.description?.toLowerCase() || "").includes(
+          search.toLowerCase()
+        );
+
       const matchesPrice = productPrice >= minPrice && productPrice <= maxPrice;
-  
+
       const matchesDelivery =
         deliveryType.length === 0 ||
         deliveryType.some((type) =>
           (product.delivery_options || []).includes(type)
         ); // ✅ fixed
-  
+
       const matchesRating =
         ratingFilter.length === 0 ||
-        ratingFilter.some((rating) => Math.floor(product.rating || 0) >= rating); // ✅ fixed
-  
+        ratingFilter.some(
+          (rating) => Math.floor(product.rating || 0) >= rating
+        ); // ✅ fixed
+
       const matchesBrand =
         brandFilter.length === 0 ||
-        (product.category?.subcategory && brandFilter.includes(product.category.subcategory)); // ✅ safer
-  
+        (product.category?.subcategory &&
+          brandFilter.includes(product.category.subcategory)); // ✅ safer
+
       return (
         matchesSearch &&
         matchesPrice &&
@@ -81,7 +84,6 @@ export default function ProductsByCategory({
     ratingFilter,
     brandFilter,
   ]);
-  
 
   const sortedProducts = useMemo(() => {
     const arr = [...filteredProducts];
@@ -239,9 +241,13 @@ export default function ProductsByCategory({
         {/* Product Listing */}
         <div className="col-span-4 ">
           <div className="flex-1 grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
-            {sortedProducts.map((product) => (
-              <ProductCard product={product} key={product.id} />
-            ))}
+            {sortedProducts.length > 0 ? (
+              sortedProducts.map((product) => (
+                <ProductCard product={product} key={product.id} />
+              ))
+            ) : (
+              <p className="text-gray-600 text-center p-2 col-span-4">No items found for this category</p>
+            )}
           </div>
         </div>
       </div>
