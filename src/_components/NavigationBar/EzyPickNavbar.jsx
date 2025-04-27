@@ -11,8 +11,7 @@ import BottomNav from "@/_components/NavigationBar/BottomNav";
 import SearchBar from "../Homepage/Additional/SearchBar";
 
 export default function EzyPickNavbar() {
- 
- 
+
   return (
     <div className="sticky top-0 left-0 z-40 bg-white">
       {/* top header nav */}

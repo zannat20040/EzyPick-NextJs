@@ -43,6 +43,7 @@ export default function BottomNav() {
   ];
   const protectedAdminNavItems = [
     { label: "My Sellers", path: `/admin/allsellers` },
+    { label: "Categories", path: `/admin/updateCategory` },
   ];
 
   const protectedSellerNavItems = [
