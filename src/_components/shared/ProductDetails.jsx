@@ -130,42 +130,31 @@ export default function ProductDetails({ product, id }) {
               discount={product?.discount}
             />
 
-            <p className="font-bold text-sm my-5">
+            <p className="font-bold text-sm mt-5">
               Last {product?.stock} left -{" "}
               <span className="font-normal">make it yours</span>
             </p>
 
             {/* button */}
-            <div className=" flex gap-2 ">
-              {/* <div className="flex  items-center bg-neutral-100 rounded-md ">
+            {product?.stock > 0 ? (
+              <div className=" flex gap-2 mt-5 ">
+                <QuantityUpdate
+                  productId={product._id}
+                  quantity={quantity}
+                  setQuantity={setQuantity}
+                />
                 <button
-                  onClick={HandleAdd}
-                  className="btn outline-0 border-0 rounded-r-none  hover:text-white p-3 hover:bg-pale-red hover:text-neutral-50 duration-300 transition-all "
+                  onClick={() => HandleAddToCart({ productId: product?._id })}
+                  className="py-2 rounded bg-pale-red text-sm text-white duration-300  text-neutral-50 font-semibold  px-10 hover:bg-black"
                 >
-                  <FaPlus />
+                  Add to cart
                 </button>
-                <button className="btn outline-0 border-0  rounded-none hover:text-white p-3 px-5 hover:bg-pale-red hover:text-neutral-50 duration-300 transition-all ">
-                  {quantity}
-                </button>
-                <button
-                  onClick={HandleRemove}
-                  className="btn outline-0 border-0 rounded-l-none hover:text-white p-3 hover:bg-pale-red hover:text-neutral-50 duration-300 transition-all "
-                >
-                  <FaMinus />
-                </button>
-              </div> */}
-              <QuantityUpdate
-                productId={product._id}
-                quantity={quantity}
-                setQuantity={setQuantity}
-              />
-              <button
-                onClick={() => HandleAddToCart({ productId: product?._id })}
-                className="py-2 rounded bg-pale-red text-sm text-white duration-300  text-neutral-50 font-semibold  px-10 hover:bg-black"
-              >
-                Add to cart
-              </button>
-            </div>
+              </div>
+            ) : (
+              <p className="bg-red-100 mt-2 text-red-400 w-fit  px-3 rounded font-bold text-sm mb-1 ">
+                Stock out
+              </p>
+            )}
           </div>
         </div>
 

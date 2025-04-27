@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 
 export default function OffersSecondaryCard({ secondaryOffers }) {
@@ -6,6 +7,7 @@ export default function OffersSecondaryCard({ secondaryOffers }) {
     <div className="grid grid-cols-1 gap-5 w-full">
       {secondaryOffers.length > 0 &&
         secondaryOffers.map((offer, index) => (
+          <Link href={`/product/${offer.name}/pid-${offer._id}`}>
           <div
             className="h-full max-h-[330px] relative"
             key={offer.title || index}
@@ -31,6 +33,7 @@ export default function OffersSecondaryCard({ secondaryOffers }) {
               <h1 className="font-bold text-2xl text-white">{offer.offer}</h1>
             </div>
           </div>
+        </Link>
         ))}
     </div>
   );
