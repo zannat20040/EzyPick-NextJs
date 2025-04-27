@@ -194,6 +194,7 @@ export default function ProductDetails({ product, id }) {
 
         {/* tab */}
         <ProductDetailsTab
+          product={product}
           details={product?.description}
           productId={product?._id}
         />

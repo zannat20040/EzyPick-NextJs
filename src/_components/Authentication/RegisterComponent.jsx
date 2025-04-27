@@ -24,6 +24,7 @@ export default function RegisterComponent() {
   const [files, setFiles] = useState([]);
   const router = useRouter();
 
+
   useEffect(() => {
     setIsPassSame(!password || !c_password || password === c_password);
   }, [password, c_password]);
@@ -57,6 +58,7 @@ export default function RegisterComponent() {
           name: `${firstName} ${lastName}`,
           email,
           role: "buyer",
+          profile_img: profileImage,
         };
       } else {
         userData = {
@@ -88,7 +90,7 @@ export default function RegisterComponent() {
       form.reset();
       router.push(checkValue === "buyer" ? "/order" : "/");
     } catch (error) {
-      console.log(error)
+      console.log(error);
       await currentUser?.delete?.();
       toast.error(
         error?.response?.data?.errors?.[0]?.message ||
@@ -209,6 +211,12 @@ export default function RegisterComponent() {
           ))}
         </div>
 
+        <ImageUploader
+          placeholder="Upload Your Profile Picture"
+          additional_note="Only PNG, JPG or JPEG allowed"
+          multiple={false}
+          onUploadSuccess={(id) => setProfileImage(id)}
+        />
         {checkValue === "seller" && (
           <div className="">
             <div className="gap-2 flex flex-col">
@@ -226,12 +234,7 @@ export default function RegisterComponent() {
                 className="w-full px-4 py-3 rounded border border-soft-gray focus:outline-none text-sm"
               />
             </div>
-            <ImageUploader
-              placeholder="Upload Your Profile Picture"
-              additional_note="Only PNG, JPG or JPEG allowed"
-              multiple={false}
-              onUploadSuccess={(id) => setProfileImage(id)}
-            />
+
             <input
               required
               type="text"

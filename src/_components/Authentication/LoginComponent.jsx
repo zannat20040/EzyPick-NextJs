@@ -42,13 +42,8 @@ export default function LoginComponent() {
       toast.success("Login successful!");
 
       // Redirect based on role
-      if (userData.role === "buyer") {
-        router.push("/order");
-      } else if (userData.role === "seller") {
-        router.push("/");
-      } else {
-        router.push("/");
-      }
+      router.push("/");
+
     } catch (error) {
       toast.error("Login failed. Please try again.");
       console.error("Login error:", error.message);
