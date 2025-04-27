@@ -14,7 +14,6 @@ import { BsBox2Heart } from "react-icons/bs";
 
 export default function BottomNav() {
   const pathname = usePathname();
-  console.log(pathname)
   const [openNav, setOpenNav] = React.useState(false);
   const { user, signOutUser } = useAuth();
   const [userData, setUserData] = useState(null); // ✅ user data state
@@ -42,6 +41,10 @@ export default function BottomNav() {
   const protectedBuyerNavItems = [
     { label: "My Order", path: `/user/order/${user?.email}` },
   ];
+  const protectedAdminNavItems = [
+    { label: "My Sellers", path: `/admin/allsellers` },
+  ];
+
   const protectedSellerNavItems = [
     { label: "Add Product", path: "/seller/addproduct" },
     { label: "My Products", path: `/seller/myproducts/${user?.email}` },
@@ -75,6 +78,22 @@ export default function BottomNav() {
             {user && userData?.role === "buyer" && (
               <>
                 {protectedBuyerNavItems.map((item) => (
+                  <li key={item.path}>
+                    <Link
+                      href={item.path}
+                      className={`hover:text-pale-red transition-colors ${
+                        pathname === item.path ? "text-pale-red" : ""
+                      }`}
+                    >
+                      {item.label}
+                    </Link>
+                  </li>
+                ))}
+              </>
+            )}
+            {user && userData?.role === "admin" && (
+              <>
+                {protectedAdminNavItems.map((item) => (
                   <li key={item.path}>
                     <Link
                       href={item.path}

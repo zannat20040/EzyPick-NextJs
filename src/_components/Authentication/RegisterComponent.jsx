@@ -10,6 +10,7 @@ import Link from "next/link";
 import ImageUploader from "@/_components/shared/ImageUploader";
 import SocialLogin from "./SocialLogin";
 import { useRouter } from "next/navigation";
+import { updateProfile } from "firebase/auth";
 
 export default function RegisterComponent() {
   const [showPass, setShowPass] = useState(false);
@@ -23,7 +24,6 @@ export default function RegisterComponent() {
   const [logoImage, setLogoImage] = useState(null);
   const [files, setFiles] = useState([]);
   const router = useRouter();
-
 
   useEffect(() => {
     setIsPassSame(!password || !c_password || password === c_password);
@@ -43,18 +43,20 @@ export default function RegisterComponent() {
     try {
       const userCredential = await signUp(email, pwd);
       currentUser = userCredential?.user;
-
-      if (!currentUser) {
+      const userProfile = await updateProfile(currentUser, {
+        displayName: `${firstName} ${lastName}`,
+        photoURL: profileImage || null,
+      });
+      console.log(currentUser, userProfile);
+      if (!currentUser && !userProfile) {
         toast.error("Firebase registration failed.");
         return;
       }
 
-      const firebase_uid = currentUser.uid;
       let userData;
 
       if (checkValue === "buyer") {
         userData = {
-          firebase_uid,
           name: `${firstName} ${lastName}`,
           email,
           role: "buyer",
@@ -78,9 +80,13 @@ export default function RegisterComponent() {
         };
       }
 
+      console.log(userData);
       // Save user data to backend
-      await axiosInstance.post("/api/users/register", userData);
-
+      const response = await axiosInstance.post(
+        "/api/users/register",
+        userData
+      );
+      console.log(response);
       toast.success(
         checkValue === "buyer"
           ? "You have successfully registered as a buyer!"
@@ -88,9 +94,15 @@ export default function RegisterComponent() {
       );
 
       form.reset();
-      router.push(checkValue === "buyer" ? "/order" : "/");
+      router.push(checkValue === "admin" ? "/admin/allsellers" : "/");
     } catch (error) {
-      console.log(error);
+      console.log(
+        "------",
+        error ||
+          error?.response?.data?.errors?.[0]?.message ||
+          error?.response?.data?.message ||
+          error.message
+      );
       await currentUser?.delete?.();
       toast.error(
         error?.response?.data?.errors?.[0]?.message ||

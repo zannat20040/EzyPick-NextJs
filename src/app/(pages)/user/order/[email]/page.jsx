@@ -9,7 +9,6 @@ async function getUserOrders(email) {
   try {
     const ordersRes = await axiosInstance.get(`/api/orders/user/${email}`);
     const userData = await getUserByEmail(email);
-    console.log("orders", ordersRes);
 
     return {
       orders: ordersRes?.data?.orders || [],

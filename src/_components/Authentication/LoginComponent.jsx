@@ -42,7 +42,7 @@ export default function LoginComponent() {
       toast.success("Login successful!");
 
       // Redirect based on role
-      router.push("/");
+      router.push(userData.role === "admin" ? "/admin/allsellers" : "/");
 
     } catch (error) {
       toast.error("Login failed. Please try again.");

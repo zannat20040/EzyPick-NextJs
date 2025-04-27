@@ -76,7 +76,6 @@ const ProductReview = ({ productId, product }) => {
   const handleSubmitReview = async (e) => {
     e.preventDefault();
     if (!userData) return toast.error("User data not loaded yet!");
-    console.log("handleSubmitReview", userData);
     try {
       const res = await axiosInstance.post("/api/reviews", {
         productId,

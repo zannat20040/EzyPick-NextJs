@@ -62,13 +62,11 @@ export default function Checkout({ cartItems = [] }) {
       })),
     };
   
-    console.log("✅ Final Order Submitted:", finalOrder);
   
     try {
       const res = await axiosInstance.post("/api/orders", finalOrder);
   
       toast.success("Order placed successfully!");
-      console.log("🚀 Order Response:", res.data);
   
       // ✅ Bulk remove cart items
       const productIds = finalOrder.items.map((item) => item.productId);
@@ -78,7 +76,6 @@ export default function Checkout({ cartItems = [] }) {
         email: user.email,
       });
   
-      console.log("Deleting productIds from cart:", productIds, "Email:", user.email);
 
       const orderId = res.data.order._id; // ✅ get saved order's ID
 
