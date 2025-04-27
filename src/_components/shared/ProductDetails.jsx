@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import { FaMinus, FaPlus } from "react-icons/fa6";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CustomRating from "@/_components/shared/ustomRating";
 import TransformSpecifications from "../ProductDetails/TransformSpecifications";
 import { ProductDetailsTab } from "../ProductDetails/ProductDetailsTab";
@@ -18,54 +18,32 @@ export default function ProductDetails({ product, id }) {
   const [relatedProducts, setRelatedProducts] = useState([]);
   const [quantity, setQuantity] = useState(product.quantity || 1);
   const { user } = useAuth();
+  const [productReviews, setProductReviews] = useState([]);
 
-  // const HandleAdd = async () => {
-  //   if (!user?.email || !product?._id) {
-  //     return toast.error("Please log in and select a product");
-  //   }
+  useEffect(() => {
+    if (product?._id) {
+      fetchProductReviews();
+    }
+  }, [product?._id]);
 
-  //   try {
-  //     const res = await axiosInstance.post("/api/user-cart/cart/increase", {
-  //       email: user.email,
-  //       productId: product._id,
-  //       action: "increase", // ✅ Required field
-  //     });
+  const fetchProductReviews = async () => {
+    try {
+      const res = await axiosInstance.get(`/api/reviews/${product._id}`);
+      setProductReviews(res.data.reviews || []);
+    } catch (error) {
+      console.error("Error fetching product reviews:", error);
+    }
+  };
 
-  //     if (res.status === 200) {
-  //       setQuantity((prev) => prev + 1);
-  //       toast.success("Quantity increased");
-  //     } else {
-  //       toast.error(res.data?.message || "Failed to increase quantity");
-  //     }
-  //   } catch (err) {
-  //     console.error(err);
-  //     toast.error(err.response?.data?.message || "Server error");
-  //   }
-  // };
+  const reviewCount = productReviews.length;
 
-  // const HandleRemove = async () => {
-  //   if (quantity <= 1) {
-  //     toast.error("Minimum quantity is 1");
-  //     return;
-  //   }
-
-  //   try {
-  //     // 👇 Update in UI
-  //     setQuantity((prev) => prev - 1);
-
-  //     // 👇 Update in backend
-  //     await axiosInstance.post("/api/user-cart/cart/increase", {
-  //       email: user.email,
-  //       productId: product._id,
-  //       action: "decrease",
-  //     });
-
-  //     toast.success("Quantity decreased");
-  //   } catch (err) {
-  //     console.error(err);
-  //     toast.error("Failed to update quantity");
-  //   }
-  // };
+  const avgRating =
+    reviewCount > 0
+      ? (
+          productReviews.reduce((acc, review) => acc + review.rating, 0) /
+          reviewCount
+        ).toFixed(1)
+      : 0;
 
   const HandleAddToCart = async ({ productId }) => {
     if (!user?.email) {
@@ -140,10 +118,9 @@ export default function ProductDetails({ product, id }) {
             <h2 className="card-title text-2xl mb-2">{product?.name}</h2>
 
             <div className="flex items-center gap-3 mb-2">
-              <CustomRating rating={product?.rating} />
+              <CustomRating rating={avgRating} />
               <span className="text-sm text-gray-500">
-                {product?.rating}{" "}
-                <span>(Based on {product?.reviews} reviews)</span>
+                {avgRating} <span>(Based on {reviewCount} reviews)</span>
               </span>
             </div>
 

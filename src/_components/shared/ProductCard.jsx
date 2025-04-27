@@ -1,11 +1,10 @@
 import React from "react";
-import CustomRating from "./ustomRating";
-import { IoBagHandleSharp, IoShareSocial } from "react-icons/io5";
-import { FaCartShopping } from "react-icons/fa6";
+import { IoShareSocial } from "react-icons/io5";
 import Image from "next/image";
 import Link from "next/link";
 import AddToWishlist from "../Dashboard/Buyer/WishtList/AddToWishlist";
 import AddToCartlist from "../Dashboard/Buyer/Cart/AddToCartlist";
+import ProductReviewDetails from "./ProductReviewDetails";
 
 export default function ProductCard({ product }) {
   return (
@@ -46,11 +45,7 @@ export default function ProductCard({ product }) {
         </p>
         <div className="flex flex-wrap gap-2 font-bold text-blue-gray-500">
           {/* rating */}
-          <CustomRating rating={product?.rating} />
-
-          <span className="text-xs items-center text-gray-400 font-normal">
-            ({product?.reviews})
-          </span>
+          <ProductReviewDetails product={product}/>
         </div>
       </div>
     </Link>
