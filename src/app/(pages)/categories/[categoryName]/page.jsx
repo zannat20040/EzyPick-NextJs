@@ -1,20 +1,36 @@
-"use client";
 import ProductsByCatergory from "@/_components/ProductByCatergories/ProductsByCatergory";
-import React from "react";
-import products from "../../../../../public/json/Recommendation.json";
-import categories from "../../../../../public/json/Categories.json";
+import axiosInstance from "@/utils/axiosInstance";
 
-export default function page({ params }) {
+// ✅ Fetch products by category
+async function fetchProducts(categoryName) {
+  try {
+    const res = await axiosInstance.get(`/api/product/category/${categoryName}`);
+    return res.data.products || [];
+  } catch (error) {
+    console.error("Error fetching products:", error);
+    return [];
+  }
+}
+
+// ✅ Fetch subcategories by category
+async function fetchSubcategories(categoryName) {
+  try {
+    const res = await axiosInstance.get(`/api/categories/subcategories?category=${categoryName}`);
+    return res.data.data || [];
+  } catch (error) {
+    console.error("Error fetching subcategories:", error);
+    return [];
+  }
+}
+
+export default async function Page({ params }) {
   const { categoryName } = params;
 
-  const productsByCategory = products
-    ? products.filter((product) => product.category === categoryName)
-    : [];
+  const productsByCategory = await fetchProducts(categoryName);
+  const brandCatergory = await fetchSubcategories(categoryName);
 
-  const brandCatergory = categories
-    ? categories.find((category) => category.category === categoryName)
-        .subcategories
-    : [];
+  console.log("productsByCategory", productsByCategory);
+  console.log("brandCatergory", brandCatergory);
 
   return (
     <div>

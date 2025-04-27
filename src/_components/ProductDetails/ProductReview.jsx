@@ -261,7 +261,6 @@ const ProductReview = ({ productId, product }) => {
         <p className="py-2 ">Be the first reviewer for this product.</p>
       )}
 
-      {/* ✅ Review Form always at top */}
       {canReview && !alreadyReviewed && userData.role === "buyer" && (
         <div className="border p-3 rounded-lg shadow-sm bg-gray-50">
           <h3 className="text-lg font-semibold mb-3">Write a Review</h3>
