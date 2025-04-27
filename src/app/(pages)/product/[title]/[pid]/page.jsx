@@ -23,10 +23,7 @@ export default async function page({ params }) {
 
   if (!product) {
     return (
-      <div className="p-6 text-red-600">
-        <BreadCrumbsComp />
-        <h2>Product not found</h2>
-      </div>
+        <h2 className="text-center text-pale-red p-6">Product not found</h2>
     );
   }
 

@@ -2,11 +2,11 @@
 
 import axiosInstance from "@/utils/axiosInstance";
 import React, { useEffect, useState } from "react";
-import { AiFillDislike, AiFillLike } from "react-icons/ai";
 import CustomRating from "../shared/ustomRating";
 import { useAuth } from "@/Context/AuthContext";
 import toast from "react-hot-toast";
 import getUserByEmail from "@/utils/getUserByEmail";
+import ReviewActions from "./ReviewActions";
 
 const ProductReview = ({ productId, product }) => {
   const { user } = useAuth();
@@ -19,7 +19,6 @@ const ProductReview = ({ productId, product }) => {
   const [selectedReviewId, setSelectedReviewId] = useState(null);
   const [alreadyReviewed, setAlreadyReviewed] = useState(false);
   const [canReview, setCanReview] = useState(false);
-
   useEffect(() => {
     if (user?.email) {
       fetchUserData();
@@ -124,6 +123,39 @@ const ProductReview = ({ productId, product }) => {
     }
   };
 
+  const handleLike = async (reviewId) => {
+    try {
+      const res = await axiosInstance.patch(`/api/reviews/${reviewId}/like`, {
+        email: user?.email,
+      });
+      setReviews((prev) =>
+        prev.map((review) =>
+          review._id === reviewId ? { ...review, likes: res.data.review.likes } : review
+        )
+      );
+    } catch (error) {
+      toast.error(error.response?.data?.message || "Failed to like");
+      console.error("Error liking review:", error);
+    }
+  };
+  
+  const handleDislike = async (reviewId) => {
+    try {
+      const res = await axiosInstance.patch(`/api/reviews/${reviewId}/dislike`, {
+        email: user?.email,
+      });
+      setReviews((prev) =>
+        prev.map((review) =>
+          review._id === reviewId ? { ...review, dislikes: res.data.review.dislikes } : review
+        )
+      );
+    } catch (error) {
+      toast.error(error.response?.data?.message || "Failed to dislike");
+      console.error("Error disliking review:", error);
+    }
+  };
+  
+
   const isSeller = product?.postedBy === user?.email;
 
   return (
@@ -152,18 +184,7 @@ const ProductReview = ({ productId, product }) => {
             <p className="my-2 text-gray-800">{review.reviewText}</p>
 
             <div className="flex gap-5 items-center my-1y">
-              <button
-                onClick={() => handleLike(review._id)}
-                className="flex gap-2 items-center"
-              >
-                <AiFillLike /> {review.likes || 0}
-              </button>
-              <button
-                onClick={() => handleDislike(review._id)}
-                className="flex gap-2 items-center"
-              >
-                <AiFillDislike /> {review.dislikes || 0}
-              </button>
+            <ReviewActions review={review} userEmail={user?.email} refreshReviews={fetchReviews} />
             </div>
 
             {/* Responses */}
@@ -188,7 +209,6 @@ const ProductReview = ({ productId, product }) => {
                           <p className="text-gray-600 text-xs">seller</p>
                         )}
                       </div>
-                    
                     </div>
                     <p className="text-xs text-gray-400 mt-2">
                       {new Date(response.responseDate).toLocaleDateString()}
