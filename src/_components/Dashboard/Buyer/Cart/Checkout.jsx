@@ -13,6 +13,7 @@ export default function Checkout({ cartItems = [] }) {
     address: "",
     items: cartItems.map((item) => ({
       productId: item.productId._id,
+      quantity: item.quantity || 1, 
       requirement: "",
       deliveryOption: "",
     })),
@@ -51,6 +52,7 @@ export default function Checkout({ cartItems = [] }) {
       address: form.address,
       items: form.items.map((item) => ({
         productId: item.productId,
+        quantity: item.quantity,
         requirement: item.requirement,
         deliveryOption: item.deliveryOption,
         buyerName: form.name,
@@ -77,8 +79,10 @@ export default function Checkout({ cartItems = [] }) {
   
       console.log("Deleting productIds from cart:", productIds, "Email:", user.email);
 
-      router.push("/user/confirmorder");
-    } catch (error) {
+      const orderId = res.data.order._id; // ✅ get saved order's ID
+
+      router.push(`/user/confirmorder?orderId=${orderId}`);
+          } catch (error) {
       console.error("Error submitting order:", error);
       const message =
         error.response?.data?.message ||
