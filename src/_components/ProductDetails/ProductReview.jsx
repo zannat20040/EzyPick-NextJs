@@ -158,11 +158,11 @@ const ProductReview = ({ productId, product }) => {
   const isSeller = product?.postedBy === user?.email;
 
   return (
-    <div className="space-y-10">
+    <div className="space-y-2">
       {/* ✅ Show reviews if any */}
       {reviews.length > 0 ? (
         reviews.map((review) => (
-          <div key={review._id} className="review  p-5 ">
+          <div key={review._id} className="review  p-1 ">
             <div className="flex gap-3 items-center">
               <div className="avatar">
                 <div className="w-10 rounded-full bg-gray-200">

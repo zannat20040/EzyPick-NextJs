@@ -6,33 +6,85 @@ import React from "react";
 import toast from "react-hot-toast";
 import { FaGoogle } from "react-icons/fa6";
 import { IoIosCall } from "react-icons/io";
+import { deleteUser } from "firebase/auth"; // ✅ import this first
+import getUserByEmail from "@/utils/getUserByEmail";
 
 export default function SocialLogin() {
-  const { googleSignIn } = useAuth();
+  const { googleSignIn, setLoading } = useAuth();
   const router = useRouter();
 
-  const handleGoogleSignIn = async () => {
-    try {
-      const userCredential = await googleSignIn();
-      if (userCredential?.user) {
-        const userData = {
-          first_name: userCredential.user.displayName.split(" ")[0],
-          last_name: userCredential.user.displayName.split(" ")[1] || "",
-          email: userCredential.user.email,
-          password: "googlelogin",
-        };
 
-        await axiosInstance.post("/items/users", userData);
-        toast.success("You have successfully logged in and registered!");
-        router.push("/order");
-      } else {
+  const handleGoogleSignIn = async () => {
+    setLoading(true);
+  
+    let userCredential = null;
+  
+    try {
+      userCredential = await googleSignIn();
+  
+      if (!userCredential?.user) {
         toast.error("Google sign-in failed. Please try again.");
+        return;
+      }
+  
+      const { displayName, email, photoURL } = userCredential.user;
+  
+      if (!email) {
+        toast.error("Failed to retrieve user email.");
+        return;
+      }
+  
+      let userdata = null;
+  
+      // 🔥 Try fetching user by email
+      try {
+        userdata = await getUserByEmail(email);
+      } catch (fetchError) {
+        console.error("Error fetching user:", fetchError);
+        // 404 or Not Found is okay → continue to register
+      }
+  
+      if (userdata) {
+        // 🎯 User already exists
+        toast.success("Login successful!");
+        router.push("/");
+      } else {
+        // 🎯 New user → Register
+        const newUserData = {
+          name: displayName || "Unnamed User",
+          email: email,
+          role: "buyer",
+          profile_img: photoURL || "",
+        };
+  
+        await axiosInstance.post("/api/users/register", newUserData);
+  
+        toast.success("Account created and logged in successfully!");
+        router.push("/");
       }
     } catch (error) {
-      console.error("Google sign-in failed:", error);
-      toast.error("Google sign-in failed. Please try again.");
+      console.error("Google sign-in error:", error);
+  
+      // 🔥 If Firebase user was created but error happens, delete it
+      if (userCredential?.user) {
+        try {
+          await deleteUser(userCredential.user);
+          console.log("Deleted Firebase user after error.");
+        } catch (deleteError) {
+          console.error("Failed to delete Firebase user:", deleteError);
+        }
+      }
+  
+      toast.error(
+        error?.response?.data?.message ||
+          error?.message ||
+          "Google sign-in failed. Try again."
+      );
+    } finally {
+      setLoading(false);
     }
   };
+  
 
   return (
     <>

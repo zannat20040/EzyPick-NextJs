@@ -21,7 +21,7 @@ export function ProductDetailsTab({ details, productId, product }) {
         className="tab checked:text-pale-red "
         aria-label="Product Review"
       />
-      <div className="tab-content bg-base-100 border-base-300  border-t border-0">
+      <div className="tab-content bg-base-100 border-base-300  border-t border-0 pt-2">
         <ProductReview productId={productId} product={product} />
       </div>
     </div>

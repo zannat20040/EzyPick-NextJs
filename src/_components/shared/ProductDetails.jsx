@@ -18,33 +18,8 @@ export default function ProductDetails({ product, id }) {
   const [relatedProducts, setRelatedProducts] = useState([]);
   const [quantity, setQuantity] = useState(product.quantity || 1);
   const { user } = useAuth();
-  const [productReviews, setProductReviews] = useState([]);
 
-  useEffect(() => {
-    if (product?._id) {
-      fetchProductReviews();
-    }
-  }, [product?._id]);
-
-  const fetchProductReviews = async () => {
-    try {
-      const res = await axiosInstance.get(`/api/reviews/${product._id}`);
-      setProductReviews(res.data.reviews || []);
-    } catch (error) {
-      console.error("Error fetching product reviews:", error);
-    }
-  };
-
-  const reviewCount = productReviews.length;
-
-  const avgRating =
-    reviewCount > 0
-      ? (
-          productReviews.reduce((acc, review) => acc + review.rating, 0) /
-          reviewCount
-        ).toFixed(1)
-      : 0;
-
+  
   const HandleAddToCart = async ({ productId }) => {
     if (!user?.email) {
       return toast.error("Please log in to add to cart.");
@@ -118,9 +93,9 @@ export default function ProductDetails({ product, id }) {
             <h2 className="card-title text-2xl mb-2">{product?.name}</h2>
 
             <div className="flex items-center gap-3 mb-2">
-              <CustomRating rating={avgRating} />
+              <CustomRating rating={product.rating} />
               <span className="text-sm text-gray-500">
-                {avgRating} <span>(Based on {reviewCount} reviews)</span>
+                {product.rating} <span>(Based on {product.reviews} reviews)</span>
               </span>
             </div>
 
