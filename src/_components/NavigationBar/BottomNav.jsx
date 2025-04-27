@@ -14,6 +14,7 @@ import { BsBox2Heart } from "react-icons/bs";
 
 export default function BottomNav() {
   const pathname = usePathname();
+  console.log(pathname)
   const [openNav, setOpenNav] = React.useState(false);
   const { user, signOutUser } = useAuth();
   const [userData, setUserData] = useState(null); // ✅ user data state
@@ -135,22 +136,26 @@ export default function BottomNav() {
             <Link href={`/seller/orders/${user?.email}`}>
               <BsBox2Heart
                 className={`hover:text-pale-red hidden lg:inline-block ${
-                  pathname === "/seller/order" ? "text-pale-red" : ""
+                  pathname === `/seller/orders/${user?.email}`
+                    ? "text-pale-red"
+                    : ""
+                }`}
+              />
+            </Link>
+          )}
+          {!user && (
+            <Link href="/authentication">
+              <FaRegUser
+                className={`hover:text-pale-red hidden lg:inline-block ${
+                  pathname === "/authentication" ||
+                  pathname === "/authentication/register"
+                    ? "text-pale-red"
+                    : ""
                 }`}
               />
             </Link>
           )}
 
-          <Link href="/authentication">
-            <FaRegUser
-              className={`hover:text-pale-red hidden lg:inline-block ${
-                pathname === "/authentication" ||
-                pathname === "/authentication/register"
-                  ? "text-pale-red"
-                  : ""
-              }`}
-            />
-          </Link>
           {user && (
             <MdOutlineLogout
               onClick={signOutUser}
@@ -289,7 +294,9 @@ export default function BottomNav() {
               <Link href={`/seller/orders/${user?.email}`}>
                 <BsBox2Heart
                   className={`hover:text-pale-red hidden lg:inline-block ${
-                    pathname === "/seller/order" ? "text-pale-red" : ""
+                    pathname === `/seller/orders/${user?.email}`
+                      ? "text-pale-red"
+                      : ""
                   }`}
                 />
               </Link>
