@@ -31,24 +31,20 @@ export default function Checkout({ cartItems = [] }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    // 🔥 Validate
+  
     if (!form.name.trim() || !form.phone.trim() || !form.address.trim()) {
       toast.error("Please fill up your name, phone, and address!");
       return;
     }
-
+  
     const incompleteItem = form.items.find(
       (item) => !item.requirement.trim() || !item.deliveryOption.trim()
     );
     if (incompleteItem) {
-      toast.error(
-        "Please complete special requirement and delivery option for all products!"
-      );
+      toast.error("Please complete special requirement and delivery option for all products!");
       return;
     }
-
-    // 🛒 Merge user info with each product
+  
     const finalOrder = {
       name: form.name,
       phone: form.phone,
@@ -62,21 +58,25 @@ export default function Checkout({ cartItems = [] }) {
         buyerAddress: form.address,
       })),
     };
-
+  
     console.log("✅ Final Order Submitted:", finalOrder);
-
+  
     try {
       const res = await axiosInstance.post("/api/orders", finalOrder);
-
+  
       toast.success("Order placed successfully!");
-      console.log("🚀 Response:", res.data);
+      console.log("🚀 Order Response:", res.data);
+  
+      // ✅ Bulk remove cart items
+      const productIds = finalOrder.items.map((item) => item.productId);
+  
+      await axiosInstance.post("/api/user-cart/cart/bulk-remove", {
+        productIds: productIds,
+        email: user.email,
+      });
+  
+      console.log("Deleting productIds from cart:", productIds, "Email:", user.email);
 
-      for (const item of finalOrder.items) {
-        await axiosInstance.post("/api/user-cart/cart/remove", {
-          productId: item.productId,
-          email: user.email, // If your removeFromCart needs email too
-        });
-      }
       router.push("/user/confirmorder");
     } catch (error) {
       console.error("Error submitting order:", error);
@@ -86,6 +86,7 @@ export default function Checkout({ cartItems = [] }) {
       toast.error(message);
     }
   };
+  
 
   return (
     <div className="">
