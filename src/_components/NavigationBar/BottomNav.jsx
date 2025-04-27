@@ -10,6 +10,7 @@ import React, { useState, useEffect } from "react";
 import { FaCartShopping, FaRegUser } from "react-icons/fa6";
 import { MdOutlineLogout } from "react-icons/md";
 import { TiHeartFullOutline } from "react-icons/ti";
+import { BsBox2Heart } from "react-icons/bs";
 
 export default function BottomNav() {
   const pathname = usePathname();
@@ -37,7 +38,9 @@ export default function BottomNav() {
 
   // Define your navigation items with their paths
   const navItems = [{ label: "Home", path: "/" }];
-  const protectedBuyerNavItems = [{ label: "My Order", path: `/user/order/${user?.email}` }];
+  const protectedBuyerNavItems = [
+    { label: "My Order", path: `/user/order/${user?.email}` },
+  ];
   const protectedSellerNavItems = [
     { label: "Add Product", path: "/seller/addproduct" },
     { label: "My Products", path: `/seller/myproducts/${user?.email}` },
@@ -107,7 +110,7 @@ export default function BottomNav() {
           <div className="sm:block hidden">
             <SearchBar />
           </div>
-          {user && (
+          {user && userData?.role === "buyer" && (
             <>
               <Link href={`/user/carts/${user?.email}`}>
                 <FaCartShopping
@@ -127,6 +130,15 @@ export default function BottomNav() {
                 />
               </Link>
             </>
+          )}
+          {user && userData?.role === "seller" && (
+            <Link href={`/seller/orders/${user?.email}`}>
+              <BsBox2Heart
+                className={`hover:text-pale-red hidden lg:inline-block ${
+                  pathname === "/seller/order" ? "text-pale-red" : ""
+                }`}
+              />
+            </Link>
           )}
 
           <Link href="/authentication">
@@ -247,7 +259,7 @@ export default function BottomNav() {
               Login / Signup
             </Link>
           </li>
-          {user && (
+          {user && userData?.role === "buyer" && (
             <>
               <li>
                 <Link href={`/user/carts/${user?.email}`}>
@@ -271,6 +283,17 @@ export default function BottomNav() {
                 </Link>
               </li>
             </>
+          )}
+          {user && userData?.role === "seller" && (
+            <li>
+              <Link href={`/seller/orders/${user?.email}`}>
+                <BsBox2Heart
+                  className={`hover:text-pale-red hidden lg:inline-block ${
+                    pathname === "/seller/order" ? "text-pale-red" : ""
+                  }`}
+                />
+              </Link>
+            </li>
           )}
           {user && (
             <li>
