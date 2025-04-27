@@ -50,6 +50,7 @@ export default function Checkout({ cartItems = [] }) {
       name: form.name,
       phone: form.phone,
       address: form.address,
+      email: user.email,
       items: form.items.map((item) => ({
         productId: item.productId,
         quantity: item.quantity,
