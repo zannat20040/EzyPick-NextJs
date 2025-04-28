@@ -4,7 +4,6 @@ import Image from "next/image";
 import Link from "next/link";
 import AddToWishlist from "../Dashboard/Buyer/WishtList/AddToWishlist";
 import AddToCartlist from "../Dashboard/Buyer/Cart/AddToCartlist";
-import ProductReviewDetails from "./ProductReviewDetails";
 import CustomRating from "./ustomRating";
 
 export default function ProductCard({ product }) {
@@ -52,7 +51,6 @@ export default function ProductCard({ product }) {
           <span className="text-xs items-center text-gray-400 font-normal">
             ({product?.reviews})
           </span>
-          {/* <ProductReviewDetails product={product}/> */}
         </div>
       </div>
     </Link>

@@ -2,7 +2,6 @@
 import React, { useState } from "react";
 import CartItem from "./CartItem";
 import Checkout from "./Checkout";
-import ConfirmOrder from "./ConfirmOrder";
 
 export default function Cartlist({ cartRes, email }) {
   const [step, setStep] = useState(1);

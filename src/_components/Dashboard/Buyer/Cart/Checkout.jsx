@@ -79,7 +79,7 @@ export default function Checkout({ cartItems = [] }) {
 
       const orderId = res.data.order._id; // ✅ get saved order's ID
 
-      router.push(`/user/confirmorder?orderId=${orderId}`);
+      router.push(`/user/confirmorder/${orderId}`);
           } catch (error) {
       console.error("Error submitting order:", error);
       const message =

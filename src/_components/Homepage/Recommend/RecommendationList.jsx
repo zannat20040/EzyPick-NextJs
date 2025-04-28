@@ -63,9 +63,9 @@ export default function RecommendationList({ product }) {
           ))}
         </div>
       ) : (
-        <span className="py-4 px-5 lg:px-8 text-gray-500 text-sm col-span-5">
+        <p className="container mx-auto py-4 px-5 lg:px-8 text-gray-500 text-sm col-span-5">
           No product available which you may like
-        </span>
+        </p>
       )}
     </div>
   );
