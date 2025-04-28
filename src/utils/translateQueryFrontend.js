@@ -10,7 +10,7 @@ export async function translateQueryFrontend(userQuery) {
           {
             role: "system",
             content:
-              "Translate Bangla search queries into English. If already English, return as is.",
+              "First, if the input query is in Bangla, translate it into English. Then fix any spelling mistakes or sound-alike mistakes. If already correct, return unchanged.",
           },
           {
             role: "user",

@@ -8,7 +8,6 @@ export default function Cartlist({ cartRes, email }) {
   const [step, setStep] = useState(1);
   const HandleStep = (id) => {
     setStep(2);
-    console.log("remove", id);
   };
 
   return (

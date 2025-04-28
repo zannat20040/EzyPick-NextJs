@@ -43,7 +43,7 @@ export default function AddToWishlist({ productId }) {
   return (
     <IoHeartSharp
       onClick={HandleAddToWishlist}
-      className="bg-pale-red text-white p-2 w-8 h-8 text-lg rounded hover:bg-gray-300 hover:text-black duration-500 transition-all ease-in-out cursor-pointer"
+      className="bg-gray-300  p-2 w-8 h-8 text-lg rounded hover:bg-pale-red hover:text-white duration-500 transition-all ease-in-out cursor-pointer"
     />
   );
 }

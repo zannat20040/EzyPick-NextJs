@@ -16,7 +16,6 @@ import { MdVerified } from "react-icons/md";
 
 export default function ProductDetails({ product, id }) {
   const [productImg, setProductImg] = useState(product?.thumbnail);
-  const [relatedProducts, setRelatedProducts] = useState([]);
   const [quantity, setQuantity] = useState(product.quantity || 1);
   const { user } = useAuth();
   const [isVerified, setIsVerified] = useState(false);
@@ -165,7 +164,7 @@ export default function ProductDetails({ product, id }) {
         />
       </div>
       {/* related work*/}
-      <RecommendationList recommendations={relatedProducts} />
+      <RecommendationList product={product} />
     </div>
   );
 }

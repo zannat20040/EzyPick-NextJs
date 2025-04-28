@@ -5,8 +5,10 @@ import Link from "next/link";
 import AddToWishlist from "../Dashboard/Buyer/WishtList/AddToWishlist";
 import AddToCartlist from "../Dashboard/Buyer/Cart/AddToCartlist";
 import ProductReviewDetails from "./ProductReviewDetails";
+import CustomRating from "./ustomRating";
 
 export default function ProductCard({ product }) {
+  console.log(product);
   return (
     <Link
       key={product.id}
@@ -23,7 +25,7 @@ export default function ProductCard({ product }) {
         />
       </figure>
       <div className="flex flex-col gap-2 absolute top-3 right-3 opacity-0 group-hover:opacity-100 duration-700 transition-all ease-in-out">
-        <IoShareSocial className="bg-pale-red text-white  p-2 w-8 h-8 text-lg rounded hover:bg-gray-300 hover:text-black duration-500 transition-all ease-in-out" />
+        <IoShareSocial className="bg-gray-300   p-2 w-8 h-8 text-lg rounded hover:bg-pale-red hover:text-white duration-500 transition-all ease-in-out" />
         <AddToCartlist productId={product?._id} />
         <AddToWishlist productId={product?._id} />
       </div>
@@ -34,7 +36,7 @@ export default function ProductCard({ product }) {
             (product.name.split(" ").length > 5 ? "..." : "")}
         </h6>
         <p className="text-base text-pale-red">
-          ৳{" "}
+          ৳
           {product?.discount
             ? (
                 product?.price -
@@ -45,7 +47,12 @@ export default function ProductCard({ product }) {
         </p>
         <div className="flex flex-wrap gap-2 font-bold text-blue-gray-500">
           {/* rating */}
-          <ProductReviewDetails product={product}/>
+          <CustomRating rating={product?.rating} />
+
+          <span className="text-xs items-center text-gray-400 font-normal">
+            ({product?.reviews})
+          </span>
+          {/* <ProductReviewDetails product={product}/> */}
         </div>
       </div>
     </Link>
