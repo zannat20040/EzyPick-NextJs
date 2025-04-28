@@ -69,7 +69,6 @@ export default function SocialLogin() {
       if (userCredential?.user) {
         try {
           await deleteUser(userCredential.user);
-          console.log("Deleted Firebase user after error.");
         } catch (deleteError) {
           console.error("Failed to delete Firebase user:", deleteError);
         }

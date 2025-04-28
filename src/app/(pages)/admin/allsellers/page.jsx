@@ -6,7 +6,6 @@ import AllSellers from "@/_components/Dashboard/Admin/AllSellers";
 async function getAllSellers() {
   try {
     const response = await axiosInstance.get("/api/users/sellers");
-    console.log("All sellers:", response.data);
     return response.data;
   } catch (error) {
     console.error("Error fetching sellers:", error);

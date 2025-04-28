@@ -6,7 +6,6 @@ import AllCategories from "@/_components/Dashboard/Admin/AllCategories"; // 🔥
 async function getAllCategories() {
   try {
     const response = await axiosInstance.get("/api/categories");
-    console.log("All categories:", response.data);
     return response.data;
   } catch (error) {
     console.error("Error fetching categories:", error);

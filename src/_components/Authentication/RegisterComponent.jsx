@@ -47,7 +47,6 @@ export default function RegisterComponent() {
         displayName: `${firstName} ${lastName}`,
         photoURL: profileImage || null,
       });
-      console.log(currentUser, userProfile);
       if (!currentUser && !userProfile) {
         toast.error("Firebase registration failed.");
         return;
@@ -80,13 +79,11 @@ export default function RegisterComponent() {
         };
       }
 
-      console.log(userData);
       // Save user data to backend
       const response = await axiosInstance.post(
         "/api/users/register",
         userData
       );
-      console.log(response);
       toast.success(
         checkValue === "buyer"
           ? "You have successfully registered as a buyer!"
@@ -96,13 +93,7 @@ export default function RegisterComponent() {
       form.reset();
       router.push(checkValue === "admin" ? "/admin/allsellers" : "/");
     } catch (error) {
-      console.log(
-        "------",
-        error ||
-          error?.response?.data?.errors?.[0]?.message ||
-          error?.response?.data?.message ||
-          error.message
-      );
+     
       await currentUser?.delete?.();
       toast.error(
         error?.response?.data?.errors?.[0]?.message ||

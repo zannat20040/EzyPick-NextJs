@@ -29,8 +29,6 @@ export default async function Page({ params }) {
   const productsByCategory = await fetchProducts(categoryName);
   const brandCatergory = await fetchSubcategories(categoryName);
 
-  console.log("productsByCategory", productsByCategory);
-  console.log("brandCatergory", brandCatergory);
 
   return (
     <div>
