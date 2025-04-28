@@ -13,6 +13,7 @@ async function getAllSellers() {
   }
 }
 
+
 export default async function Page() {
   const sellers = await getAllSellers();
 
