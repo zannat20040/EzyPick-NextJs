@@ -32,7 +32,7 @@ const CategoryList = ({ categories }) => {
           )
         }
       />
-      <div className="container mx-auto px-5 lg:px-8 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-7 gap-2">
+      <div className="container mx-auto px-5 lg:px-8 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-2">
         {showCategories?.map((category) => (
           <Link
             key={category.category}
