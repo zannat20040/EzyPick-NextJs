@@ -107,23 +107,23 @@ export default function ProductsByCategory({
 
   return (
     <section className="px-5 lg:px-8 container mx-auto mt-10">
-      {/* Search Bar */}
-      <div className="flex justify-end">
-        <div className="mb-4 w-[35%]">
-          <input
-            type="text"
-            placeholder="Search products…"
-            className="input border border-gray-200 w-full outline-none focus:outline-none shadow-none"
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-          />
-        </div>
-      </div>
-
       {/* Layout Grid */}
       <div className="grid grid-cols-5 mt-10 gap-6 justify-between">
         {/* Sidebar */}
         <div className="col-span-1 flex flex-col gap-6">
+          {/* Search */}
+          <div className="">
+          <h3 className="font-semibold mb-2">Search from here</h3>
+            <div className="mb-2 ">
+              <input
+                type="text"
+                placeholder="Search products…"
+                className="input border border-gray-200 w-full outline-none focus:outline-none shadow-none"
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+              />
+            </div>
+          </div>
           {/* Sort Options */}
           <div>
             <h3 className="font-semibold mb-2">Sort by</h3>
@@ -149,7 +149,6 @@ export default function ProductsByCategory({
               </label>
             ))}
           </div>
-
           {/* Brand (Subcategory) Filter */}
           <div>
             <h3 className="font-semibold mb-2">Subcategory</h3>
@@ -167,7 +166,6 @@ export default function ProductsByCategory({
               ))}
             </div>
           </div>
-
           {/* Price Filter */}
           <div>
             <h3 className="font-semibold mb-2">Price (৳)</h3>
@@ -189,7 +187,6 @@ export default function ProductsByCategory({
               />
             </div>
           </div>
-
           {/* Delivery Options */}
           <div>
             <h3 className="font-semibold mb-2">Delivery Type</h3>
@@ -211,7 +208,6 @@ export default function ProductsByCategory({
               )}
             </div>
           </div>
-
           {/* Rating Filter */}
           <div>
             <h3 className="font-semibold mb-2">Rating</h3>
@@ -246,7 +242,9 @@ export default function ProductsByCategory({
                 <ProductCard product={product} key={product.id} />
               ))
             ) : (
-              <p className="text-gray-600 text-center p-2 col-span-4">No items found for this category</p>
+              <p className="text-gray-600 text-center p-2 col-span-4">
+                No items found for this category
+              </p>
             )}
           </div>
         </div>

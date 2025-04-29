@@ -87,7 +87,6 @@ export default function page() {
       sellerName: userData?.name,
     };
 
-    console.log(productData);
     try {
       const res = await axiosInstance.post("/api/product/add", productData);
       toast.success("Product added successfully!");

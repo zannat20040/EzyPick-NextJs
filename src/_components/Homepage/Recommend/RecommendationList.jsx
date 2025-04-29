@@ -39,7 +39,6 @@ export default function RecommendationList({ product }) {
     }
   }, [product]);
 
-  console.log(recommendations);
 
   return (
     <div className=" ">

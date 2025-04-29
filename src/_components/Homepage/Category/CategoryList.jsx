@@ -40,17 +40,17 @@ const CategoryList = ({ categories }) => {
             className="flex flex-col justify-center items-center gap-2 duration-500 ease-in-out  transition-all hover:bg-soft-gray bg-gray-100   cursor-pointer p-2"
           >
             <div className=" rounded h-20 w-20">
-                <Image
-                  width={70}
-                  height={70}
-                  src={category.thumbnail}
-                  alt={`${category.category} icon`}
-                  className="w-full h-full mx-auto text-xs"
-                />
-              </div>
-              <h3 className="text-sm px-4 font-light capitalize text-gray-700 text-center">
-                {category.category}
-              </h3>
+              <Image
+                width={70}
+                height={70}
+                src={category?.thumbnail || "/images/catagory-icon.png"}
+                alt={`${category.category} icon`}
+                className="w-full h-full mx-auto text-xs"
+              />
+            </div>
+            <h3 className="text-sm px-4 font-light capitalize text-gray-700 text-center">
+              {category.category}
+            </h3>
           </Link>
         ))}
       </div>

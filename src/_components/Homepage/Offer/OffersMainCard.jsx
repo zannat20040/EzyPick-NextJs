@@ -1,11 +1,36 @@
+import { useAuth } from "@/Context/AuthContext";
+import { logInteraction } from "@/utils/logInteraction";
 import Image from "next/image";
 import Link from "next/link";
 
 export default function OffersMainCard({ mainOffer }) {
+  const { user } = useAuth(); // assuming you store user here
+
+  const handleTrackClick = async (e) => {
+    // Track but don't block navigation
+    if (user?.email) {
+      await logInteraction({
+        email: user.email,
+        type: "click",
+        product: {
+          _id: mainOffer._id,
+          name: mainOffer.name,
+          category: mainOffer.category,
+          subcategory: mainOffer.category?.subcategory,
+          seller: mainOffer.sellerName,
+          price: mainOffer.price,
+        },
+      });
+    }
+  };
+
   return (
     <>
       {mainOffer && (
-        <Link href={`/product/${mainOffer.name}/pid-${mainOffer._id}`}>
+        <Link
+          href={`/product/${mainOffer.name}/pid-${mainOffer._id}`}
+          onClick={handleTrackClick}
+        >
           <div className="h-full relative flex ">
             <Image
               src={mainOffer?.thumbnail} // assumes image is stored as URL path
