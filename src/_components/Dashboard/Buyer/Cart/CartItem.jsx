@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import QuantityUpdate from "./QuantityUpdate";
 import { IoIosRemoveCircle } from "react-icons/io";
 import swal from "sweetalert";
@@ -9,7 +9,17 @@ import { useAuth } from "@/Context/AuthContext";
 export default function CartItem({ item }) {
   const [quantity, setQuantity] = useState(item.quantity);
   const price = item.productId.price;
-  const {user} = useAuth()
+  const { user } = useAuth();
+  const [showMessage, setShowMessage] = useState("");
+  useEffect(() => {
+    if (showMessage) {
+      const timeout = setTimeout(() => {
+        setShowMessage("");
+      }, 2000); // ⏳ 2 seconds
+
+      return () => clearTimeout(timeout); // cleanup on re-render
+    }
+  }, [showMessage]);
 
   const handleRemove = async () => {
     const willDelete = await swal({
@@ -50,6 +60,11 @@ export default function CartItem({ item }) {
           alt=""
         />
         <div className="flex flex-col flex-wrap">
+          {showMessage && (
+            <p className="bg-red-50 w-fit text-red-600 py-1 px-3 mt-2 font-semibold text-xs rounded-md ">
+              {showMessage}
+            </p>
+          )}
           <span className="text-lg break-words font-medium">
             {item.productId.name}
           </span>
@@ -62,6 +77,7 @@ export default function CartItem({ item }) {
 
       <div className="col-span-1 flex justify-center">
         <QuantityUpdate
+          setShowMessage={setShowMessage}
           quantity={quantity}
           setQuantity={setQuantity}
           productId={item.productId._id}

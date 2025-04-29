@@ -1,6 +1,5 @@
 "use client";
 import Image from "next/image";
-import { FaMinus, FaPlus } from "react-icons/fa6";
 import { useEffect, useState } from "react";
 import CustomRating from "@/_components/shared/ustomRating";
 import TransformSpecifications from "../ProductDetails/TransformSpecifications";
@@ -19,6 +18,16 @@ export default function ProductDetails({ product, id }) {
   const [quantity, setQuantity] = useState(product.quantity || 1);
   const { user } = useAuth();
   const [isVerified, setIsVerified] = useState(false);
+  const [showMessage, setShowMessage] = useState("");
+  useEffect(() => {
+    if (showMessage) {
+      const timeout = setTimeout(() => {
+        setShowMessage("");
+      }, 2000); // ⏳ 2 seconds
+
+      return () => clearTimeout(timeout); // cleanup on re-render
+    }
+  }, [showMessage]);
 
   const HandleAddToCart = async ({ productId }) => {
     if (!user?.email) {
@@ -63,10 +72,9 @@ export default function ProductDetails({ product, id }) {
         }
       }
     }
-  
+
     fetchSellerData();
   }, [product]);
-  
 
   return (
     <div>
@@ -107,10 +115,10 @@ export default function ProductDetails({ product, id }) {
           {/* right  */}
           <div className=" flex flex-col gap-0 rounded p-5 ">
             <div className="flex items-center gap-2">
-            <span className="text-gray-500 text-sm capitalize">
-              {product?.sellerName || "Unknown user"}
-            </span>
-            {isVerified && <MdVerified className="text-pale-red" />}
+              <span className="text-gray-500 text-sm capitalize">
+                {product?.sellerName || "Unknown user"}
+              </span>
+              {isVerified && <MdVerified className="text-pale-red" />}
             </div>
             <h2 className="card-title text-2xl mb-2">{product?.name}</h2>
 
@@ -140,6 +148,7 @@ export default function ProductDetails({ product, id }) {
                   productId={product._id}
                   quantity={quantity}
                   setQuantity={setQuantity}
+                  setShowMessage={setShowMessage}
                 />
                 <button
                   onClick={() => HandleAddToCart({ productId: product?._id })}
@@ -151,6 +160,12 @@ export default function ProductDetails({ product, id }) {
             ) : (
               <p className="bg-red-100 mt-2 text-red-400 w-fit  px-3 rounded font-bold text-sm mb-1 ">
                 Stock out
+              </p>
+            )}
+
+            {showMessage && (
+              <p className="bg-red-50 w-fit text-red-600 py-1 px-3 mt-2 font-semibold text-xs rounded-md ">
+                {showMessage}
               </p>
             )}
           </div>

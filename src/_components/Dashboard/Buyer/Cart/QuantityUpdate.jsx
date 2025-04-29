@@ -5,7 +5,12 @@ import React, { useState } from "react";
 import toast from "react-hot-toast";
 import { FaMinus, FaPlus } from "react-icons/fa6";
 
-export default function QuantityUpdate({ productId,  quantity, setQuantity }) {
+export default function QuantityUpdate({
+  productId,
+  quantity,
+  setQuantity,
+  setShowMessage,
+}) {
   const { user } = useAuth();
 
   const HandleAdd = async () => {
@@ -22,19 +27,18 @@ export default function QuantityUpdate({ productId,  quantity, setQuantity }) {
 
       if (res.status === 200) {
         setQuantity((prev) => prev + 1);
-        toast.success("Quantity increased");
       } else {
-        toast.error(res.data?.message || "Failed to increase quantity");
+        setShowMessage(res.data?.message || "Failed to increase quantity");
       }
     } catch (err) {
       console.error(err);
-      toast.error(err.response?.data?.message || "Server error");
+      setShowMessage(err.response?.data?.message || "Server error");
     }
   };
 
   const HandleRemove = async () => {
     if (quantity <= 1) {
-      toast.error("Minimum quantity is 1");
+      setShowMessage("Minimum quantity is 1");
       return;
     }
 
@@ -48,31 +52,33 @@ export default function QuantityUpdate({ productId,  quantity, setQuantity }) {
         productId: productId,
         action: "decrease",
       });
-
-      toast.success("Quantity decreased");
     } catch (err) {
       console.error(err);
-      toast.error("Failed to update quantity");
+      setShowMessage(
+        err.response?.data?.message || "Failed to update quantity"
+      );
     }
   };
 
   return (
+    <div>
       <div className="flex  items-center bg-neutral-100 rounded-md ">
         <button
-          onClick={HandleAdd}
           className="btn outline-0 border-0 rounded-r-none  hover:text-white p-3 hover:bg-pale-red hover:text-neutral-50 duration-300 transition-all "
+          onClick={HandleRemove}
         >
-          <FaPlus />
+          <FaMinus />
         </button>
         <button className="btn outline-0 border-0  rounded-none hover:text-white p-3 px-5 hover:bg-pale-red hover:text-neutral-50 duration-300 transition-all ">
           {quantity}
         </button>
         <button
-          onClick={HandleRemove}
           className="btn outline-0 border-0 rounded-l-none hover:text-white p-3 hover:bg-pale-red hover:text-neutral-50 duration-300 transition-all "
+          onClick={HandleAdd}
         >
-          <FaMinus />
+          <FaPlus />
         </button>
       </div>
+    </div>
   );
 }
