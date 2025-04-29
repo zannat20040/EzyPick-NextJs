@@ -12,6 +12,7 @@ import DynamicSpecifications from "../Add Product/DynamicSpecifications";
 import ProductDetailsAdd from "../Add Product/ProductDetailsAdd";
 import DeliveryOptionsSection from "../Add Product/DeliveryOptionsSection";
 import CategorySelector from "../Add Product/CatergorySelector";
+import FullScreenSpinner from "@/_components/shared/FullScreenSpinner";
 
 export default function UpdatedProductForm({ product }) {
   const { user } = useAuth();
@@ -44,7 +45,6 @@ export default function UpdatedProductForm({ product }) {
     fetchUserData();
   }, [user?.email]);
 
-
   const handleSave = (updatedSpecs) => {
     setSpecs(updatedSpecs);
   };
@@ -70,7 +70,7 @@ export default function UpdatedProductForm({ product }) {
       },
       specifications: specs,
       postedBy: user?.email,
-      sellerName: userData?.name
+      sellerName: userData?.name,
     };
 
     try {
@@ -95,7 +95,9 @@ export default function UpdatedProductForm({ product }) {
   };
 
   return (
-    <div className="container mx-auto px-5 lg:px-8 py-5">
+    <div className="container mx-auto px-5 lg:px-8 py-5 relative">
+      {isUpload && <FullScreenSpinner label={"Product is updating...."} />}
+
       <form
         className="grid grid-cols-4 gap-5 justify-between"
         onSubmit={handleUpdateProduct}

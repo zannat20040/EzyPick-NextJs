@@ -4,6 +4,7 @@ import DeliveryOptionsSection from "@/_components/Dashboard/Seller/Add Product/D
 import DynamicSpecifications from "@/_components/Dashboard/Seller/Add Product/DynamicSpecifications";
 import ProductDetailsAdd from "@/_components/Dashboard/Seller/Add Product/ProductDetailsAdd";
 import { BreadCrumbsComp } from "@/_components/shared/BreadCrumbsComp";
+import FullScreenSpinner from "@/_components/shared/FullScreenSpinner";
 import ImageUploader from "@/_components/shared/ImageUploader";
 import { useAuth } from "@/Context/AuthContext";
 import axiosInstance from "@/utils/axiosInstance";
@@ -63,6 +64,7 @@ export default function page() {
       !selectedSubcategory
     ) {
       toast.error("Please fill in all required fields and upload an image.");
+      setIsUpload(false);
       return;
     }
 
@@ -85,6 +87,7 @@ export default function page() {
       sellerName: userData?.name,
     };
 
+    console.log(productData);
     try {
       const res = await axiosInstance.post("/api/product/add", productData);
       toast.success("Product added successfully!");
@@ -97,6 +100,7 @@ export default function page() {
       setSpecs({});
       router.push(`/seller/myproducts/${user?.email}`);
     } catch (err) {
+      console.log(err);
       toast.error("Failed to add product");
       console.error(err.response?.data || err);
     } finally {
@@ -105,7 +109,8 @@ export default function page() {
   };
 
   return (
-    <div>
+    <div className="relative">
+      {isUpload && <FullScreenSpinner label={"Product is uplaoding...."} />}
       <BreadCrumbsComp
         category={`${userData?.name}`}
         subcategory={"Add new product"}

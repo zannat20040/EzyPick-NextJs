@@ -1,6 +1,5 @@
 "use client";
 import { useRef, useState } from "react";
-import axiosInstance from "@/utils/axiosInstance";
 import { FiUploadCloud } from "react-icons/fi";
 import { RxCrossCircled } from "react-icons/rx";
 import axios from "axios";
@@ -11,9 +10,8 @@ export default function ImageUploader({
   additional_note,
   multiple = false,
   acceptedTypes = "image/*",
-  initialImage = null,          // ✅ NEW for single image
+  initialImage = null, // ✅ NEW for single image
   initialImages = [],
-
 }) {
   const [filesInfo, setFilesInfo] = useState(() => {
     if (multiple && initialImages.length > 0) {
@@ -45,7 +43,6 @@ export default function ImageUploader({
   const [error, setError] = useState(null);
   const fileInputRef = useRef();
 
-  
   const inputId = `file_input_${placeholder
     .toLowerCase()
     .replace(/[^a-z0-9]/gi, "_")}`;
@@ -80,7 +77,6 @@ export default function ImageUploader({
           formData
         );
 
-
         return {
           id: res.data.asset_id,
           url: res.data.secure_url,
@@ -114,13 +110,22 @@ export default function ImageUploader({
 
   return (
     <div className="mt-3">
+      {uploading && (
+        <p className="text-green-800 text-sm px-3 py-1 bg-green-50">
+          Uploading...
+        </p>
+      )}
+      {error && (
+        <p className="text-red-800 text-sm px-3 py-1 bg-red-50">{error}</p>
+      )}
+
       {filesInfo ? (
         <div className="mx-auto max-w-[600px] rounded border-2 border-dashed border-gray-400 p-3 bg-white">
           <div className="flex justify-between items-start relative overflow-hidden">
             <div className="flex-1">
               {multiple ? (
                 <>
-                  <h5 className="text-lg font-medium tracking-tight mb-">
+                  <h5 className="text-sm font-medium tracking-tight mb-">
                     {filesInfo.count} files selected
                   </h5>
                   <div className="flex flex-wrap gap-2">
@@ -137,25 +142,20 @@ export default function ImageUploader({
               ) : (
                 <div className="flex gap-x-6 items-center">
                   <img
-                    className="w-16 h-16 rounded object-cover"
+                    className="w-16 h-16 rounded object-cover text-sm"
                     src={filesInfo.files[0].preview}
                     alt={filesInfo.files[0].name}
                   />
                   <div className="flex-1  overflow-hidden">
-                    <h5 className="text-lg font-medium tracking-tight truncate ">
+                    <h5 className=" font-medium tracking-tight truncate  text-sm">
                       {filesInfo.files[0].name}
                     </h5>
-                    <p className="text-gray-500">
+                    <p className="text-gray-500 text-xs">
                       {(filesInfo.files[0].size / 1024).toFixed(1)} KB
                     </p>
                   </div>
                 </div>
               )}
-
-              {uploading && (
-                <p className="text-blue-600 text-sm mt-2">Uploading...</p>
-              )}
-              {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
             </div>
 
             <button
