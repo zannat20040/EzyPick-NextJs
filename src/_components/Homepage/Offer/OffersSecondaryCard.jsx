@@ -29,6 +29,7 @@ export default function OffersSecondaryCard({ secondaryOffers }) {
       {secondaryOffers.length > 0 &&
         secondaryOffers.map((offer, index) => (
           <Link
+            key={offer._id}
             href={`/product/${offer.name}/pid-${offer._id}`}
             onClick={() => handleTrackClick(offer)}
           >

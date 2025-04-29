@@ -2,6 +2,8 @@
 import React, { useState, useMemo, useEffect } from "react";
 import ProductCard from "../shared/ProductCard";
 import axiosInstance from "@/utils/axiosInstance";
+import { logSearch } from "@/utils/searchInteration";
+import { useAuth } from "@/Context/AuthContext";
 
 export default function ProductsByCategory({
   productsByCategory,
@@ -15,11 +17,21 @@ export default function ProductsByCategory({
   const [sortOption, setSortOption] = useState("price_low");
   const [brandFilter, setBrandFilter] = useState([]);
   const [allDeliveryOptions, setAllDeliveryOptions] = useState([]); // ✅ Dynamic list from DB
+  const { user } = useAuth();
 
   const toggleChecked = (value, listSetter) =>
     listSetter((prev) =>
       prev.includes(value) ? prev.filter((v) => v !== value) : [...prev, value]
     );
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      if (search.trim() && user?.email) {
+        logSearch({ email: user.email, term: search });
+      }
+    }, 1000);
+    return () => clearTimeout(timeout);
+  }, [search]);
 
   useEffect(() => {
     async function fetchDeliveryOptions() {
@@ -113,7 +125,7 @@ export default function ProductsByCategory({
         <div className="col-span-1 flex flex-col gap-6">
           {/* Search */}
           <div className="">
-          <h3 className="font-semibold mb-2">Search from here</h3>
+            <h3 className="font-semibold mb-2">Search from here</h3>
             <div className="mb-2 ">
               <input
                 type="text"
