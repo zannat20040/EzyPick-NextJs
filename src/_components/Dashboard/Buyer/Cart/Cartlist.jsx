@@ -43,11 +43,9 @@ export default function Cartlist({ cartRes, email }) {
         <div className="bg-gray-250   my-10 space-y-6">
           {/* top part  */}
           <div
-            className={`flex border-b border-b-neutral-100  justify-between items-center`}
+            className={`flex border-b border-b-neutral-100  justify-end items-center`}
           >
-            <h4 className="text-xl font-medium text-slate-800 uppercase ">
-              Product
-            </h4>
+            
             <p className="text-sm font-medium text-gray-400 uppercase">
               edit cart
             </p>

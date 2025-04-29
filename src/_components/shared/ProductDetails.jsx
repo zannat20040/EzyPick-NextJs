@@ -12,6 +12,7 @@ import { useAuth } from "@/Context/AuthContext";
 import getUserByEmail from "@/utils/getUserByEmail";
 import QuantityUpdate from "../Dashboard/Buyer/Cart/QuantityUpdate";
 import { MdVerified } from "react-icons/md";
+import { logInteraction } from "@/utils/logInteraction";
 
 export default function ProductDetails({ product, id }) {
   const [productImg, setProductImg] = useState(product?.thumbnail);
@@ -29,7 +30,7 @@ export default function ProductDetails({ product, id }) {
     }
   }, [showMessage]);
 
-  const HandleAddToCart = async ({ productId }) => {
+  const HandleAddToCart = async ({ product }) => {
     if (!user?.email) {
       return toast.error("Please log in to add to cart.");
     }
@@ -44,12 +45,24 @@ export default function ProductDetails({ product, id }) {
       const res = await axiosInstance.post("/api/user-cart/cart/add", {
         email: user.email,
         username: userData.name,
-        productId,
+        productId: product._id,
         quantity,
       });
 
       if (res.data) {
         toast.success("Added to cart!");
+        await logInteraction({
+          email: user.email,
+          type: "wishlist",
+          product: {
+            _id: product._id,
+            name: product?.name, // Optional: You can pass full product object if available
+            category: product?.category?.title,
+            subcategory: product?.category?.subcategory,
+            seller: product?.sellerName,
+            price: product?.price,
+          },
+        });
       }
     } catch (err) {
       console.error(err);
@@ -83,7 +96,7 @@ export default function ProductDetails({ product, id }) {
           {/* left */}
           <div className="relative">
             <div className="absolute top-2 left-2 ">
-              <AddToWishlist productId={product?._id} />
+              <AddToWishlist product={product} />
             </div>
             <figure className="rounded bg-white p-5 border border-gray-200 ">
               <Image
@@ -151,7 +164,7 @@ export default function ProductDetails({ product, id }) {
                   setShowMessage={setShowMessage}
                 />
                 <button
-                  onClick={() => HandleAddToCart({ productId: product?._id })}
+                  onClick={() => HandleAddToCart({ product: product })}
                   className="py-2 rounded bg-pale-red text-sm text-white duration-300  text-neutral-50 font-semibold  px-10 hover:bg-black"
                 >
                   Add to cart

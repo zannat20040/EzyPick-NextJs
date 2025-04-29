@@ -5,8 +5,9 @@ import axiosInstance from "@/utils/axiosInstance";
 import toast from "react-hot-toast";
 import { useAuth } from "@/Context/AuthContext";
 import getUserByEmail from "@/utils/getUserByEmail";
+import { logInteraction } from "@/utils/logInteraction";
 
-export default function AddToCartlist({ productId }) {
+export default function AddToCartlist({ product }) {
   const { user } = useAuth();
 
   const HandleAddToCart = async () => {
@@ -23,19 +24,29 @@ export default function AddToCartlist({ productId }) {
       const res = await axiosInstance.post("/api/user-cart/cart/add", {
         email: user.email,
         username: userData.name,
-        productId,
+        productId:product._id,
         quantity: 1, // optional, default will be 1 if not sent
       });
 
       if (res.data) {
         toast.success("Added to cart!");
+        await logInteraction({
+          email: user.email,
+          type: "wishlist",
+          product: {
+            _id: product._id,
+            name: product?.name, // Optional: You can pass full product object if available
+            category: product?.category?.title,
+            subcategory: product?.category?.subcategory,
+            seller: product?.sellerName,
+            price: product?.price,
+          },
+        });
       }
     } catch (err) {
       console.error(err);
       toast.error(
-        err.response?.data?.message ||
-          err.message ||
-          "Failed to add to cart"
+        err.response?.data?.message || err.message || "Failed to add to cart"
       );
     }
   };

@@ -48,8 +48,8 @@ export default function ProductCard({ product }) {
 
       <div className="flex flex-col gap-2 absolute top-3 right-3 opacity-0 group-hover:opacity-100 duration-700 transition-all ease-in-out">
         <IoShareSocial className="bg-gray-300 p-2 w-8 h-8 text-lg rounded hover:bg-pale-red hover:text-white duration-500 transition-all ease-in-out" />
-        <AddToCartlist productId={product?._id} />
-        <AddToWishlist productId={product?._id} />
+        <AddToCartlist product={product} />
+        <AddToWishlist product={product} />
       </div>
 
       <div className="card-body pb-4 items-start text-start flex flex-col flex-1">

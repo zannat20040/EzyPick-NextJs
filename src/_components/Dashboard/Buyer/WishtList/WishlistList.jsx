@@ -1,12 +1,11 @@
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-import { RiDeleteBin7Line } from "react-icons/ri";
 import RemoveWishlistProduct from "./RemoveWishlistProduct";
 
 export default function WishlistList({ wishlist, email }) {
   return (
-    <ul className="list bg-base-100  container px-5 lg:px-8 mx-auto ">
+    <ul className="list bg-base-100  container px-5 lg:px-8 mx-auto mt-6">
       {wishlist?.map((product) => (
         <li className="list-row px-0">
           <div>
