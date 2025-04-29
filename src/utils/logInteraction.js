@@ -8,8 +8,8 @@ export const logInteraction = async ({ email, type, product }) => {
     type, // "click", "search", "wishlist", etc.
     productId: product._id,
     productName: product.name,
-    category: product.category.title,
-    subcategory: product.category.subcategory,
+    category: product.category.title || product.category,
+    subcategory: product.category.subcategory  || product.subcategory,
     seller: product.seller,
     price: product.price,
   };

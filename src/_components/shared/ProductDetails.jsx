@@ -49,11 +49,15 @@ export default function ProductDetails({ product, id }) {
         quantity,
       });
 
+      console.log('--cat---',product?.category?.title);
+      console.log('--subcat---',product?.category?.subcategory);
+
+
       if (res.data) {
         toast.success("Added to cart!");
         await logInteraction({
           email: user.email,
-          type: "wishlist",
+          type: "cart",
           product: {
             _id: product._id,
             name: product?.name, // Optional: You can pass full product object if available

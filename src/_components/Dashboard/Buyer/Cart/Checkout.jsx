@@ -1,6 +1,7 @@
 "use client";
 import { useAuth } from "@/Context/AuthContext";
 import axiosInstance from "@/utils/axiosInstance";
+import { logInteraction } from "@/utils/logInteraction";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
@@ -13,7 +14,7 @@ export default function Checkout({ cartItems = [] }) {
     address: "",
     items: cartItems.map((item) => ({
       productId: item.productId._id,
-      quantity: item.quantity || 1, 
+      quantity: item.quantity || 1,
       requirement: "",
       deliveryOption: "",
     })),
@@ -32,20 +33,22 @@ export default function Checkout({ cartItems = [] }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+
     if (!form.name.trim() || !form.phone.trim() || !form.address.trim()) {
       toast.error("Please fill up your name, phone, and address!");
       return;
     }
-  
+
     const incompleteItem = form.items.find(
       (item) => !item.requirement.trim() || !item.deliveryOption.trim()
     );
     if (incompleteItem) {
-      toast.error("Please complete special requirement and delivery option for all products!");
+      toast.error(
+        "Please complete special requirement and delivery option for all products!"
+      );
       return;
     }
-  
+
     const finalOrder = {
       name: form.name,
       phone: form.phone,
@@ -61,26 +64,45 @@ export default function Checkout({ cartItems = [] }) {
         buyerAddress: form.address,
       })),
     };
-  
-  
+
     try {
       const res = await axiosInstance.post("/api/orders", finalOrder);
-  
+
       toast.success("Order placed successfully!");
-  
+
       // ✅ Bulk remove cart items
       const productIds = finalOrder.items.map((item) => item.productId);
-  
+
       await axiosInstance.post("/api/user-cart/cart/bulk-remove", {
         productIds: productIds,
         email: user.email,
       });
-  
 
-      const orderId = res.data.order._id; // ✅ get saved order's ID
+      const orderId = res.data.order._id;
+
+      for (const item of finalOrder.items) {
+        await logInteraction({
+          email: user.email,
+          type: "purchase",
+          product: {
+            _id: item.productId,
+            name: cartItems.find((c) => c.productId._id === item.productId)
+              ?.productId?.name,
+            category: cartItems.find((c) => c.productId._id === item.productId)
+              ?.productId?.category?.title,
+            subcategory: cartItems.find(
+              (c) => c.productId._id === item.productId
+            )?.productId?.category?.subcategory,
+            seller: cartItems.find((c) => c.productId._id === item.productId)
+              ?.productId?.sellerName,
+            price: cartItems.find((c) => c.productId._id === item.productId)
+              ?.productId?.price,
+          },
+        });
+      }
 
       router.push(`/user/confirmorder/${orderId}`);
-          } catch (error) {
+    } catch (error) {
       console.error("Error submitting order:", error);
       const message =
         error.response?.data?.message ||
@@ -88,7 +110,6 @@ export default function Checkout({ cartItems = [] }) {
       toast.error(message);
     }
   };
-  
 
   return (
     <div className="">

@@ -28,11 +28,12 @@ export default function AddToCartlist({ product }) {
         quantity: 1, // optional, default will be 1 if not sent
       });
 
+      console.log('---31',product)
       if (res.data) {
         toast.success("Added to cart!");
         await logInteraction({
           email: user.email,
-          type: "wishlist",
+          type: "cart",
           product: {
             _id: product._id,
             name: product?.name, // Optional: You can pass full product object if available
