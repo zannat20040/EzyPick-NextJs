@@ -118,7 +118,7 @@ export default function ImageUploader({
       {error && (
         <p className="text-red-800 text-sm px-3 py-1 bg-red-50">{error}</p>
       )}
-
+      
       {filesInfo ? (
         <div className="mx-auto max-w-[600px] rounded border-2 border-dashed border-gray-400 p-3 bg-white">
           <div className="flex justify-between items-start relative overflow-hidden">
