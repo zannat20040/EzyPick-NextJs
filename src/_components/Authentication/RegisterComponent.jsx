@@ -93,7 +93,6 @@ export default function RegisterComponent() {
       form.reset();
       router.push(checkValue === "admin" ? "/admin/allsellers" : "/");
     } catch (error) {
-     
       await currentUser?.delete?.();
       toast.error(
         error?.response?.data?.errors?.[0]?.message ||
@@ -213,6 +212,11 @@ export default function RegisterComponent() {
             </div>
           ))}
         </div>
+        {password.length > 0 && password.length < 6 && (
+          <p className="text-red-500 text-xs p-1 font-semibold">
+            X Password must be at least 6 characters long
+          </p>
+        )}
 
         <ImageUploader
           placeholder="Upload Your Profile Picture"
