@@ -45,6 +45,17 @@ export default function UpdatedProductForm({ product }) {
     fetchUserData();
   }, [user?.email]);
 
+  useEffect(() => {
+    if (!product) return; // still loading
+
+    setProductImage(product.thumbnail || null);
+    setMultipleProductImage(product.gallery || []);
+    setDeliveryOptions(product.delivery_options || []);
+    setSelectedCategory(product.category?.title || null);
+    setSelectedSubcategory(product.category?.subcategory || null);
+    setSpecs(product.specifications || {});
+  }, [product]);
+
   const handleSave = (updatedSpecs) => {
     setSpecs(updatedSpecs);
   };
@@ -54,13 +65,35 @@ export default function UpdatedProductForm({ product }) {
     setIsUpload(true);
 
     const form = e.target;
+    const name = form.name.value;
+    const description = form.description.value;
+    const price = parseFloat(form.price.value);
+    const discount = form.discount.value ? parseFloat(form.discount.value) : 0;
+    const stock = parseInt(form.stock.value);
+    const offer = form.offer.value;
+
+    if (
+      !name ||
+      !description ||
+      !price ||
+      !stock ||
+      !productImage ||
+      !deliveryOptions.length > 0 ||
+      !selectedCategory ||
+      !selectedSubcategory
+    ) {
+      toast.error("Please fill in all required fields and upload an image.");
+      setIsUpload(false);
+      return;
+    }
+
     const updatedProduct = {
-      name: form.name.value,
-      description: form.description.value,
-      price: parseFloat(form.price.value),
-      discount: form.discount.value ? parseFloat(form.discount.value) : 0,
-      stock: parseInt(form.stock.value),
-      offer: form.offer.value,
+      name,
+      description,
+      price,
+      discount,
+      stock,
+      offer,
       thumbnail: productImage,
       gallery: multipleProductImage,
       delivery_options: deliveryOptions,

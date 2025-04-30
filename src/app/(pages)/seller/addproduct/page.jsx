@@ -60,6 +60,7 @@ export default function page() {
       !price ||
       !stock ||
       !productImage ||
+      !deliveryOptions.length > 0 ||
       !selectedCategory ||
       !selectedSubcategory
     ) {
@@ -88,7 +89,7 @@ export default function page() {
     };
 
     console.log(productData);
-    
+
     try {
       const res = await axiosInstance.post("/api/product/add", productData);
       toast.success("Product added successfully!");

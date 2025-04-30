@@ -75,7 +75,9 @@ export default function DeliveryOptionsSection({
   return (
     <>
       <div className="text-gray-600">
-        <p className="mt-2 mb-4 text-sm">Add Delivery Types</p>
+        <p className="mt-2 mb-4 text-sm">
+          Add Delivery Types <span className="text-red-600">*</span>
+        </p>
         {options.map((opt) => (
           <label
             key={opt}

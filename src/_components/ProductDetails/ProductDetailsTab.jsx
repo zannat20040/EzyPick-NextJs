@@ -13,6 +13,17 @@ export function ProductDetailsTab({ details, productId, product }) {
       />
       <div className="tab-content bg-base-100 border-base-300 p-6  border-t border-0">
         {details}
+        <div className="text-sm">
+          <h1 className="font-semibold mt-4 mb-1">Delivery</h1>
+          {product?.delivery_options?.map((delivery, index) => (
+            <span
+              key={`${delivery}${index}`}
+              className="text-gray-600 px-2  border-l last:border-r-0 first:border-l-0"
+            >
+              {delivery}
+            </span>
+          ))}
+        </div>
       </div>
 
       <input

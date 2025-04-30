@@ -36,6 +36,7 @@ export default function TransformSpecifications({ specs, price, discount }) {
       <div className="flex gap-1  flex-wrap border-dashed border-soft-gray border-b pb-3 ">
         {textSpecs}
       </div>
+    
       {/* price section start*/}
       <div className="border-dashed border-soft-gray border-b pb-3 ">
         <p className=" text-2xl  text-pale-red">

@@ -49,9 +49,6 @@ export default function ProductDetails({ product, id }) {
         quantity,
       });
 
-      console.log('--cat---',product?.category?.title);
-      console.log('--subcat---',product?.category?.subcategory);
-
 
       if (res.data) {
         toast.success("Added to cart!");
@@ -152,6 +149,7 @@ export default function ProductDetails({ product, id }) {
               price={product?.price}
               discount={product?.discount}
             />
+           
 
             <p className="font-bold text-sm mt-5">
               Last {product?.stock} left -{" "}

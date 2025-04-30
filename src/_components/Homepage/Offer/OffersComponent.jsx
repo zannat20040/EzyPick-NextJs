@@ -1,69 +1,50 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Headline from "@/_components/shared/Headline";
 import OffersMainCard from "./OffersMainCard";
 import OffersSecondaryCard from "./OffersSecondaryCard";
 import ViewLessAll from "../../shared/ViewLessAll";
-import axiosInstance from "@/utils/axiosInstance";
 
-// Function to split array into chunks of 3
-const chunkArray = (arr, chunkSize) => {
-  const result = [];
-  for (let i = 0; i < arr.length; i += chunkSize) {
-    result.push(arr.slice(i, i + chunkSize));
-  }
-  return result;
-};
+/* helper: split array into chunks of 3 */
+const chunk3 = (arr) =>
+  Array.from({ length: Math.ceil(arr.length / 3) }, (_, i) =>
+    arr.slice(i * 3, i * 3 + 3)
+  );
 
 export default function OffersComponent({ offers }) {
-  const [showOffers, setShowOffers] = useState(
-    chunkArray(offers, 3).slice(0, 1)
-  );
-  const [isViewAll, setIsViewAll] = useState(false);
+  const [viewAll, setViewAll] = useState(false);
 
-  const HandleAllOffer = () => {
-    if (isViewAll) {
-      setShowOffers(chunkArray(offers, 3).slice(0, 1)); // Show only first 3 when "View Less"
-    } else {
-      setShowOffers(chunkArray(offers, 3)); // Show all chunks when "View All"
-    }
-    setIsViewAll(!isViewAll);
-  };
+  /* show first 3 or all */
+  const visibleOffers = viewAll ? offers : offers.slice(0, 3);
+  const groups = chunk3(visibleOffers);
 
   return (
-    <div className="">
+    <div>
       <Headline
-        label={"Get best deal on "}
-        higlightedLabel={"Flash Sale"}
+        label="Get best deal on "
+        higlightedLabel="Flash Sale"
         rightComponent={
-          showOffers.length > 3 ? (
-            <ViewLessAll
-              HandleAllFunction={HandleAllOffer}
-              isViewAll={isViewAll}
-            />
-          ) : null
+          <ViewLessAll
+            HandleAllFunction={() => setViewAll(!viewAll)}
+            isViewAll={viewAll}
+          />
         }
       />
 
-      {/* Loop through each group of 3 offers */}
-      {showOffers.map((group, index) => (
+      {groups.map((g, idx) => (
         <div
-          key={index}
-          className={`container mx-auto px-5 lg:px-8 grid grid-cols-1 md:grid-cols-2 mb-5 gap-5`}
+          key={idx}
+          className="container mx-auto px-5 lg:px-8 grid grid-cols-1 md:grid-cols-2 gap-5 mb-5"
         >
-          {index % 2 === 0 ? (
+          {idx % 2 === 0 ? (
             <>
-              {/* First Large Offer */}
-              <OffersMainCard mainOffer={group[0]} />
-              {/* Two Smaller Offers */}
-              <OffersSecondaryCard secondaryOffers={group.slice(1)} />
+              <OffersMainCard mainOffer={g[0]} />
+              <OffersSecondaryCard secondaryOffers={g.slice(1)} />
             </>
           ) : (
             <>
-              {/* First Large Offer */}
-              <OffersSecondaryCard secondaryOffers={group.slice(1)} />
-              {/* Two Smaller Offers */}
-              <OffersMainCard mainOffer={group[0]} />
+              <OffersSecondaryCard secondaryOffers={g.slice(1)} />
+              <OffersMainCard mainOffer={g[0]} />
             </>
           )}
         </div>

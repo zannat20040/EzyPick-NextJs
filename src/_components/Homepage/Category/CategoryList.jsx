@@ -6,7 +6,7 @@ import Link from "next/link";
 import { useState } from "react";
 
 const CategoryList = ({ categories }) => {
-  const [showCategories, setShowCategories] = useState(categories.slice(0, 7));
+  const [showCategories, setShowCategories] = useState(categories);
   const [isViewAll, setIsViewAll] = useState(false);
 
   const HandleAllCatagory = () => {
@@ -24,12 +24,10 @@ const CategoryList = ({ categories }) => {
         label="Shop from"
         higlightedLabel={"Top Categories"}
         rightComponent={
-          showCategories.length > 7 && (
-            <ViewLessAll
-              HandleAllFunction={HandleAllCatagory}
-              isViewAll={isViewAll}
-            />
-          )
+          <ViewLessAll
+            HandleAllFunction={HandleAllCatagory}
+            isViewAll={isViewAll}
+          />
         }
       />
       <div className="container mx-auto px-5 lg:px-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-7 gap-2">
