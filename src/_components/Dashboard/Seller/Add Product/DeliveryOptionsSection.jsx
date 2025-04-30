@@ -1,105 +1,128 @@
 "use client";
 import axiosInstance from "@/utils/axiosInstance";
-import { Button } from "@material-tailwind/react";
-import { useEffect, useState } from "react";
-import { RxCrossCircled } from "react-icons/rx";
+import { Button, Spinner } from "@material-tailwind/react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { CiSquarePlus } from "react-icons/ci";
-import { FaRegSquarePlus } from "react-icons/fa6";
+import { IoIosAddCircleOutline } from "react-icons/io";
+import { RxCrossCircled } from "react-icons/rx";
 
 export default function DeliveryOptionsSection({
   selectedOptions = [],
   onChange,
 }) {
+  // ───────────────────── state ─────────────────────
   const [options, setOptions] = useState([]);
   const [newOption, setNewOption] = useState("");
-  const [error, setError] = useState("");
+  const [status, setStatus] = useState("idle"); // "idle" | "loading" | "error"
+  const [message, setMessage] = useState("");
 
-  // Fetch delivery options from backend
+  // ───────────────────── fetch once ─────────────────────
   useEffect(() => {
-    const fetchOptions = async () => {
+    (async () => {
       try {
-        const res = await axiosInstance.get("/api/deliveryOptions");
-        const titles = res.data.options.map((item) => item.title);
-        setOptions(titles);
-      } catch (err) {
-        setError("Failed to load delivery options");
+        const { data } = await axiosInstance.get("/api/deliveryOptions");
+        setOptions(data.options.map((o) => o.title));
+      } catch {
+        setStatus("error");
+        setMessage("Failed to load delivery options");
       }
-    };
-
-    fetchOptions();
+    })();
   }, []);
 
-  const handleCheckboxChange = (option) => {
-    if (selectedOptions.includes(option)) {
-      onChange(selectedOptions.filter((item) => item !== option));
-    } else {
-      onChange([...selectedOptions, option]);
-    }
-  };
+  // ───────────────────── helpers ─────────────────────
+  const isDuplicate = useMemo(
+    () =>
+      options.some((o) => o.toLowerCase() === newOption.trim().toLowerCase()),
+    [options, newOption]
+  );
 
-  const handleAddNewOption = async () => {
-    setError("");
-    if (!newOption) return setError("Enter a valid option");
+  // ───────────────────── event handlers ─────────────────────
+  const toggleOption = useCallback(
+    (opt) =>
+      onChange(
+        selectedOptions.includes(opt)
+          ? selectedOptions.filter((o) => o !== opt)
+          : [...selectedOptions, opt]
+      ),
+    [onChange, selectedOptions]
+  );
+
+  const addOption = async () => {
     const trimmed = newOption.trim();
-    if (!trimmed) return setError("Enter a valid option");
-
-    if (options.includes(trimmed)) {
-      setError("Option already exists");
+    if (!trimmed) {
+      setStatus("error");
+      setMessage("Enter a valid option");
+      return;
+    }
+    if (isDuplicate) {
+      setStatus("error");
+      setMessage("Option already exists");
       return;
     }
 
     try {
+      setStatus("loading");
       await axiosInstance.post("/api/deliveryOptions", { title: trimmed });
       setOptions((prev) => [...prev, trimmed]);
       setNewOption("");
-    } catch (err) {
-      setError("Failed to add delivery option");
+      setStatus("idle");
+    } catch {
+      setStatus("error");
+      setMessage("Failed to add delivery option");
     }
   };
 
+  // ───────────────────── UI ─────────────────────
   return (
     <>
-      <div className=" text-gray-600 ">
-        <p className="mt-2 mb-4 text-sm ">Add Delivery Types</p>
-        {options.map((option) => (
+      <div className="text-gray-600">
+        <p className="mt-2 mb-4 text-sm">Add Delivery Types</p>
+        {options.map((opt) => (
           <label
-            key={option}
-            className="flex items-center space-x-2 text-sm mb-1"
+            key={opt}
+            className="flex items-center space-x-2 text-sm mb-1 capitalize"
           >
             <input
               type="checkbox"
-              checked={selectedOptions.includes(option)}
-              onChange={() => handleCheckboxChange(option)}
+              checked={selectedOptions.includes(opt)}
+              onChange={() => toggleOption(opt)}
               className="checkbox checkbox-sm rounded-sm text-pale-red"
             />
-            <span className="capitalize">{option}</span>
+            <span>{opt}</span>
           </label>
         ))}
       </div>
 
       <div className="flex gap-1 mt-3">
         <input
-          type="text"
           value={newOption}
-          onChange={(e) => setNewOption(e.target.value)}
+          onChange={(e) => {
+            setNewOption(e.target.value);
+            if (status === "error") setStatus("idle");
+          }}
           placeholder="Add new delivery option"
           className="w-full px-2 py-1 rounded border border-soft-gray focus:outline-none text-sm"
         />
         <Button
-          type="button"
-          onClick={handleAddNewOption}
-          className="p-0 bg-white hover:shadow-none shadow-none text-white uppercase font-medium rounded"
+          onClick={addOption}
+          disabled={status === "loading"}
+          className="p-0 min-w-[40px] bg-white hover:shadow-none shadow-none uppercase font-medium rounded"
         >
-          <CiSquarePlus  className="text-3xl text-pale-red "/>
+          {status === "loading" ? (
+            <Spinner className="h-5 w-5 text-pale-red" />
+          ) : (
+            <IoIosAddCircleOutline className="text-xl text-pale-red" />
+          )}
         </Button>
       </div>
-      {error && (
-        <p className="text-red-600 p-1 flex items-center gap-2 bg-red-50 mt-2 text-xs  px-3 rounded font-semibold">
+
+      {status === "error" && (
+        <p className="mt-2 flex items-center gap-2 rounded bg-red-50 p-1 px-3 text-xs font-semibold text-red-600">
           <RxCrossCircled
-            className="text-red-600 text-base cursor-pointer"
-            onClick={() => setError("")}
+            className="cursor-pointer text-base"
+            onClick={() => setStatus("idle")}
           />
-          {error}
+          {message}
         </p>
       )}
     </>

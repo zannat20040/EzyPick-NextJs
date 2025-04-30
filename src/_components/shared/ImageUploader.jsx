@@ -175,10 +175,10 @@ export default function ImageUploader({
         >
           <FiUploadCloud className="text-2xl" />
           <div className=" text-center">
-            <h5 className="whitespace-nowrap  font-medium tracking-tight">
+            <h5 className="whitespace-nowrap text-sm font-medium tracking-tight">
               {placeholder}
             </h5>
-            <p className="text-sm text-gray-500">{additional_note}</p>
+            <p className="text-xs text-gray-500">{additional_note}</p>
           </div>
         </label>
       )}

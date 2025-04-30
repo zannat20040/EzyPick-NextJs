@@ -1,189 +1,121 @@
 "use client";
-import { Button } from "@material-tailwind/react";
-import React, { useState } from "react";
+import { useEffect, useState } from "react";
 import { CiSquarePlus } from "react-icons/ci";
+import { FaCheck } from "react-icons/fa6";
+import { IoIosAddCircleOutline } from "react-icons/io";
 import { RxCross2 } from "react-icons/rx";
 
-const DynamicSpecifications = ({ initialData = {}, onSave }) => {
+export default function DynamicSpecifications({ initialData = {}, onSave }) {
   const [specs, setSpecs] = useState(initialData);
-  const [newFieldName, setNewFieldName] = useState("");
-  const [newFieldType, setNewFieldType] = useState("text");
+  const [fieldName, setFieldName] = useState("");
+  const [fieldType, setFieldType] = useState("text");
 
-  const handleAddField = () => {
-    if (!newFieldName.trim()) return;
+  /* ---------- auto-save ---------- */
+  useEffect(() => onSave(specs), [specs, onSave]);
 
-    const fieldName = newFieldName.trim();
-    if (specs.hasOwnProperty(fieldName)) {
-      alert("Field already exists!");
-      return;
-    }
-
-    setSpecs((prev) => ({
-      ...prev,
-      [fieldName]: newFieldType === "text" ? "" : [],
-    }));
-
-    setNewFieldName("");
+  /* ---------- add / remove / update ---------- */
+  const addField = () => {
+    const key = fieldName.trim();
+    if (!key || specs[key]) return;
+    setSpecs({ ...specs, [key]: fieldType === "tags" ? [] : "" });
+    setFieldName("");
   };
 
-  const handleTextChange = (field, value) => {
-    setSpecs((prev) => ({
-      ...prev,
-      [field]: value,
-    }));
+  const updateValue = (key, val) => setSpecs({ ...specs, [key]: val });
+
+  const removeField = (key) => {
+    const { [key]: _, ...rest } = specs;
+    setSpecs(rest);
   };
 
-  const handleTagChange = (field, tags) => {
-    setSpecs((prev) => ({
-      ...prev,
-      [field]: tags,
-    }));
+  /* ---------- tags helpers ---------- */
+  const addTag = (key, tag) => {
+    const clean = tag.trim();
+    if (!clean || specs[key].includes(clean)) return;
+    updateValue(key, [...specs[key], clean]);
   };
 
-  const removeField = (field) => {
-    const newSpecs = { ...specs };
-    delete newSpecs[field];
-    setSpecs(newSpecs);
-  };
+  const removeTag = (key, idx) =>
+    updateValue(
+      key,
+      specs[key].filter((_, i) => i !== idx)
+    );
 
-  const handleSave = () => {
-    onSave(specs);
-  };
-
+  /* ---------- UI ---------- */
   return (
-    <div className="specification-input text-gray-600">
-      <p className="mt-6 mb-4 text-sm ">Add More Specifications</p>
+    <div className="text-gray-700">
+      <p className="mt-6 mb-4 text-sm">Specifications</p>
 
-      <div className="">
-        <div className="flex items-center gap-1 justify-between">
-          <input
-            type="text"
-            value={newFieldName}
-            onChange={(e) => setNewFieldName(e.target.value)}
-            placeholder="New Specification title"
-            className="w-full px-2 py-1 rounded border border-soft-gray focus:outline-none text-sm"
-          />
-          <select
-            className="text-sm py-1 border-gray-300 border outline-none focus:outline-none rounded"
-            value={newFieldType}
-            onChange={(e) => setNewFieldType(e.target.value)}
-          >
-            <option value="text">Text</option>
-            <option value="tags">Tags</option>
-          </select>
-        </div>
-        <Button
-          type="button"
-          onClick={handleAddField}
-          className=" shadow-none text-pale-red hover:shadow-none bg-white px-0 flex gap-1 items-center py-1 mt-1 w-full   font-medium rounded "
+      {/* add-field bar */}
+      <div className="flex gap-1">
+        <input
+          value={fieldName}
+          onChange={(e) => setFieldName(e.target.value)}
+          placeholder="Title"
+          className="w-full px-2 py-1 rounded border border-soft-gray focus:outline-none text-sm"
+        />
+        <select
+          value={fieldType}
+          onChange={(e) => setFieldType(e.target.value)}
+          className="border rounded text-sm px-1"
         >
-          + Add more specification
-        </Button>
-      </div>
-
-      <div className="">
-        {Object.entries(specs).map(([field, value]) => (
-          <div
-            key={field}
-            className=" flex gap-2 items-center mt-2 w-full justify-between"
-          >
-            {Array.isArray(value) ? (
-              <>
-                <TagsInput
-                  tags={value}
-                  field={field}
-                  onChange={(tags) => handleTagChange(field, tags)}
-                  onRemoveField={() => removeField(field)} // ✅ Explicitly pass field removal
-                />
-              </>
-            ) : (
-              <>
-                <label className="text-pale-red text-sm ">{field}:</label>
-                <input
-                  type="text"
-                  value={value}
-                  className="w-full px-2 py-1 rounded border border-soft-gray focus:outline-none text-sm"
-                  onChange={(e) => handleTextChange(field, e.target.value)}
-                />
-                <button
-                  type="button"
-                  className="btn-sm cursor-pointer "
-                  onClick={() => removeField(field)}
-                >
-                  <RxCross2 className="text-pale-red" />
-                </button>
-              </>
-            )}
-          </div>
-        ))}
-      </div>
-
-      <Button
-        type="button"
-        onClick={handleSave}
-        className="bg-pale-red mt-5 w-full text-white uppercase font-medium rounded"
-      >
-        Save Specifications
-      </Button>
-    </div>
-  );
-};
-
-// Helper component for tags input
-const TagsInput = ({ tags, onChange, field, onRemoveField }) => {
-  const [inputValue, setInputValue] = useState("");
-
-  const handleKeyDown = (e) => {
-    if ((e.key === "Enter" || e.key === ",") && inputValue.trim()) {
-      e.preventDefault(); // prevent newline/comma being entered
-      const newTag = inputValue.trim().replace(/,$/, "");
-      if (newTag && !tags.includes(newTag)) {
-        onChange([...tags, newTag]);
-      }
-      setInputValue("");
-    }
-  };
-
-  const removeTag = (index) => {
-    onChange(tags.filter((_, i) => i !== index));
-  };
-
-  return (
-    <div className="flex flex-col  w-full">
-      <div className="flex  gap-2 items-center justify-between">
-        <div className="flex gap-2 items-center  w-full">
-          <label className="text-pale-red text-sm ">{field}:</label>
-          <div className="flex flex-col  w-full">
-            <input
-              type="text"
-              value={inputValue}
-              onChange={(e) => setInputValue(e.target.value)}
-              onKeyDown={handleKeyDown}
-              className="w-full px-2 py-1 rounded border border-soft-gray focus:outline-none text-sm"
-              placeholder="Type comma to enter the tag"
-            />
-          </div>
-        </div>
-        <button
-          type="button"
-          className="btn-sm cursor-pointer "
-          onClick={onRemoveField}        >
-          <RxCross2 className="text-pale-red" />
+          <option value="text">Text</option>
+          <option value="tags">Tags</option>
+        </select>
+        <button onClick={addField} className="p-1">
+          <IoIosAddCircleOutline className="text-xl text-pale-red" />
         </button>
       </div>
-      <div className=" flex gap-1 items-center flex-wrap mt-1 ">
-        {tags.map((tag, index) => (
-          <span
-            onClick={() => removeTag(index)}
-            key={index}
-            className=" bg-pale-red text-white rounded text-xs px-2 cursor-pointer  "
-          >
-            {tag}
-          </span>
+
+      {/* existing fields */}
+      <div className="mt-3 space-y-2">
+        {Object.entries(specs).map(([key, val]) => (
+          <div key={key} className="flex gap-2 items-start">
+            <label className="text-pale-red text-sm mt-1">{key}:</label>
+
+            {/* text field */}
+            {!Array.isArray(val) && (
+              <input
+                placeholder={`Enter ${key} value`}
+                value={val}
+                onChange={(e) => updateValue(key, e.target.value)}
+                className="w-full px-2 py-1 placeholder:text-xs rounded border border-soft-gray focus:outline-none text-sm"
+              />
+            )}
+
+            {/* tags field */}
+            {Array.isArray(val) && (
+              <div className="flex-1">
+                <input
+                  placeholder="Type tag, (comma to add)" /* ✱ changed */
+                  className="w-full placeholder:text-xs px-2 py-1 rounded border border-soft-gray focus:outline-none text-sm"
+                  onChange={(e) => {
+                    /* split by commas, keep last unfinished part */
+                    const parts = e.target.value.split(",");
+                    parts.slice(0, -1).forEach((p) => addTag(key, p)); // ✱ changed
+                    e.target.value = parts.at(-1) ?? "";
+                  }}
+                />
+                <div className="mt-1 flex flex-wrap gap-1">
+                  {val.map((t, i) => (
+                    <span
+                      key={i}
+                      onClick={() => removeTag(key, i)}
+                      className="bg-pale-red text-white text-xs px-2 rounded cursor-pointer"
+                    >
+                      {t}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            <button onClick={() => removeField(key)} className="p-1">
+              <RxCross2 className="text-pale-red" />
+            </button>
+          </div>
         ))}
       </div>
     </div>
   );
-};
-
-export default DynamicSpecifications;
+}

@@ -116,9 +116,12 @@ export default function page() {
       />
       <div className="container mx-auto px-5 lg:px-8 py-5  ">
         <form
-          className="grid grid-cols-4 gap-5 justify-between "
+          className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-5 justify-between "
           onSubmit={handleAddProduct}
         >
+          <div className=" pt-3 block md:hidden">
+            <ProductDetailsAdd />
+          </div>
           <div>
             <ImageUploader
               placeholder="Upload the product thumbnail"
@@ -133,29 +136,52 @@ export default function page() {
               multiple={true}
             />
             <DynamicSpecifications onSave={handleSave} />
+            <div className="block  lg:hidden">
+              <DeliveryOptionsSection
+                selectedOptions={deliveryOptions}
+                onChange={setDeliveryOptions}
+              />
+              <div>
+                <CategorySelector
+                  onSelect={({ category, subcategory }) => {
+                    setSelectedCategory(category);
+                    setSelectedSubcategory(subcategory);
+                  }}
+                />
+              </div>
+            </div>
           </div>
-          <div className="col-span-2 pt-3">
+          <div className="col-span-2 pt-3 hidden md:block">
             <ProductDetailsAdd />
             <Button
               disabled={isUpload}
               type="submit"
-              className="bg-pale-red mt-5 w-full text-white uppercase font-medium rounded"
+              className="bg-pale-red md:block hidden mt-5 w-full text-white uppercase font-medium rounded"
             >
               Add this product
             </Button>
           </div>
-          <div className="">
+          <div className="lg:block  hidden">
             <DeliveryOptionsSection
               selectedOptions={deliveryOptions}
               onChange={setDeliveryOptions}
             />
-            <CategorySelector
-              onSelect={({ category, subcategory }) => {
-                setSelectedCategory(category);
-                setSelectedSubcategory(subcategory);
-              }}
-            />
+            <div>
+              <CategorySelector
+                onSelect={({ category, subcategory }) => {
+                  setSelectedCategory(category);
+                  setSelectedSubcategory(subcategory);
+                }}
+              />
+            </div>
           </div>
+          <Button
+            disabled={isUpload}
+            type="submit"
+            className="bg-pale-red md:hidden block mt-5 w-full text-white uppercase font-medium rounded"
+          >
+            Add this product
+          </Button>
         </form>
       </div>
     </div>
