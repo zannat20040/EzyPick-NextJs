@@ -59,31 +59,31 @@ export default function AllCategories({ categories: initialCategories }) {
         <table className="table">
           <thead>
             <tr>
-              <th>Category ID</th>
+              <th className="text-center">Category ID</th>
               <th>Title</th>
               <th>Subcategories</th>
-              <th>Thumbnail</th>
-              <th>Update</th>
+              <th className="text-center">Thumbnail</th>
+              <th className="text-center">Update</th>
             </tr>
           </thead>
           <tbody>
             {categories.length > 0 ? (
               categories.map((category) => (
-                <tr key={category._id} className="hover:bg-gray-100">
-                  <td className="text-xs text-gray-500">
+                <tr key={category._id} className="hover:bg-gray-100 py-2">
+                  <td className="text-xs text-gray-500 text-center py-2">
                     {category._id.slice(-6).toUpperCase()}
                   </td>
-                  <td className="font-semibold capitalize">
+                  <td className="font-semibold capitalize py-2">
                     {category.category}
                   </td>
-                  <td className="text-xs text-gray-600">
+                  <td className="text-xs text-gray-600 py-2">
                     {category.subcategory?.length > 0
                       ? category.subcategory.join(", ")
                       : "No subcategories"}
                   </td>
-                  <td>
+                  <td className="py-2">
                     {category.thumbnail ? (
-                      <div className="w-12 h-12 relative bg-white rounded-lg overflow-hidden">
+                      <div className="w-12 h-12 mx-auto relative bg-white rounded-lg overflow-hidden">
                         <Image
                           src={category.thumbnail}
                           alt="Category Thumbnail"
@@ -92,11 +92,11 @@ export default function AllCategories({ categories: initialCategories }) {
                         />
                       </div>
                     ) : (
-                      <p>No thumbnail available</p>
+                      <p className="text-gray-600 text-center text-xs">No thumbnail available</p>
                     )}
                   </td>
-                  <td>
-                    <div className="flex flex-col items-center gap-1">
+                  <td className="py-2">
+                    <div className="flex flex-col items-center gap-1 justify-center">
                       <label className="text-xs text-pale-red underline cursor-pointer">
                         {loadingId === category._id
                           ? "Updating..."

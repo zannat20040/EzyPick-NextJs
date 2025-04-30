@@ -6,14 +6,15 @@ import axiosInstance from "@/utils/axiosInstance";
 import { useEffect, useState } from "react";
 
 export default function RecommendationList({ product }) {
-  const [recommendations, setRecommendations] = useState([]);
+  const [fullRecommendations, setFullRecommendations] = useState([]);
+  const [visibleRecommendations, setVisibleRecommendations] = useState([]);
   const [isViewAll, setIsViewAll] = useState(false);
 
   const HandleAllRecommendation = () => {
     if (isViewAll) {
-      setRecommendations(recommendations.slice(0, 10));
+      setVisibleRecommendations(fullRecommendations.slice(0, 10));
     } else {
-      setRecommendations(recommendations);
+      setVisibleRecommendations(fullRecommendations);
     }
     setIsViewAll(!isViewAll);
   };
@@ -28,7 +29,8 @@ export default function RecommendationList({ product }) {
           subcategory: product.category.subcategory,
         });
 
-        setRecommendations(res.data);
+        setFullRecommendations(res.data);
+        setVisibleRecommendations(res.data.slice(0, 10));
       } catch (error) {
         console.error("Error fetching recommendations:", error.message);
       }
@@ -39,14 +41,13 @@ export default function RecommendationList({ product }) {
     }
   }, [product]);
 
-
   return (
-    <div className=" ">
+    <div>
       <Headline
         label="You may "
         higlightedLabel=" Also Like"
         rightComponent={
-          recommendations.length > 10 && (
+          fullRecommendations.length > 10 && (
             <ViewLessAll
               HandleAllFunction={HandleAllRecommendation}
               isViewAll={isViewAll}
@@ -55,10 +56,10 @@ export default function RecommendationList({ product }) {
         }
       />
 
-      {recommendations.length > 0 ? (
-        <div className="container mx-auto  grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-2">
-          {recommendations.map((product) => (
-            <ProductCard product={product} key={product.id} />
+      {visibleRecommendations.length > 0 ? (
+        <div className="container mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-2">
+          {visibleRecommendations.map((product) => (
+            <ProductCard product={product} key={product.id || product._id} />
           ))}
         </div>
       ) : (

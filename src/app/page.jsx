@@ -5,6 +5,7 @@ import Offers from "@/_components/Homepage/Offer/Offers";
 import Recommentation from "@/_components/Homepage/Recommend/Recommentation";
 import Footer from "@/_components/shared/Footer";
 import Headline from "@/_components/shared/Headline";
+import AIrecommentation from "@/_components/Homepage/Recommend/AIrecommendation";
 
 export default function Home() {
   return (
@@ -20,13 +21,12 @@ export default function Home() {
       </div>
       {/* top recommendation */}
       <div>
-        <Recommentation />
+        <AIrecommentation />
       </div>
       {/* all product */}
       <div>
         <Allproduct />
       </div>
-      
     </div>
   );
 }

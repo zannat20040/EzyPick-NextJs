@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import Image from "next/image";
 import Link from "next/link";
 import { IoShareSocial } from "react-icons/io5";
@@ -47,7 +47,7 @@ export default function ProductCard({ product }) {
       </figure>
 
       <div className="flex flex-col gap-2 absolute top-3 right-3 opacity-0 group-hover:opacity-100 duration-700 transition-all ease-in-out">
-        <IoShareSocial className="bg-gray-300 p-2 w-8 h-8 text-lg rounded hover:bg-pale-red hover:text-white duration-500 transition-all ease-in-out" />
+        <IoShareSocial className="bg-pale-red  p-2 w-8 h-8 text-lg rounded hover:bg-gray-300  text-white hover:text-black duration-500 transition-all ease-in-out cursor-pointer" />
         <AddToCartlist product={product} />
         <AddToWishlist product={product} />
       </div>

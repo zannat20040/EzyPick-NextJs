@@ -6,7 +6,7 @@ import Link from "next/link";
 import { useState } from "react";
 
 const CategoryList = ({ categories }) => {
-  const [showCategories, setShowCategories] = useState(categories);
+  const [showCategories, setShowCategories] = useState(categories.slice(0, 7));
   const [isViewAll, setIsViewAll] = useState(false);
 
   const HandleAllCatagory = () => {
