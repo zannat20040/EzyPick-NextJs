@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 
 export default function OrderList({ orders, email }) {
@@ -20,7 +21,8 @@ export default function OrderList({ orders, email }) {
 
           <div className="flex gap-2 flex-wrap mt-3 ">
             {order.items.map((item, idx) => (
-              <div
+              <Link
+                href={`/product/${item.productId?.name}/pid-${item.productId._id}`}
                 key={idx}
                 className="flex items-center gap-4 bg-gray-50 p-3 rounded-lg w-full sm:w-auto"
               >
@@ -50,7 +52,7 @@ export default function OrderList({ orders, email }) {
                     {item.status}
                   </div>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
         </li>
