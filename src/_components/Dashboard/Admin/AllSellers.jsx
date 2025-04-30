@@ -12,9 +12,12 @@ export default function AllSellers({ sellers: initialSellers }) {
   const handleStatusChange = async (sellerId, newStatus) => {
     setUpdatingSellerId(sellerId); // ✅ disable select during request
     try {
-      const res = await axiosInstance.patch(`/api/users/update-status/${sellerId}`, {
-        verification_status: newStatus,
-      });
+      const res = await axiosInstance.patch(
+        `/api/users/update-status/${sellerId}`,
+        {
+          verification_status: newStatus,
+        }
+      );
 
       toast.success(`Seller status updated to ${newStatus}`);
 
@@ -46,7 +49,7 @@ export default function AllSellers({ sellers: initialSellers }) {
               <th>Company Logo</th>
               <th>Company Info</th>
               <th>Company Documents</th>
-              <th>Verified</th>
+              <th className="text-center">Verified</th>
             </tr>
           </thead>
 
@@ -54,11 +57,13 @@ export default function AllSellers({ sellers: initialSellers }) {
             {sellers?.length > 0 ? (
               sellers.map((seller) => (
                 <tr key={seller._id} className="hover:bg-gray-100">
-                  <td className="text-xs text-gray-500">{seller._id.slice(-6).toUpperCase()}</td>
+                  <td className="text-xs text-gray-500 text-center">
+                    {seller._id.slice(-6).toUpperCase()}
+                  </td>
 
                   {/* Seller Photo */}
                   <td>
-                    <div className="w-12 h-12 relative rounded-full overflow-hidden bg-gray-200">
+                    <div className="w-12 h-12 mx-auto relative rounded-full overflow-hidden bg-gray-200">
                       <Image
                         src={seller.profile_img || "/placeholder.png"}
                         alt="Seller Photo"
@@ -70,16 +75,27 @@ export default function AllSellers({ sellers: initialSellers }) {
 
                   {/* Seller Info */}
                   <td className="text-xs">
-                    <p><span className="font-semibold">Name:</span> {seller.name}</p>
-                    <p><span className="font-semibold">Email:</span> {seller.email}</p>
-                    <p><span className="font-semibold">Phone:</span> {seller.phone}</p>
-                    <p><span className="font-semibold">Address:</span> {seller.address}</p>
+                    <p>
+                      <span className="font-semibold">Name:</span> {seller.name}
+                    </p>
+                    <p>
+                      <span className="font-semibold">Email:</span>{" "}
+                      {seller.email}
+                    </p>
+                    <p>
+                      <span className="font-semibold">Phone:</span>{" "}
+                      {seller.phone}
+                    </p>
+                    <p>
+                      <span className="font-semibold">Address:</span>{" "}
+                      {seller.address}
+                    </p>
                   </td>
 
                   {/* Company Logo */}
                   <td>
                     {seller.company_logo ? (
-                      <div className="w-12 h-12 relative bg-white rounded-lg overflow-hidden">
+                      <div className="w-12 h-12 mx-auto relative bg-white rounded-lg overflow-hidden">
                         <Image
                           src={seller.company_logo}
                           alt="Company Logo"
@@ -94,10 +110,22 @@ export default function AllSellers({ sellers: initialSellers }) {
 
                   {/* Company Info */}
                   <td className="text-xs">
-                    <p><span className="font-semibold">Name:</span> {seller.company_name}</p>
-                    <p><span className="font-semibold">Email:</span> {seller.company_email}</p>
-                    <p><span className="font-semibold">Phone:</span> {seller.company_phone}</p>
-                    <p><span className="font-semibold">Address:</span> {seller.company_address}</p>
+                    <p>
+                      <span className="font-semibold">Name:</span>{" "}
+                      {seller.company_name}
+                    </p>
+                    <p>
+                      <span className="font-semibold">Email:</span>{" "}
+                      {seller.company_email}
+                    </p>
+                    <p>
+                      <span className="font-semibold">Phone:</span>{" "}
+                      {seller.company_phone}
+                    </p>
+                    <p>
+                      <span className="font-semibold">Address:</span>{" "}
+                      {seller.company_address}
+                    </p>
                   </td>
 
                   {/* Company Documents */}
@@ -116,30 +144,36 @@ export default function AllSellers({ sellers: initialSellers }) {
                         ))}
                       </div>
                     ) : (
-                      <span className="text-xs text-gray-400">No Documents</span>
+                      <span className="text-xs text-gray-400">
+                        No Documents
+                      </span>
                     )}
                   </td>
 
                   {/* Verification Status */}
-                  <td className="text-xs">
+                  <td className="text-xs text-center">
                     {seller.verification_status === "pending" ? (
                       <select
-                        onChange={(e) => handleStatusChange(seller._id, e.target.value)}
+                        onChange={(e) =>
+                          handleStatusChange(seller._id, e.target.value)
+                        }
                         defaultValue=""
                         className="border border-gray-300 rounded p-1 text-xs outline-none"
                         disabled={updatingSellerId === seller._id} // ✅ disable only while updating
                       >
-                        <option value="" disabled>Update Status</option>
+                        <option value="" disabled>
+                          Update Status
+                        </option>
                         <option value="approved">Verified</option>
                         <option value="rejected">Rejected</option>
                       </select>
                     ) : (
                       <span
-                        className={
+                        className={` text-center ${
                           seller.verification_status === "approved"
                             ? "text-green-500 font-bold"
                             : "text-red-500 font-bold"
-                        }
+                        }`}
                       >
                         {seller.verification_status}
                       </span>
@@ -149,7 +183,9 @@ export default function AllSellers({ sellers: initialSellers }) {
               ))
             ) : (
               <tr>
-                <td colSpan="7" className="text-center py-5">No sellers found.</td>
+                <td colSpan="7" className="text-center py-5">
+                  No sellers found.
+                </td>
               </tr>
             )}
           </tbody>

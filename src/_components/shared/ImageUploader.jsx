@@ -111,12 +111,12 @@ export default function ImageUploader({
   return (
     <div className="mt-3">
       {uploading && (
-        <p className="text-green-800 text-sm px-3 py-1 bg-green-50">
+        <p className="text-green-800 text-sm px-3 py-1 bg-green-50 rounded">
           Uploading...
         </p>
       )}
       {error && (
-        <p className="text-red-800 text-sm px-3 py-1 bg-red-50">{error}</p>
+        <p className="text-red-800 text-sm px-3 py-1 bg-red-50 rounded">{error}</p>
       )}
       
       {filesInfo ? (

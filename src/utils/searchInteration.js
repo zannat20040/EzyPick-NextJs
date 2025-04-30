@@ -14,10 +14,10 @@ export const logSearch = async ({ email, term }) => {
     price: 0,
   };
 
-  console.log(searchData)
-//   try {
-//     await axiosInstance.post("/api/products/track-behavior", searchData);
-//   } catch (err) {
-//     console.error("❌ Search tracking failed:", err.message);
-//   }
+  console.log(searchData);
+  try {
+    await axiosInstance.post("/api/products/track-behavior", searchData);
+  } catch (err) {
+    console.error("❌ Search tracking failed:", err.message);
+  }
 };

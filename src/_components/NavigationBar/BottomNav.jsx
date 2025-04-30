@@ -11,12 +11,23 @@ import { FaCartShopping, FaRegUser } from "react-icons/fa6";
 import { MdOutlineLogout } from "react-icons/md";
 import { TiHeartFullOutline } from "react-icons/ti";
 import { BsBox2Heart } from "react-icons/bs";
+import toast from "react-hot-toast";
 
 export default function BottomNav() {
   const pathname = usePathname();
   const [openNav, setOpenNav] = React.useState(false);
   const { user, signOutUser } = useAuth();
   const [userData, setUserData] = useState(null); // ✅ user data state
+
+  const handleLogout = async () => {
+    try {
+      await signOutUser(); // wait until Firebase / Supabase finishes
+      toast.success("Logged out successfully"); // green success toast
+    } catch (err) {
+      console.error("Logout error:", err);
+      toast.error("Something went wrong. Please try again."); // red error toast
+    }
+  };
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -178,7 +189,7 @@ export default function BottomNav() {
 
           {user && (
             <MdOutlineLogout
-              onClick={signOutUser}
+              onClick={handleLogout}
               className={`text-lg cursor-pointer hover:text-pale-red hidden lg:inline-block `}
             />
           )}
@@ -325,7 +336,7 @@ export default function BottomNav() {
           {user && (
             <li>
               <MdOutlineLogout
-                onClick={signOutUser}
+                onClick={handleLogout}
                 className={`text-lg cursor-pointer hover:text-pale-red hidden lg:inline-block `}
               />
             </li>

@@ -9,16 +9,16 @@ export const logInteraction = async ({ email, type, product }) => {
     productId: product._id,
     productName: product.name,
     category: product.category.title || product.category,
-    subcategory: product.category.subcategory  || product.subcategory,
+    subcategory: product.category.subcategory || product.subcategory,
     seller: product.seller,
     price: product.price,
   };
 
-  console.log(behaviourData)
+  console.log(behaviourData);
 
-//   try {
-//     await axiosInstance.post("/api/products/track-behavior", behaviourData);
-//   } catch (err) {
-//     console.error("Interaction log failed:", err.message);
-//   }
+  try {
+    await axiosInstance.post("/api/products/track-behavior", behaviourData);
+  } catch (err) {
+    console.error("Interaction log failed:", err.message);
+  }
 };
