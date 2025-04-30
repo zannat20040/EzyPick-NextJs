@@ -87,6 +87,8 @@ export default function page() {
       sellerName: userData?.name,
     };
 
+    console.log(productData);
+    
     try {
       const res = await axiosInstance.post("/api/product/add", productData);
       toast.success("Product added successfully!");
@@ -119,9 +121,9 @@ export default function page() {
           className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-5 justify-between "
           onSubmit={handleAddProduct}
         >
-          <div className=" pt-3 block md:hidden">
+          {/* <div className=" pt-3 block md:hidden">
             <ProductDetailsAdd />
-          </div>
+          </div> */}
           <div>
             <ImageUploader
               placeholder="Upload the product thumbnail"
@@ -136,7 +138,7 @@ export default function page() {
               multiple={true}
             />
             <DynamicSpecifications onSave={handleSave} />
-            <div className="block  lg:hidden">
+            {/* <div className="block  lg:hidden">
               <DeliveryOptionsSection
                 selectedOptions={deliveryOptions}
                 onChange={setDeliveryOptions}
@@ -149,9 +151,9 @@ export default function page() {
                   }}
                 />
               </div>
-            </div>
+            </div> */}
           </div>
-          <div className="col-span-2 pt-3 hidden md:block">
+          <div className="md:col-span-2 pt-3 ">
             <ProductDetailsAdd />
             <Button
               disabled={isUpload}
@@ -161,7 +163,7 @@ export default function page() {
               Add this product
             </Button>
           </div>
-          <div className="lg:block  hidden">
+          <div className="">
             <DeliveryOptionsSection
               selectedOptions={deliveryOptions}
               onChange={setDeliveryOptions}

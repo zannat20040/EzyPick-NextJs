@@ -62,7 +62,7 @@ export default function DynamicSpecifications({ initialData = {}, onSave }) {
           <option value="text">Text</option>
           <option value="tags">Tags</option>
         </select>
-        <button onClick={addField} className="p-1">
+        <button type="button" onClick={addField} className="p-1">
           <IoIosAddCircleOutline className="text-xl text-pale-red" />
         </button>
       </div>
@@ -110,7 +110,7 @@ export default function DynamicSpecifications({ initialData = {}, onSave }) {
               </div>
             )}
 
-            <button onClick={() => removeField(key)} className="p-1">
+            <button type="button" onClick={() => removeField(key)} className="p-1">
               <RxCross2 className="text-pale-red" />
             </button>
           </div>

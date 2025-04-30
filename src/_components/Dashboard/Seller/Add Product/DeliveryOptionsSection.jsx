@@ -2,7 +2,6 @@
 import axiosInstance from "@/utils/axiosInstance";
 import { Button, Spinner } from "@material-tailwind/react";
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { CiSquarePlus } from "react-icons/ci";
 import { IoIosAddCircleOutline } from "react-icons/io";
 import { RxCrossCircled } from "react-icons/rx";
 
@@ -104,6 +103,7 @@ export default function DeliveryOptionsSection({
           className="w-full px-2 py-1 rounded border border-soft-gray focus:outline-none text-sm"
         />
         <Button
+          type="button"
           onClick={addOption}
           disabled={status === "loading"}
           className="p-0 min-w-[40px] bg-white hover:shadow-none shadow-none uppercase font-medium rounded"

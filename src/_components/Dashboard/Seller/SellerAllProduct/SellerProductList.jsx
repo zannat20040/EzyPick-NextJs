@@ -1,7 +1,6 @@
 import Link from "next/link";
 import React from "react";
 import {
-  MdOutlineDeleteOutline,
   MdOutlineModeEditOutline,
 } from "react-icons/md";
 import HandleDeleteProduct from "./HandleDeleteProduct";
@@ -14,7 +13,7 @@ export default function SellerProductList({ allProducts }) {
           {/* head */}
           <thead>
             <tr>
-              <th></th>
+              <th>SL/No</th>
               <th>Product Name</th>
               <th>Product Price</th>
               <th>Product Category</th>
@@ -30,7 +29,7 @@ export default function SellerProductList({ allProducts }) {
                 <tr key={index} className="hover:bg-gray-100">
                   <th>{index + 1}</th>
                   <td>{product.name}</td>
-                  <td>
+                  <td className="text-center">
                     ৳
                     {product.price
                       ? (
@@ -39,9 +38,9 @@ export default function SellerProductList({ allProducts }) {
                         ).toFixed(2)
                       : 0}
                   </td>
-                  <td>{product.category.title}</td>
-                  <td>{product.discount}%</td>
-                  <td>{product.stock}</td>
+                  <td className="text-center">{product.category.title}</td>
+                  <td className="text-center">{product.discount}%</td>
+                  <td className="text-center">{product.stock}</td>
                   <td className="flex gap-3">
                     <Link href={`/seller/updatedProduct/${product._id}`}>
                       <button className="">
